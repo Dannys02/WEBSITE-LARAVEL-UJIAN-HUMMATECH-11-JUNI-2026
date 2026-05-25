@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('rental_details', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('rental_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->integer('qty')->default(1);
+            $table->decimal('price', 10, 2)->default(0);
+            $table->decimal('subtotal', 10, 2)->default(0);
             $table->timestamps();
         });
     }
