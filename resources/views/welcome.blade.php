@@ -46,13 +46,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        .section-title {
-            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
     </style>
 </head>
 <body class="bg-black text-gray-100 font-sans antialiased">
@@ -75,14 +68,14 @@
                 </div>
 
                 <!-- Login Button -->
-                <div class="hidden md:flex gap-2">
+                {{-- <div class="hidden md:flex gap-2">
                     <a href="/login" class="btn-primary px-6 py-2 rounded-lg font-semibold text-white">
                         Login
                     </a>
                     <a href="/daftar" class="border border-blue-400 px-6 py-2 rounded-lg font-semibold transform text-white transition-all ease duration-300 hover:shadow-[0_10px_25px_rgba(59,130,246,0.3)] hover:translate-y-[-2px]">
                      Daftar
                     </a>
-                </div>
+                </div> --}}
 
                 <!-- Mobile Menu Button -->
                 <button class="md:hidden text-gray-300 hover:text-white" id="mobile-menu-btn">
@@ -133,7 +126,7 @@
             </div>
 
             <!-- Statistics -->
-            <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            {{-- <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
                 <div>
                     <div class="statue-number">300+</div>
                     <p class="text-gray-300 text-sm mt-2">Penyewaan Sukses</p>
@@ -146,7 +139,7 @@
                     <div class="statue-number">50+</div>
                     <p class="text-gray-300 text-sm mt-2">Jenis Alat</p>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </section>
 
