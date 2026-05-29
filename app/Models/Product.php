@@ -12,13 +12,8 @@ class Product extends Model
         'stock',
         'price_per_day',
         'description',
-        'status',
+        'status'
     ];
-
-    public function rentals()
-    {
-        return $this->hasMany(Rental::class);
-    }
 
     public function details()
     {

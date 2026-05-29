@@ -13,6 +13,7 @@ class Rental extends Model
         'return_date',
         'status',
         'total_price',
+        'payment_status',
     ];
 
     public function customer()

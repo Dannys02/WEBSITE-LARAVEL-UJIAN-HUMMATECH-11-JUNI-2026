@@ -18,4 +18,9 @@ class RentalDetail extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function rentals()
+    {
+        return $this->belongsTo(Rental::class);
+    }
 }

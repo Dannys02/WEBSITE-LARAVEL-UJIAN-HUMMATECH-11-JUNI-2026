@@ -17,9 +17,4 @@ class Customer extends Model
     {
         return $this->hasMany(Rental::class);
     }
-
-    public function details()
-    {
-        return $this->hasMany(RentalDetail::class);
-    }
 }
