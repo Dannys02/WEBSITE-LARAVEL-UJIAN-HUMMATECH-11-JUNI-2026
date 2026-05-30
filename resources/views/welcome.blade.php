@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventRent - Sistem Rental Perlengkapan Event</title>
+    <title>Event Rental - Sistem Rental Perlengkapan Event</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .navbar-transparent {
@@ -56,7 +56,7 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <span class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">EventRent</span>
+                    <span class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">Rental Banyuwangi</span>
                 </div>
 
                 <!-- Menu Desktop -->
@@ -399,7 +399,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
                 <h2 class="section-title text-4xl md:text-5xl font-bold mb-4">
-                    Cara Kerja EventRent
+                    Cara Kerja Event Rental
                 </h2>
                 <p class="text-gray-400 text-lg">Proses penyewaan yang mudah dan cepat</p>
             </div>
@@ -455,7 +455,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
                 <h2 class="section-title text-4xl md:text-5xl font-bold mb-4">
-                    Mengapa Pilih EventRent
+                    Mengapa Pilih Event Rental
                 </h2>
                 <p class="text-gray-400 text-lg">Komitmen kami untuk memberikan layanan terbaik</p>
             </div>
@@ -548,7 +548,7 @@
                         <span class="text-yellow-400">★ ★ ★ ★ ★</span>
                     </div>
                     <p class="text-gray-300">
-                        "EventRent sangat profesional dalam menangani kebutuhan sound system kami. Peralatan berkualitas dan delivery tepat waktu. Highly recommended!"
+                        "Event Rental sangat profesional dalam menangani kebutuhan sound system kami. Peralatan berkualitas dan delivery tepat waktu. Highly recommended!"
                     </p>
                 </div>
 
@@ -582,7 +582,7 @@
                         <span class="text-yellow-400">★ ★ ★ ★ ★</span>
                     </div>
                     <p class="text-gray-300">
-                        "Harga kompetitif dengan kualitas terbaik. Saya sudah pakai EventRent untuk puluhan acara. Selalu memuaskan dan reliable!"
+                        "Harga kompetitif dengan kualitas terbaik. Saya sudah pakai Event Rental untuk puluhan acara. Selalu memuaskan dan reliable!"
                     </p>
                 </div>
             </div>
@@ -600,7 +600,7 @@
                 Siap Untuk Acara Berikutnya Anda?
             </h2>
             <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                Jangan lewatkan kesempatan untuk membuat acara Anda menjadi luar biasa dengan perlengkapan berkualitas dari EventRent.
+                Jangan lewatkan kesempatan untuk membuat acara Anda menjadi luar biasa dengan perlengkapan berkualitas dari Event Rental.
             </p>
             <a href="#products" class="btn-primary inline-block px-10 py-4 rounded-lg font-bold text-white text-lg">
                 Sewa Sekarang
@@ -615,7 +615,7 @@
                 {{-- Column 1: Logo & Description --}}
                 <div>
                     <h3 class="text-2xl font-bold mb-4">
-                        <span class="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">EventRent</span>
+                        <span class="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">Event Rental</span>
                     </h3>
                     <p class="text-gray-400 text-sm mb-6">
                         Solusi rental perlengkapan event profesional yang terpercaya sejak 2020. Kami siap membuat acara Anda sukses.
@@ -665,7 +665,7 @@
                         </li>
                         <li class="text-gray-400 text-sm">
                             <strong class="text-white">Email:</strong><br>
-                            info@eventrent.com
+                            info@Event Rental.com
                         </li>
                         <li class="text-gray-400 text-sm">
                             <strong class="text-white">Alamat:</strong><br>
@@ -679,12 +679,11 @@
             <div class="border-t border-slate-700 pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <p class="text-gray-400 text-sm text-center md:text-left">
-                        &copy; 2026 EventRent. Semua hak cipta dilindungi.
+                        &copy; 2026 Event Rental. Semua hak cipta dilindungi.
                     </p>
                     <div class="flex space-x-6 mt-4 md:mt-0">
                         <a href="#" class="text-gray-400 hover:text-blue-400 text-sm transition-colors duration-300">Kebijakan Privasi</a>
                         <a href="#" class="text-gray-400 hover:text-blue-400 text-sm transition-colors duration-300">Syarat & Ketentuan</a>
-                        <a href="#" class="text-gray-400 hover:text-blue-400 text-sm transition-colors duration-300">Sitemap</a>
                     </div>
                 </div>
             </div>

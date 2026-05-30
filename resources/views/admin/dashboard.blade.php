@@ -1,10 +1,14 @@
 @extends('layouts.app')
+
+@section('title', 'Dashboard')
+@section('page_title', 'Dashboard Admin')
+
 @section('content')
     <div class="space-y-8">
         <!-- Welcome Section -->
         <div>
-            <p class="text-gray-700 font-bold text-4xl">Selamat datang kembali! 👋</p>
-            <p class="text-gray-400 text-sm mt-1">Terakhir login: 30 May 2026, 14:32</p>
+            <p class="font-bold text-4xl">Selamat datang kembali! 👋</p>
+            <p class="text-sm mt-1">Terakhir login: 30 May 2026, 14:32</p>
         </div>
 
         <!-- Statistics Cards -->
@@ -17,7 +21,7 @@
                         <p class="text-3xl font-bold text-gray-900">156</p>
                         <p class="text-green-600 text-xs mt-2">+12% dari bulan lalu</p>
                     </div>
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-2xl">📦</div>
+                    <div class="w-12 h-12 rounded-lg flex items-center justify-center text-2xl">📦</div>
                 </div>
             </div>
 
@@ -29,7 +33,7 @@
                         <p class="text-3xl font-bold text-gray-900">1,284</p>
                         <p class="text-green-600 text-xs mt-2">+8% dari bulan lalu</p>
                     </div>
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-2xl">👥</div>
+                    <div class="w-12 h-12 rounded-lg flex items-center justify-center text-2xl">👥</div>
                 </div>
             </div>
 
@@ -41,7 +45,7 @@
                         <p class="text-3xl font-bold text-gray-900">67</p>
                         <p class="text-amber-600 text-xs mt-2">Sedang berlangsung</p>
                     </div>
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-2xl">🔄</div>
+                    <div class="w-12 h-12 rounded-lg flex items-center justify-center text-2xl">🔄</div>
                 </div>
             </div>
 
@@ -50,10 +54,10 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-gray-500 text-xs font-semibold mb-2">TOTAL REVENUE</p>
-                        <p class="text-3xl font-bold text-gray-900">Rp 10.000.000</p>
+                        <p class="text-3xl font-bold text-gray-900">Rp 100.000.000</p>
                         <p class="text-green-600 text-xs mt-2">+24% dari bulan lalu</p>
                     </div>
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-2xl">💰</div>
+                    <div class="w-12 h-12 rounded-lg flex items-center justify-center text-2xl">💰</div>
                 </div>
             </div>
         </div>

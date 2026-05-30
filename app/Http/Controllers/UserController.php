@@ -10,6 +10,10 @@ class UserController extends Controller
 { 
     public function showRegister()
     {
+        if (User::exists()) {
+            return redirect()->route('login')->withErrors(['register' => 'Maaf, pendaftaran ditutup karena akun utama sudah dikonfigurasi.']);
+        }
+
         return view('auth.register');
     }
 
@@ -20,6 +24,10 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
+        if (User::exists()) {
+            return redirect()->route('login')->withErrors(['register' => 'Maaf, data pengguna sudah ada. Registrasi dilarang!']);
+        }
+        
         // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',

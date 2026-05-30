@@ -29,6 +29,11 @@
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
+        @error('register')
+            <div class="bg-red-50 border border-red-100 text-red-800 p-4 rounded-lg mb-6 flex items-center gap-3 before:content-['X'] before:inline-flex before:items-center before:justify-center before:w-5 before:h-5 before:bg-red-500 before:text-white before:rounded-full before:text-[12px] before:flex-shrink-0">
+                {{ $message }}
+            </div>
+        @enderror
         <!-- Card Login -->
         <div
             class="bg-slate-900/50 backdrop-blur-md px-6 py-8 border border-slate-800/80 rounded-xl shadow-2xl sm:px-10">

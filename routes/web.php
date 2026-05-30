@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SettingsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +22,12 @@ Route::middleware('auth')->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
+    // Settings Routes
+    Route::get('/settings', [SettingsController::class, 'showSettings'])->name('settings.show');
+    Route::put('/settings/profile', [SettingsController::class, 'updateProfile'])->name('settings.update-profile');
+    Route::put('/settings/password', [SettingsController::class, 'updatePassword'])->name('settings.update-password');
+
     // logout
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
+
