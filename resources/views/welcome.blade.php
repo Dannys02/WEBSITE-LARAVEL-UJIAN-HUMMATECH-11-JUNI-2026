@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Rental - Sistem Rental Perlengkapan Event</title>
+    <title>Rental Banyuwangi - Sistem Rental Perlengkapan Event</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .navbar-transparent {

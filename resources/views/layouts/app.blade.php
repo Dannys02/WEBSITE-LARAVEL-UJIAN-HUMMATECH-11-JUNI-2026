@@ -33,14 +33,14 @@
         <ul class="list-none space-y-0 pt-5 pb-24">
             <li>
                 <a href="{{ route('admin.dashboard') }}"
-                    class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-300 transition-all hover:bg-cyan-500/10 hover:text-white">
+                    class="{{ request()->routeIs('admin.dashboard') ? 'bg-cyan-500/10 text-white' : '' }} flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-300 transition-all hover:bg-cyan-500/10 hover:text-white">
                     <span class="text-lg">📊</span>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="#"
-                    class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-300 transition-all hover:bg-cyan-500/10 hover:text-white">
+                <a href="{{ route('products.index') }}"
+                    class="{{ request()->routeIs('products.*') ? 'bg-cyan-500/10 text-white' : '' }} flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-300 transition-all hover:bg-cyan-500/10 hover:text-white">
                     <span class="text-lg">📦</span>
                     <span>Produk</span>
                 </a>
@@ -61,7 +61,7 @@
             </li>
             <li>
                 <a href="{{ route('settings.show') }}"
-                    class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-300 transition-all hover:bg-cyan-500/10 hover:text-white">
+                    class="{{ request()->routeIs('settings.show') ? 'bg-cyan-500/10 text-white' : '' }} flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-300 transition-all hover:bg-cyan-500/10 hover:text-white">
                     <span class="text-lg">⚙️</span>
                     <span>Setting</span>
                 </a>

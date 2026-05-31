@@ -12,7 +12,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.product.index', compact('products'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.product.create');
     }
 
     /**
@@ -28,7 +29,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|min:3|max:100',
+            'category' => 'required|string|min:3|max:50',
+            'stock' => 'required|integer|min:0',
+            'price_per_day' => 'required|numeric|min:0',
+            'description' => 'nullable|string|max:500',
+            'status' => 'required|in:tersedia,tidak tersedia'
+        ]);
+
+        Product::create($validated);
+
+        return redirect()->route('products.index')
+            ->with('success', 'Produk berhasil ditambahkan!');
     }
 
     /**
@@ -44,7 +57,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.product.edit', compact('product'));
     }
 
     /**
@@ -52,7 +65,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|min:3|max:100',
+            'category' => 'required|string|min:3|max:50',
+            'stock' => 'required|integer|min:0',
+            'price_per_day' => 'required|numeric|min:0',
+            'description' => 'nullable|string|max:500',
+            'status' => 'required|in:tersedia,tidak tersedia'
+        ]);
+
+        $product->update($validated);
+
+        return redirect()->route('products.index')
+            ->with('success', 'Produk berhasil diperbarui!');
     }
 
     /**
@@ -60,6 +85,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect()->route('products.index')
+            ->with('success', 'Produk berhasil dihapus!');
     }
 }
