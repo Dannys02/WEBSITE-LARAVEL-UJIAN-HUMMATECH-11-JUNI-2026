@@ -21,6 +21,11 @@ class Rental extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
     public function details()
     {
         return $this->hasMany(RentalDetail::class);

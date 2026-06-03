@@ -10,9 +10,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('created_at', 'desc')->paginate(10);
+        $query = Product::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('category', 'like', '%' . $search . '%');
+        }
+
+        $products = $query->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.product.index', compact('products'));
     }
 
@@ -30,7 +38,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,webp',
             'name' => 'required|string|min:3|max:100',
             'category' => 'required|string|min:3|max:50',
             'stock' => 'required|integer|min:0',
@@ -72,7 +80,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,webp',
             'name' => 'required|string|min:3|max:100',
             'category' => 'required|string|min:3|max:50',
             'stock' => 'required|integer|min:0',

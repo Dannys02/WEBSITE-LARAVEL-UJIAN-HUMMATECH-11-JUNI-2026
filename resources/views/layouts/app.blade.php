@@ -46,8 +46,8 @@
                 </a>
             </li>
             <li>
-                <a href="#"
-                    class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-300 transition-all hover:bg-cyan-500/10 hover:text-white">
+                <a href="{{ route('customers.index') }}"
+                    class="{{ request()->routeIs('customers.*') ? 'bg-cyan-500/10 text-white' : '' }} flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-300 transition-all hover:bg-cyan-500/10 hover:text-white">
                     <span class="text-lg">👥</span>
                     <span>Customer</span>
                 </a>

@@ -10,9 +10,19 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Customer::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('phone', 'like', '%' . $search . '%');
+        }
+
+        $customers = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('admin.customer.index', compact('customers'));
     }
 
     /**
@@ -28,7 +38,17 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|regex:/^62[0-9]{9,12}$/',
+            'address' => 'required|string|max:255',
+            'identity_number' => 'required|string|max:255|unique:customers,identity_number'
+        ]);
+
+        Customer::create($validated);
+
+        return redirect()->route('customers.index')
+            ->with('success', 'Customer berhasil ditambahkan!');
     }
 
     /**
@@ -52,7 +72,17 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|regex:/^62[0-9]{9,12}$/',
+            'address' => 'required|string|max:255',
+            'identity_number' => 'required|string|max:255|unique:customers,identity_number,' . $customer->id
+        ]);
+
+        $customer->update($validated);
+
+        return redirect()->route('customers.index')
+            ->with('success', 'Customer berhasil diperbarui!');
     }
 
     /**
@@ -60,6 +90,9 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+
+        return redirect()->route('customers.index')
+            ->with('success', 'Customer berhasil dihapus!');
     }
 }

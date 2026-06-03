@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +27,9 @@ Route::middleware('auth')->group(function () {
 
         // Products Routes
         Route::resource('products', ProductController::class);
+
+        // Customers Routes
+        Route::resource('customers', CustomerController::class);
 
         // Settings Routes
         Route::get('/settings', [SettingsController::class, 'showSettings'])->name('settings.show');

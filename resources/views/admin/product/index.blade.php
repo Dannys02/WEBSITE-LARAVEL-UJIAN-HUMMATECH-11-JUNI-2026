@@ -6,7 +6,7 @@
 @section('content')
     <div class="space-y-6">
         <!-- Header dengan Button Tambah -->
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
                 <p class="text-gray-600 text-sm">Kelola semua produk rental event Anda di sini</p>
             </div>
@@ -15,6 +15,27 @@
                 <span class="text-lg">➕</span>
                 <span>Tambah Produk</span>
             </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+            <form method="GET" action="{{ route('products.index') }}" class="flex gap-3 flex-col md:flex-row">
+                <div class="flex-1 relative">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari berdasarkan nama produk atau kategori..."
+                        class="w-full px-4 py-2.5 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm">
+                    <span class="absolute left-3 top-3 text-gray-400">🔍</span>
+                </div>
+                <button type="submit"
+                    class="px-6 py-2.5 bg-cyan-500 text-white rounded-lg font-medium hover:bg-cyan-600 transition-colors text-sm">
+                    Cari
+                </button>
+                @if(request('search'))
+                    <a href="{{ route('products.index') }}"
+                        class="px-6 py-2.5 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors text-sm">
+                        Reset
+                    </a>
+                @endif
+            </form>
         </div>
 
         <!-- Table Produk -->
@@ -139,14 +160,14 @@
                                 ← Sebelumnya
                             </span>
                         @else
-                            <a href="{{ $products->previousPageUrl() }}"
+                            <a href="{{ $products->previousPageUrl() }}&search={{ request('search') }}"
                                 class="px-3 py-1.5 border border-cyan-300 text-cyan-600 rounded-lg text-sm font-medium hover:bg-cyan-50 transition-colors">
                                 ← Sebelumnya
                             </a>
                         @endif
 
                         @if ($products->hasMorePages())
-                            <a href="{{ $products->nextPageUrl() }}"
+                            <a href="{{ $products->nextPageUrl() }}&search={{ request('search') }}"
                                 class="px-3 py-1.5 border border-cyan-300 text-cyan-600 rounded-lg text-sm font-medium hover:bg-cyan-50 transition-colors">
                                 Selanjutnya →
                             </a>
