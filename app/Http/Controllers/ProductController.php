@@ -30,6 +30,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'image' => 'nullable|image|max:2048',
             'name' => 'required|string|min:3|max:100',
             'category' => 'required|string|min:3|max:50',
             'stock' => 'required|integer|min:0',
@@ -37,6 +38,11 @@ class ProductController extends Controller
             'description' => 'nullable|string|max:500',
             'status' => 'required|in:tersedia,tidak tersedia'
         ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+            $validated['image'] = $imagePath;
+        }
 
         Product::create($validated);
 
@@ -66,6 +72,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
+            'image' => 'nullable|image|max:2048',
             'name' => 'required|string|min:3|max:100',
             'category' => 'required|string|min:3|max:50',
             'stock' => 'required|integer|min:0',
@@ -73,6 +80,11 @@ class ProductController extends Controller
             'description' => 'nullable|string|max:500',
             'status' => 'required|in:tersedia,tidak tersedia'
         ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+            $validated['image'] = $imagePath;
+        }
 
         $product->update($validated);
 

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class UserController extends Controller
-{ 
+{
     public function showRegister()
     {
         if (User::exists()) {
@@ -27,7 +27,7 @@ class UserController extends Controller
         if (User::exists()) {
             return redirect()->route('login')->withErrors(['register' => 'Maaf, data pengguna sudah ada. Registrasi dilarang!']);
         }
-        
+
         // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',

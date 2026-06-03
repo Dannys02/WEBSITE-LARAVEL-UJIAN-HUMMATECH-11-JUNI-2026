@@ -14,8 +14,8 @@
     <aside
         class="h-screen fixed w-64 overflow-y-auto bg-gradient-to-b from-gray-900 to-gray-800 text-white shadow-lg z-50">
         <!-- Brand/Logo -->
-        <div class="border-b border-gray-700 px-5 py-5">
-            <div class="flex items-center gap-3">
+        <div class="border-b border-gray-700 px-5 {{ Auth::user()->image ? 'py-3.5' : 'py-5' }} flex items-center">
+            <a href="/" class="flex items-center gap-3">
                 @if (Auth::user()->image)
                     <img src="{{ asset('storage/' . Auth::user()->image) }}" alt="{{ Auth::user()->name }}"
                         class="h-12 w-12 rounded-full object-cover" />
@@ -26,7 +26,7 @@
                     </div>
                 @endif
                 <span class="text-xl font-bold">Pusat Rental</span>
-            </div>
+            </a>
         </div>
 
         <!-- Menu Items -->
