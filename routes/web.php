@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\RentalController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +31,9 @@ Route::middleware('auth')->group(function () {
 
         // Customers Routes
         Route::resource('customers', CustomerController::class);
+
+        // Rental Routes
+        Route::resource('rentals', RentalController::class);
 
         // Settings Routes
         Route::get('/settings', [SettingsController::class, 'showSettings'])->name('settings.show');

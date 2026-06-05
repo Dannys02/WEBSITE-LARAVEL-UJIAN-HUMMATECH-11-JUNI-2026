@@ -44,7 +44,7 @@ class ProductController extends Controller
             'stock' => 'required|integer|min:0',
             'price_per_day' => 'required|numeric|min:0',
             'description' => 'nullable|string|max:500',
-            'status' => 'required|in:tersedia,tidak tersedia'
+            // 'status' => 'required|in:tersedia,tidak tersedia'
         ]);
 
         if ($request->hasFile('image')) {
@@ -86,7 +86,7 @@ class ProductController extends Controller
             'stock' => 'required|integer|min:0',
             'price_per_day' => 'required|numeric|min:0',
             'description' => 'nullable|string|max:500',
-            'status' => 'required|in:tersedia,tidak tersedia'
+            // 'status' => 'required|in:tersedia,tidak tersedia'
         ]);
 
         if ($request->hasFile('image')) {

@@ -12,7 +12,7 @@
             </div>
             <button id="btn-create" onclick="openModal('create')"
                 class="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-medium hover:shadow-lg transition-all hover:scale-105 active:scale-95">
-                <span class="text-lg">➕</span>
+                <span class="text-lg">+</span>
                 <span>Tambah Produk</span>
             </button>
         </div>
@@ -21,7 +21,8 @@
         <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
             <form method="GET" action="{{ route('products.index') }}" class="flex gap-3 flex-col md:flex-row">
                 <div class="flex-1 relative">
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari berdasarkan nama produk atau kategori..."
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        placeholder="Cari berdasarkan nama produk atau kategori..."
                         class="w-full px-4 py-2.5 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm">
                     <span class="absolute left-3 top-3 text-gray-400">🔍</span>
                 </div>
@@ -29,7 +30,7 @@
                     class="px-6 py-2.5 bg-cyan-500 text-white rounded-lg font-medium hover:bg-cyan-600 transition-colors text-sm">
                     Cari
                 </button>
-                @if(request('search'))
+                @if (request('search'))
                     <a href="{{ route('products.index') }}"
                         class="px-6 py-2.5 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors text-sm">
                         Reset
@@ -73,7 +74,7 @@
                                         <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
                                             class="w-16 h-16 object-cover rounded-md">
                                     @else
-                                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16"></div>
+                                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 text-center flex items-center justify-center">Image</div>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 text-sm font-medium text-gray-900">
@@ -95,12 +96,12 @@
                                     Rp {{ number_format($product->price_per_day, 0, ',', '.') }}
                                 </td>
                                 <td class="px-6 py-4 text-sm">
-                                    @if ($product->status === 'tersedia')
+                                    @if ($product->stock > 0)
                                         <span
                                             class="inline-block px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-semibold">
                                             ✓ Tersedia
                                         </span>
-                                    @else
+                                    @elseif (empty($product->stock) || $product->stock == 0)
                                         <span
                                             class="inline-block px-3 py-1 bg-red-50 text-red-700 rounded-full text-xs font-semibold">
                                             ✗ Tidak Tersedia
@@ -268,7 +269,7 @@
                         @enderror
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label for="status" class="block text-sm font-semibold text-gray-700 mb-2">
                             Status <span class="text-red-500">*</span>
                         </label>
@@ -282,7 +283,7 @@
                         @error('status')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div>
@@ -356,7 +357,7 @@
             document.getElementById('stock').value = stock;
             document.getElementById('price_per_day').value = price;
             document.getElementById('description').value = description;
-            document.getElementById('status').value = status;
+            // document.getElementById('status').value = status;
 
             modalTitle.textContent = '✏️ Edit Produk: ' + name;
             modal.classList.remove('hidden');

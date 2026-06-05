@@ -770,8 +770,15 @@
                     <ul class="space-y-3">
                         <li class="text-gray-400 text-sm">
                             <strong class="text-white">Telepon:</strong><br>
-                            {{-- +62 812-3456-7890 --}}
-                            {{ Auth::user()->formatPhoneInWelcome() }}
+                            @php
+                                $user = \App\Models\User::find(1);
+                            @endphp
+
+                            @if ($user && $user->phone)
+                                {{ $user->formatPhoneInWelcome() }}
+                            @else
+                                +62 812-3456-7890
+                            @endif
                         </li>
                         <li class="text-gray-400 text-sm">
                             <strong class="text-white">Email:</strong><br>
@@ -779,7 +786,7 @@
                         </li>
                         <li class="text-gray-400 text-sm">
                             <strong class="text-white">Alamat:</strong><br>
-                            Jl. Event No. 123, Jakarta Tim
+                            Jl. Nasional No. 3, Jawa Timur
                         </li>
                     </ul>
                 </div>

@@ -53,10 +53,17 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('rentals.index') }}"
+                    class="{{ request()->routeIs('rentals.*') ? 'bg-cyan-500/10 text-white' : '' }} flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-300 transition-all hover:bg-cyan-500/10 hover:text-white">
+                    <span class="text-lg">🔄</span>
+                    <span>Transaksi Rental</span>
+                </a>
+            </li>
+            <li>
                 <a href="#"
                     class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-300 transition-all hover:bg-cyan-500/10 hover:text-white">
                     <span class="text-lg">🔄</span>
-                    <span>Transaksi Rental</span>
+                    <span>Barang Dipinjam</span>
                 </a>
             </li>
             <li>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             $table->decimal('price_per_day', 10, 2);
             $table->text('description')->nullable();
-            $table->enum('status', ['tersedia', 'tidak tersedia'])->default('tersedia');
+            // $table->enum('status', ['tersedia', 'tidak tersedia'])->default('tersedia');
             $table->timestamps();
         });
     }
