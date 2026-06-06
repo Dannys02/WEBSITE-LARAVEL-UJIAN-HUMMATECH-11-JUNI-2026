@@ -25,7 +25,7 @@
                         <label for="name" class="block text-xs font-semibold text-gray-700 mb-1.5">
                             Nama Customer <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" id="name" name="name" placeholder="Contoh: Budi Santoso"
+                        <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Contoh: Budi Santoso"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
                             required>
                     </div>
@@ -34,7 +34,7 @@
                         <label for="phone" class="block text-xs font-semibold text-gray-700 mb-1.5">
                             Nomor HP <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" id="phone" name="phone" placeholder="Contoh: 6281234567890"
+                        <input type="text" id="phone" name="phone" value="{{ old('phone') }}" placeholder="Contoh: 6281234567890"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
                             pattern="^62[0-9]{9,12}$" required>
                         <p class="text-[10px] text-gray-500 mt-1">Format: 62 diikuti 9-12 digit (contoh: 6281234567890)</p>
@@ -44,7 +44,7 @@
                         <label for="identity_number" class="block text-xs font-semibold text-gray-700 mb-1.5">
                             Nomor Identitas (KTP) <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" id="identity_number" name="identity_number" placeholder="Masukkan nomor KTP"
+                        <input type="text" id="identity_number" name="identity_number" value="{{ old('identity_number') }}" placeholder="Masukkan nomor KTP"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
                             required>
                     </div>
@@ -57,7 +57,7 @@
                     </label>
                     <textarea id="address" name="address" placeholder="Masukkan alamat lengkap customer..." rows="2"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all resize-none text-sm"
-                        required></textarea>
+                        required>{{ old('address') }}</textarea>
                 </div>
 
                 <!-- Form Buttons -->

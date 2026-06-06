@@ -35,7 +35,7 @@
                         <label for="name" class="block text-xs font-semibold text-gray-700 mb-1.5">
                             Nama Produk <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" id="name" name="name" placeholder="Contoh: Tenda Premium 4x4"
+                        <input type="text" id="name" name="name" placeholder="Contoh: Tenda Premium 4x4" value="{{ old('name') }}"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
                             required>
                     </div>
@@ -44,7 +44,7 @@
                         <label for="category" class="block text-xs font-semibold text-gray-700 mb-1.5">
                             Kategori <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" id="category" name="category" placeholder="Contoh: Tenda, Kursi, Meja"
+                        <input type="text" id="category" name="category" value="{{ old('category') }}" placeholder="Contoh: Tenda, Kursi, Meja"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
                             required>
                     </div>
@@ -56,7 +56,7 @@
                         <label for="stock" class="block text-xs font-semibold text-gray-700 mb-1.5">
                             Jumlah Stock <span class="text-red-500">*</span>
                         </label>
-                        <input type="number" id="stock" name="stock" placeholder="0"
+                        <input type="number" id="stock" name="stock" value="{{ old('stock') }}" placeholder="0"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
                             min="0" required>
                     </div>
@@ -65,7 +65,7 @@
                         <label for="price_per_day" class="block text-xs font-semibold text-gray-700 mb-1.5">
                             Harga per Hari (Rp) <span class="text-red-500">*</span>
                         </label>
-                        <input type="number" id="price_per_day" name="price_per_day" placeholder="0"
+                        <input type="number" id="price_per_day" name="price_per_day" value="{{ old('price_per_day') }}" placeholder="0"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
                             min="0" step="1000" required>
                     </div>
@@ -78,7 +78,7 @@
                     </label>
                     <textarea id="description" name="description"
                         placeholder="Masukkan detail produk, spesifikasi, atau informasi penting lainnya..." rows="2"
-                        class="w-full h-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all resize-none text-sm"></textarea>
+                        class="w-full h-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all resize-none text-sm">{{ old('description') }}</textarea>
                 </div>
 
                 <!-- Form Buttons -->

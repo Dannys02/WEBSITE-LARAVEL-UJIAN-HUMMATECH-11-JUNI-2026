@@ -30,7 +30,10 @@
                             required>
                             <option value="">-- Pilih Customer --</option>
                             @foreach ($customers as $customer)
-                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                <option value="{{ $customer->id }}"
+                                    {{ old('customer_id') == $customer->id ? 'selected' : '' }}>
+                                    {{ $customer->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -44,8 +47,12 @@
                             required>
                             <option value="" data-price="0">-- Pilih Produk --</option>
                             @foreach ($products as $product)
-                                <option value="{{ $product->id }}" data-price="{{ $product->price_per_day }}">
-                                    {{ $product->name }} (Rp {{ number_format($product->price_per_day, 0, ',', '.') }} / Hari - Stok: {{ $product->stock }})
+                                <option value="{{ $product->id }}" data-price="{{ $product->price_per_day }}"
+                                    {{ old('product_id') == $product->id ? 'selected' : '' }}>
+
+                                    {{ $product->name }}
+                                    (Rp {{ number_format($product->price_per_day, 0, ',', '.') }}/Hari
+                                    - Stok: {{ $product->stock }})
                                 </option>
                             @endforeach
                         </select>
@@ -55,7 +62,7 @@
                         <label for="qty" class="block text-xs font-semibold text-gray-700 mb-1.5">
                             Jumlah Sewa (Stok) <span class="text-red-500">*</span>
                         </label>
-                        <input type="number" id="qty" name="qty" min="1" value="1"
+                        <input type="number" id="qty" name="qty" min="1" value="{{ old('qty') }}"
                             onchange="calculateTotal()" oninput="calculateTotal()"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
                             required>
@@ -68,7 +75,8 @@
                         <label for="rental_date" class="block text-xs font-semibold text-gray-700 mb-1.5">
                             Tanggal & Jam Sewa <span class="text-red-500">*</span>
                         </label>
-                        <input type="datetime-local" id="rental_date" name="rental_date" onchange="calculateTotal()"
+                        <input type="datetime-local" id="rental_date" name="rental_date" value="{{ old('rental_date') }}"
+                            onchange="calculateTotal()"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
                             required>
                         <p class="text-[10px] text-gray-500 mt-1">Tanggal mulai tidak boleh hari yang sudah lalu.</p>
@@ -78,7 +86,8 @@
                         <label for="return_date" class="block text-xs font-semibold text-gray-700 mb-1.5">
                             Tanggal & Jam Pengembalian <span class="text-red-500">*</span>
                         </label>
-                        <input type="datetime-local" id="return_date" name="return_date" onchange="calculateTotal()"
+                        <input type="datetime-local" id="return_date" name="return_date" value="{{ old('return_date') }}"
+                            onchange="calculateTotal()"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
                             required>
                     </div>
@@ -91,7 +100,8 @@
                         <span id="liveDays" class="text-base font-bold text-cyan-900">1 Hari</span>
                     </div>
                     <div>
-                        <span class="block text-xs font-semibold text-cyan-700 uppercase tracking-wider">Estimasi Total Harga</span>
+                        <span class="block text-xs font-semibold text-cyan-700 uppercase tracking-wider">Estimasi Total
+                            Harga</span>
                         <span id="liveTotalPrice" class="text-base font-extrabold text-cyan-600">Rp 0</span>
                     </div>
                 </div>
@@ -165,15 +175,24 @@
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">No</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Customer</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Produk</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Stok</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Durasi Sewa</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Total Harga</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Status Rental</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Status Bayar</th>
-                            <th class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Aksi</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">No
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Customer</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Produk</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Stok</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Durasi Sewa</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Total Harga</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Status Rental</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Status Bayar</th>
+                            <th class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -207,7 +226,8 @@
                                         $hours = $start->diffInHours($end);
                                         $days = ceil($hours / 24) ?: 1;
                                     @endphp
-                                    <div class="font-medium text-xs text-cyan-600 bg-cyan-50 px-2.5 py-1 rounded-full inline-block mb-1">
+                                    <div
+                                        class="font-medium text-xs text-cyan-600 bg-cyan-50 px-2.5 py-1 rounded-full inline-block mb-1">
                                         ⏱️ {{ $days }} Hari
                                     </div>
                                     <div class="text-[11px] text-gray-500">Mulai: {{ $start->format('d M Y H:i') }}</div>
@@ -222,15 +242,18 @@
                                 <!-- Status Rental -->
                                 <td class="px-6 py-4 text-sm">
                                     @if ($rental->status == 'returned')
-                                        <span class="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-semibold">
+                                        <span
+                                            class="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-semibold">
                                             ✓ Dikembalikan
                                         </span>
                                     @elseif ($rental->status == 'late')
-                                        <span class="inline-block px-2.5 py-1 bg-rose-50 text-rose-700 rounded-full text-xs font-semibold">
+                                        <span
+                                            class="inline-block px-2.5 py-1 bg-rose-50 text-rose-700 rounded-full text-xs font-semibold">
                                             ⚠ Terlambat
                                         </span>
                                     @else
-                                        <span class="inline-block px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold">
+                                        <span
+                                            class="inline-block px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold">
                                             ⚙ Sedang Disewa
                                         </span>
                                     @endif
@@ -239,15 +262,18 @@
                                 <!-- Status Bayar -->
                                 <td class="px-6 py-4 text-sm">
                                     @if ($rental->payment_status == 'paid')
-                                        <span class="inline-block px-2.5 py-1 bg-green-50 text-green-700 rounded-full text-xs font-semibold">
+                                        <span
+                                            class="inline-block px-2.5 py-1 bg-green-50 text-green-700 rounded-full text-xs font-semibold">
                                             Lunas
                                         </span>
                                     @elseif ($rental->payment_status == 'dp')
-                                        <span class="inline-block px-2.5 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-semibold">
+                                        <span
+                                            class="inline-block px-2.5 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-semibold">
                                             DP (Down Payment)
                                         </span>
                                     @else
-                                        <span class="inline-block px-2.5 py-1 bg-red-50 text-red-700 rounded-full text-xs font-semibold">
+                                        <span
+                                            class="inline-block px-2.5 py-1 bg-red-50 text-red-700 rounded-full text-xs font-semibold">
                                             Belum Bayar
                                         </span>
                                     @endif
@@ -300,7 +326,8 @@
                     </div>
                     <div class="flex gap-2">
                         @if ($rentals->onFirstPage())
-                            <span class="px-3 py-1.5 border border-gray-300 text-gray-400 rounded-lg text-sm font-medium cursor-not-allowed">
+                            <span
+                                class="px-3 py-1.5 border border-gray-300 text-gray-400 rounded-lg text-sm font-medium cursor-not-allowed">
                                 ← Sebelumnya
                             </span>
                         @else
@@ -316,7 +343,8 @@
                                 Selanjutnya →
                             </a>
                         @else
-                            <span class="px-3 py-1.5 border border-gray-300 text-gray-400 rounded-lg text-sm font-medium cursor-not-allowed">
+                            <span
+                                class="px-3 py-1.5 border border-gray-300 text-gray-400 rounded-lg text-sm font-medium cursor-not-allowed">
                                 Selanjutnya →
                             </span>
                         @endif
@@ -399,7 +427,9 @@
 
             calculateTotal();
 
-            document.getElementById('rentalFormCard').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('rentalFormCard').scrollIntoView({
+                behavior: 'smooth'
+            });
         }
 
         /**
