@@ -40,7 +40,7 @@ class CustomerController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|regex:/^62[0-9]{9,12}$/',
+            'phone' => 'required|string|regex:/^62[0-9]{9,12}$/|unique:customers,phone',
             'address' => 'required|string|max:255',
             'identity_number' => 'required|string|max:255|unique:customers,identity_number'
         ]);
@@ -74,7 +74,7 @@ class CustomerController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|regex:/^62[0-9]{9,12}$/',
+            'phone' => 'required|string|regex:/^62[0-9]{9,12}$/|unique:customers,phone,' . $customer->id,
             'address' => 'required|string|max:255',
             'identity_number' => 'required|string|max:255|unique:customers,identity_number,' . $customer->id
         ]);

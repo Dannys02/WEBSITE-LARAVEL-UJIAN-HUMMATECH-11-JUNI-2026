@@ -5,18 +5,21 @@
 
 @section('content')
     <div class="space-y-6">
+
         <!-- Header -->
         <div>
             <p class="text-gray-600 text-sm">Kelola semua customer rental event Anda di sini</p>
         </div>
 
-        <!-- Form Tambah/Edit Customer (Inline di atas) -->
+        <!-- Form Tambah/Edit Customer -->
         <div id="customerFormCard" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 transition-all">
             <h2 id="formTitle" class="text-base font-bold text-gray-900 mb-4">➕ Tambah Customer Baru</h2>
+
             <form id="customerForm" method="POST" action="{{ route('customers.store') }}" class="space-y-4">
                 @csrf
                 <input type="hidden" name="_method" id="formMethod" value="POST">
 
+                <!-- Row 1: Nama, Nomor HP, No. KTP -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label for="name" class="block text-xs font-semibold text-gray-700 mb-1.5">
@@ -47,6 +50,7 @@
                     </div>
                 </div>
 
+                <!-- Row 2: Alamat -->
                 <div>
                     <label for="address" class="block text-xs font-semibold text-gray-700 mb-1.5">
                         Alamat <span class="text-red-500">*</span>
@@ -56,6 +60,7 @@
                         required></textarea>
                 </div>
 
+                <!-- Form Buttons -->
                 <div class="flex justify-end gap-3 pt-2">
                     <button type="button" id="btn-cancel" onclick="resetForm()"
                         class="hidden px-5 py-2 border border-gray-300 bg-white text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-all">
@@ -106,14 +111,19 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @forelse($customers as $customer)
+                        @forelse ($customers as $customer)
                             <tr class="hover:bg-gray-50 transition-colors">
+                                <!-- No -->
                                 <td class="px-6 py-4 text-sm text-gray-600">
                                     {{ ($customers->currentPage() - 1) * $customers->perPage() + $loop->iteration }}
                                 </td>
+
+                                <!-- Nama Customer -->
                                 <td class="px-6 py-4 text-sm font-medium text-gray-900">
                                     {{ $customer->name }}
                                 </td>
+
+                                <!-- Nomor HP + WhatsApp -->
                                 <td class="px-6 py-4 text-sm text-gray-600">
                                     <div class="flex items-center gap-2">
                                         <span>{{ $customer->phone }}</span>
@@ -127,24 +137,28 @@
                                         </a>
                                     </div>
                                 </td>
+
+                                <!-- No. KTP -->
                                 <td class="px-6 py-4 text-sm text-gray-600">
                                     <span class="inline-block px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
                                         {{ $customer->identity_number }}
                                     </span>
                                 </td>
+
+                                <!-- Alamat -->
                                 <td class="px-6 py-4 text-sm text-gray-600">
                                     <div class="line-clamp-2">{{ $customer->address }}</div>
                                 </td>
+
+                                <!-- Aksi -->
                                 <td class="px-6 py-4 text-sm">
                                     <div class="flex items-center justify-center gap-2">
-                                        <!-- Edit Button -->
                                         <button
                                             onclick="editCustomer({{ $customer->id }}, '{{ addslashes($customer->name) }}', '{{ $customer->phone }}', '{{ addslashes($customer->address) }}', '{{ $customer->identity_number }}')"
                                             class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg font-medium transition-colors text-xs">
                                             <span>✏️</span> Edit
                                         </button>
 
-                                        <!-- Delete Button -->
                                         <form action="{{ route('customers.destroy', $customer->id) }}" method="POST"
                                             class="inline-block"
                                             onsubmit="return confirm('Apakah Anda yakin ingin menghapus customer ini?');">
@@ -207,16 +221,23 @@
                 </div>
             @endif
         </div>
+
     </div>
 
     <script>
-        const form = document.getElementById('customerForm');
+        'use strict';
+
+        /** @type {HTMLFormElement} */
+        const customerForm = document.getElementById('customerForm');
         const formMethod = document.getElementById('formMethod');
         const formTitle = document.getElementById('formTitle');
         const btnCancel = document.getElementById('btn-cancel');
 
-        function editCustomer(id, name, phone, address, identity_number) {
-            form.action = `customers/${id}`;
+        /**
+         * Mengisi form dengan data customer untuk mode edit.
+         */
+        function editCustomer(id, name, phone, address, identityNumber) {
+            customerForm.action = `customers/${id}`;
             formMethod.value = 'PUT';
             formTitle.textContent = '✏️ Edit Customer: ' + name;
             btnCancel.classList.remove('hidden');
@@ -224,15 +245,17 @@
             document.getElementById('name').value = name;
             document.getElementById('phone').value = phone;
             document.getElementById('address').value = address;
-            document.getElementById('identity_number').value = identity_number;
+            document.getElementById('identity_number').value = identityNumber;
 
-            // Scroll to form smoothly
             document.getElementById('customerFormCard').scrollIntoView({ behavior: 'smooth' });
         }
 
+        /**
+         * Mereset form kembali ke mode tambah customer baru.
+         */
         function resetForm() {
-            form.reset();
-            form.action = "{{ route('customers.store') }}";
+            customerForm.reset();
+            customerForm.action = "{{ route('customers.store') }}";
             formMethod.value = 'POST';
             formTitle.textContent = '➕ Tambah Customer Baru';
             btnCancel.classList.add('hidden');

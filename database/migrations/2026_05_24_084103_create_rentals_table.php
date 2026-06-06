@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->integer('qty')->default(1);
             $table->dateTime('rental_date');
             $table->dateTime('return_date');
             $table->enum('status', ['rented', 'returned', 'late'])->default('rented');

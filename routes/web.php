@@ -34,6 +34,9 @@ Route::middleware('auth')->group(function () {
 
         // Rental Routes
         Route::resource('rentals', RentalController::class);
+        Route::get('/borrowed', [RentalController::class, 'borrowedList'])->name('borrowed.index');
+        Route::post('/borrowed/{rental}/return', [RentalController::class, 'returnRental'])->name('borrowed.return');
+        Route::delete('/borrowed/{rental}/cancel', [RentalController::class, 'cancelRental'])->name('borrowed.cancel');
 
         // Settings Routes
         Route::get('/settings', [SettingsController::class, 'showSettings'])->name('settings.show');
