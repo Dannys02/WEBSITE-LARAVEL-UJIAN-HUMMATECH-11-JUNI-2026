@@ -4,318 +4,407 @@
 @section('page_title', '📦 Manajemen Transaksi')
 
 @section('content')
-    <div class="space-y-6">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div>
-                <p class="text-gray-600 text-sm">Kelola semua transaksi penyewaan event (Multi-Produk) Anda di sini</p>
-            </div>
-            <button id="btn-create" onclick="openModal('create')"
-                class="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-medium hover:shadow-lg transition-all hover:scale-105 active:scale-95">
-                <span class="text-lg">+</span>
-                <span>Buat Transaksi</span>
-            </button>
-        </div>
+<div class="space-y-6">
+    <!-- Header -->
+    <div>
+        <p class="text-gray-600 text-sm">Kelola semua transaksi penyewaan event Anda di sini</p>
+    </div>
 
-        @if (session('success'))
-            <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg relative">
-                <span>{{ session('success') }}</span>
+    <!-- @if (session('success'))
+            <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg relative transition-all">
+                <span class="font-medium">✓ Sukses:</span> {{ session('success') }}
             </div>
         @endif
 
-        <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
-            <form method="GET" action="{{ route('rentals.index') }}" class="flex gap-3 flex-col md:flex-row">
-                <div class="flex-1 relative">
-                    <input type="text" name="search" value="{{ request('search') }}"
-                        placeholder="Cari berdasarkan nama customer..."
-                        class="w-full px-4 py-2.5 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none text-sm">
-                    <span class="absolute left-3 top-3 text-gray-400">🔍</span>
-                </div>
-                <button type="submit"
-                    class="px-6 py-2.5 bg-cyan-500 text-white rounded-lg font-medium text-sm">Cari</button>
-            </form>
-        </div>
-
-        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <thead class="bg-gray-50 border-b border-gray-200">
-                        <tr>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">No</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Customer</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Item Sewa (Barang)
-                            </th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Durasi Sewa</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase">Total & Pembayaran
-                            </th>
-                            <th class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200">
-                        @forelse($rentals as $rental)
-                            <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="px-6 py-4 text-sm text-gray-600">{{ $loop->iteration }}</td>
-                                <td class="px-6 py-4 font-medium text-gray-900">{{ $rental->customer->name ?? 'N/A' }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600">
-                                    <ul class="list-disc list-inside space-y-0.5">
-                                        @foreach ($rental->details as $detail)
-                                            <li>{{ $detail->product->name ?? 'Produk Terhapus' }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-600">
-                                    <div
-                                        class="font-medium text-xs text-cyan-600 bg-cyan-50 px-2 py-1 rounded inline-block mb-1">
-                                        ⏱️
-                                        {{ \Carbon\Carbon::parse($rental->rental_date)->diffInDays(\Carbon\Carbon::parse($rental->return_date)) ?: 1 }}
-                                        Hari
-                                    </div>
-                                    <div class="text-xs text-gray-500">Mulai:
-                                        {{ \Carbon\Carbon::parse($rental->rental_date)->format('d M Y') }}</div>
-                                    <div class="text-xs text-gray-500">Kembali:
-                                        {{ \Carbon\Carbon::parse($rental->return_date)->format('d M Y') }}</div>
-                                </td>
-                                <td class="px-6 py-4 text-sm">
-                                    <div class="font-bold text-gray-900">Rp
-                                        {{ number_format($rental->total_price, 0, ',', '.') }}</div>
-                                    <div class="mt-1">
-                                        @if ($rental->payment_status == 'paid')
-                                            <span
-                                                class="inline-block px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs font-semibold">Lunas</span>
-                                        @elseif($rental->payment_status == 'dp')
-                                            <span
-                                                class="inline-block px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded text-xs font-semibold">DP</span>
-                                        @else
-                                            <span
-                                                class="inline-block px-2 py-0.5 bg-red-100 text-red-700 rounded text-xs font-semibold">Belum
-                                                Bayar</span>
-                                        @endif
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-center">
-                                    <div class="flex items-center justify-center gap-2">
-                                        <button
-                                            onclick="editRental({{ $rental->id }}, {{ $rental->customer_id }}, {{ json_encode($rental->details->pluck('product_id')) }}, '{{ $rental->rental_date }}', '{{ $rental->return_date }}', '{{ $rental->status }}', '{{ $rental->payment_status }}')"
-                                            class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg font-medium text-xs">
-                                            ✏️ Edit
-                                        </button>
-                                        <form action="{{ route('rentals.destroy', $rental->id) }}" method="POST"
-                                            onsubmit="return confirm('Hapus transaksi ini?');">
-                                            @csrf @method('DELETE')
-                                            <button type="submit"
-                                                class="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg font-medium text-xs">🗑️
-                                                Hapus</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6" class="px-6 py-12 text-center text-gray-500">Belum ada transaksi.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+        @if ($errors->any())
+            <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg relative transition-all">
+                <ul class="list-disc list-inside text-sm">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
-        </div>
-    </div>
+        @endif -->
 
-    <div id="rentalModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[92vh] overflow-y-auto">
-            <div class="sticky top-0 border-b border-gray-200 bg-white px-6 py-5 flex items-center justify-between z-10">
-                <h2 id="modalTitle" class="text-xl font-bold text-gray-900">Buat Transaksi Baru</h2>
-                <button onclick="closeModal()" class="w-8 h-8 rounded-lg hover:bg-gray-100 text-gray-500">✕</button>
-            </div>
+    <!-- Form Tambah/Edit Rental (Inline di atas) -->
+    <div id="rentalFormCard" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 transition-all">
+        <h2 id="formTitle" class="text-base font-bold text-gray-900 mb-4">➕ Tambah Transaksi Rental Baru</h2>
+        <form id="rentalForm" method="POST" action="{{ route('rentals.store') }}" class="space-y-4">
+            @csrf
+            <input type="hidden" name="_method" id="formMethod" value="POST">
 
-            <form id="rentalForm" method="POST" action="{{ route('rentals.store') }}" class="p-6 space-y-5">
-                @csrf
-                <div id="methodContainer"></div>
-
+            <!-- Row 1: Customer & Product -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label for="customer_id" class="block text-sm font-semibold text-gray-700 mb-2">Pilih Customer <span
-                            class="text-red-500">*</span></label>
+                    <label for="customer_id" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        Pilih Customer <span class="text-red-500">*</span>
+                    </label>
                     <select id="customer_id" name="customer_id"
-                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none"
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white text-sm"
                         required>
                         <option value="">-- Pilih Customer --</option>
                         @foreach ($customers as $customer)
-                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Pilih Produk Yang Disewa (Bisa Pilih
-                        Banyak) <span class="text-red-500">*</span></label>
-                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50 max-h-48 overflow-y-auto space-y-2.5">
+                    <label for="product_id" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        Pilih Produk <span class="text-red-500">*</span>
+                    </label>
+                    <select id="product_id" name="product_id" onchange="calculateTotal()"
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white text-sm"
+                        required>
+                        <option value="" data-price="0">-- Pilih Produk --</option>
                         @foreach ($products as $product)
-                            <label
-                                class="flex items-start gap-3 p-2 bg-white rounded border border-gray-100 shadow-sm cursor-pointer hover:bg-cyan-50/50 transition-colors">
-                                <input type="checkbox" name="product_ids[]" value="{{ $product->id }}"
-                                    data-price="{{ $product->price_per_day }}" onchange="calculateTotal()"
-                                    class="product-checkbox mt-1 w-4 h-4 rounded text-cyan-600 border-gray-300 focus:ring-cyan-500">
-                                <div class="text-sm">
-                                    <span class="font-medium text-gray-900">{{ $product->name }}</span>
-                                    <span class="block text-xs text-gray-500 font-medium">Rp
-                                        {{ number_format($product->price_per_day, 0, ',', '.') }} / hari</span>
-                                </div>
-                            </label>
+                        <option value="{{ $product->id }}" data-price="{{ $product->price_per_day }}">
+                            {{ $product->name }} (Rp {{ number_format($product->price_per_day, 0, ',', '.') }} / Hari - Stok: {{ $product->stock }})
+                        </option>
                         @endforeach
-                    </div>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Row 2: rental_date & return_date -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="rental_date" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        Tanggal & Jam Sewa <span class="text-red-500">*</span>
+                    </label>
+                    <input type="datetime-local" id="rental_date" name="rental_date" onchange="calculateTotal()"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
+                        required>
+                    <p class="text-[10px] text-gray-500 mt-1">Tanggal mulai tidak boleh hari yang sudah lalu.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="rental_date" class="block text-sm font-semibold text-gray-700 mb-2">Tanggal Mulai Sewa
-                            <span class="text-red-500">*</span></label>
-                        <input type="date" id="rental_date" name="rental_date" onchange="calculateTotal()"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none"
-                            required>
-                    </div>
-                    <div>
-                        <label for="return_date" class="block text-sm font-semibold text-gray-700 mb-2">Tanggal
-                            Pengembalian <span class="text-red-500">*</span></label>
-                        <input type="date" id="return_date" name="return_date" onchange="calculateTotal()"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none"
-                            required>
-                    </div>
+                <div>
+                    <label for="return_date" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        Tanggal & Jam Pengembalian <span class="text-red-500">*</span>
+                    </label>
+                    <input type="datetime-local" id="return_date" name="return_date" onchange="calculateTotal()"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
+                        required>
+                </div>
+            </div>
+
+            <!-- Live Calculator UI -->
+            <div class="bg-cyan-50/70 border border-cyan-100 rounded-lg p-4 grid grid-cols-2 gap-4">
+                <div>
+                    <span class="block text-xs font-semibold text-cyan-700 uppercase tracking-wider">Durasi Sewa</span>
+                    <span id="liveDays" class="text-base font-bold text-cyan-900">1 Hari</span>
+                </div>
+                <div>
+                    <span class="block text-xs font-semibold text-cyan-700 uppercase tracking-wider">Estimasi Total Harga</span>
+                    <span id="liveTotalPrice" class="text-base font-extrabold text-cyan-600">Rp 0</span>
+                </div>
+            </div>
+
+            <!-- Row 3: Status & Payment Status -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="status" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        Status Rental
+                    </label>
+                    <select id="status" name="status"
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white text-sm">
+                        <option value="rented">⚙ Sedang Disewa</option>
+                        <option value="returned">✓ Dikembalikan</option>
+                        <option value="late">⚠ Terlambat</option>
+                    </select>
                 </div>
 
-                <div class="bg-cyan-50/70 border border-cyan-100 rounded-lg p-4 grid grid-cols-2 gap-4">
-                    <div>
-                        <span class="block text-xs font-semibold text-cyan-700 uppercase tracking-wider">Durasi Sewa</span>
-                        <span id="liveDays" class="text-xl font-bold text-cyan-900">1 Hari</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-cyan-700 uppercase tracking-wider">Estimasi Total
-                            Harga</span>
-                        <span id="liveTotalPrice" class="text-xl font-extrabold text-cyan-600">Rp 0</span>
-                    </div>
+                <div>
+                    <label for="payment_status" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        Status Pembayaran
+                    </label>
+                    <select id="payment_status" name="payment_status"
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white text-sm">
+                        <option value="unpaid">Belum Bayar</option>
+                        <option value="dp">DP (Down Payment)</option>
+                        <option value="paid">Lunas</option>
+                    </select>
                 </div>
+            </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="status" class="block text-sm font-semibold text-gray-700 mb-2">Status Rental</label>
-                        <select id="status" name="status"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none">
-                            <option value="rented">Sedang Disewa</option>
-                            <option value="returned">Dikembalikan</option>
-                            <option value="late">Terlambat</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="payment_status" class="block text-sm font-semibold text-gray-700 mb-2">Status
-                            Pembayaran</label>
-                        <select id="payment_status" name="payment_status"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 outline-none">
-                            <option value="unpaid">Belum Bayar</option>
-                            <option value="dp">DP (Down Payment)</option>
-                            <option value="paid">Lunas</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="flex gap-3 pt-4 border-t border-gray-200">
-                    <button type="button" onclick="closeModal()"
-                        class="flex-1 px-4 py-2.5 border border-gray-300 bg-white text-gray-700 font-medium rounded-lg hover:bg-gray-50">Batal</button>
-                    <button type="submit"
-                        class="flex-1 px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium rounded-lg hover:shadow-lg">Simpan
-                        Transaksi</button>
-                </div>
-            </form>
-        </div>
+            <!-- Form Buttons -->
+            <div class="flex justify-end gap-3 pt-2">
+                <button type="button" id="btn-cancel" onclick="resetForm()"
+                    class="hidden px-5 py-2 border border-gray-300 bg-white text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-all">
+                    Batal
+                </button>
+                <button type="submit" id="btn-submit"
+                    class="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all active:scale-95">
+                    Simpan Transaksi
+                </button>
+            </div>
+        </form>
     </div>
 
-    <script>
-        const modal = document.getElementById('rentalModal');
-        const form = document.getElementById('rentalForm');
-        const modalTitle = document.getElementById('modalTitle');
-        const methodContainer = document.getElementById('methodContainer');
+    <!-- Search Bar -->
+    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+        <form method="GET" action="{{ route('rentals.index') }}" class="flex gap-3 flex-col md:flex-row">
+            <div class="flex-1 relative">
+                <input type="text" name="search" value="{{ request('search') }}"
+                    placeholder="Cari berdasarkan nama customer..."
+                    class="w-full px-4 py-2.5 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm">
+                <span class="absolute left-3 top-3 text-gray-400">🔍</span>
+            </div>
+            <button type="submit"
+                class="px-6 py-2.5 bg-cyan-500 text-white rounded-lg font-medium hover:bg-cyan-600 transition-colors text-sm">
+                Cari
+            </button>
+            @if (request('search'))
+            <a href="{{ route('rentals.index') }}"
+                class="px-6 py-2.5 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors text-sm">
+                Reset
+            </a>
+            @endif
+        </form>
+    </div>
 
-        function calculateTotal() {
-            const rentalDateVal = document.getElementById('rental_date').value;
-            const returnDateVal = document.getElementById('return_date').value;
+    <!-- Table Rental -->
+    <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-gray-50 border-b border-gray-200">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">No</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Customer</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Produk</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Stok</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Durasi Sewa</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Total Harga</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Status Rental</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Status Bayar</th>
+                        <th class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @forelse($rentals as $rental)
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            {{ ($rentals->currentPage() - 1) * $rentals->perPage() + $loop->iteration }}
+                        </td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                            {{ $rental->customer->name ?? 'N/A' }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            {{ $rental->product->name ?? 'N/A' }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            {{ $rental->details->first()->qty ?? 0 }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            @php
+                            $start = \Carbon\Carbon::parse($rental->rental_date);
+                            $end = \Carbon\Carbon::parse($rental->return_date);
+                            $hours = $start->diffInHours($end);
+                            $days = ceil($hours / 24) ?: 1;
+                            @endphp
+                            <div class="font-medium text-xs text-cyan-600 bg-cyan-50 px-2.5 py-1 rounded-full inline-block mb-1">
+                                ⏱️ {{ $days }} Hari
+                            </div>
+                            <div class="text-[11px] text-gray-500">Mulai: {{ $start->format('d M Y H:i') }}</div>
+                            <div class="text-[11px] text-gray-500">Kembali: {{ $end->format('d M Y H:i') }}</div>
+                        </td>
+                        <td class="px-6 py-4 text-sm font-semibold text-gray-900">
+                            Rp {{ number_format($rental->total_price, 0, ',', '.') }}
+                        </td>
+                        <td class="px-6 py-4 text-sm">
+                            @if ($rental->status == 'returned')
+                            <span class="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-semibold">
+                                ✓ Dikembalikan
+                            </span>
+                            @elseif ($rental->status == 'late')
+                            <span class="inline-block px-2.5 py-1 bg-rose-50 text-rose-700 rounded-full text-xs font-semibold">
+                                ⚠ Terlambat
+                            </span>
+                            @else
+                            <span class="inline-block px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold">
+                                ⚙ Sedang Disewa
+                            </span>
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 text-sm">
+                            @if ($rental->payment_status == 'paid')
+                            <span class="inline-block px-2.5 py-1 bg-green-50 text-green-700 rounded-full text-xs font-semibold">
+                                Lunas
+                            </span>
+                            @elseif($rental->payment_status == 'dp')
+                            <span class="inline-block px-2.5 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-semibold">
+                                DP (Down Payment)
+                            </span>
+                            @else
+                            <span class="inline-block px-2.5 py-1 bg-red-50 text-red-700 rounded-full text-xs font-semibold">
+                                Belum Bayar
+                            </span>
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 text-sm">
+                            <div class="flex items-center justify-center gap-2">
+                                <!-- Edit Button -->
+                                <button
+                                    onclick="editRental({{ $rental->id }}, {{ $rental->customer_id }}, {{ $rental->product_id }}, '{{ \Carbon\Carbon::parse($rental->rental_date)->format('Y-m-d\TH:i') }}', '{{ \Carbon\Carbon::parse($rental->return_date)->format('Y-m-d\TH:i') }}', '{{ $rental->status }}', '{{ $rental->payment_status }}', '{{ addslashes($rental->customer->name ?? 'N/A') }}')"
+                                    class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg font-medium transition-colors text-xs">
+                                    <span>✏️</span> Edit
+                                </button>
 
-            if (!rentalDateVal || !returnDateVal) return;
+                                <!-- Delete Button -->
+                                <form action="{{ route('rentals.destroy', $rental->id) }}" method="POST"
+                                    class="inline-block"
+                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus transaksi rental ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="inline-flex items-center gap-1 px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg font-medium transition-colors text-xs">
+                                        <span>🗑️</span> Hapus
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="8" class="px-6 py-12 text-center">
+                            <div class="flex flex-col items-center gap-3">
+                                <span class="text-4xl">📭</span>
+                                <p class="text-gray-600 font-medium">Belum ada transaksi rental</p>
+                                <p class="text-gray-500 text-sm">Silakan buat transaksi rental pertama Anda</p>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
 
-            const start = new Date(rentalDateVal);
-            const end = new Date(returnDateVal);
+        <!-- Pagination -->
+        @if ($rentals->hasPages())
+        <div class="border-t border-gray-200 px-6 py-4 flex items-center justify-between bg-gray-50">
+            <div class="text-sm text-gray-600">
+                Menampilkan <span class="font-semibold">{{ $rentals->firstItem() }}</span> hingga
+                <span class="font-semibold">{{ $rentals->lastItem() }}</span> dari
+                <span class="font-semibold">{{ $rentals->total() }}</span> transaksi
+            </div>
+            <div class="flex gap-2">
+                @if ($rentals->onFirstPage())
+                <span class="px-3 py-1.5 border border-gray-300 text-gray-400 rounded-lg text-sm font-medium cursor-not-allowed">
+                    ← Sebelumnya
+                </span>
+                @else
+                <a href="{{ $rentals->previousPageUrl() }}&search={{ request('search') }}"
+                    class="px-3 py-1.5 border border-cyan-300 text-cyan-600 rounded-lg text-sm font-medium hover:bg-cyan-50 transition-colors">
+                    ← Sebelumnya
+                </a>
+                @endif
 
-            // Hitung selisih hari
-            const timeDiff = end.getTime() - start.getTime();
-            let days = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                @if ($rentals->hasMorePages())
+                <a href="{{ $rentals->nextPageUrl() }}&search={{ request('search') }}"
+                    class="px-3 py-1.5 border border-cyan-300 text-cyan-600 rounded-lg text-sm font-medium hover:bg-cyan-50 transition-colors">
+                    Selanjutnya →
+                </a>
+                @else
+                <span class="px-3 py-1.5 border border-gray-300 text-gray-400 rounded-lg text-sm font-medium cursor-not-allowed">
+                    Selanjutnya →
+                </span>
+                @endif
+            </div>
+        </div>
+        @endif
+    </div>
+</div>
 
-            // Proteksi: Jika tanggal kembali diatur sebelum tanggal sewa atau di hari yang sama, hitung 1 hari
-            if (days <= 0 || isNaN(days)) {
-                days = 1;
-            }
+<script>
+    const form = document.getElementById('rentalForm');
+    const formMethod = document.getElementById('formMethod');
+    const formTitle = document.getElementById('formTitle');
+    const btnCancel = document.getElementById('btn-cancel');
 
-            document.getElementById('liveDays').textContent = days + " Hari";
+    function formatDateTimeLocal(date) {
+        const pad = (n) => n.toString().padStart(2, '0');
+        const yyyy = date.getFullYear();
+        const mm = pad(date.getMonth() + 1);
+        const dd = pad(date.getDate());
+        const hh = pad(date.getHours());
+        const min = pad(date.getMinutes());
+        return `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+    }
 
-            // Hitung total harga berdasarkan produk yang diceklis
-            let totalPrice = 0;
-            const checkboxes = document.querySelectorAll('.product-checkbox:checked');
+    function calculateTotal() {
+        const rentalDateVal = document.getElementById('rental_date').value;
+        const returnDateVal = document.getElementById('return_date').value;
+        const productSelect = document.getElementById('product_id');
+        const selectedOption = productSelect.options[productSelect.selectedIndex];
+        const pricePerDay = parseFloat(selectedOption.getAttribute('data-price')) || 0;
 
-            checkboxes.forEach(cb => {
-                const pricePerDay = parseFloat(cb.getAttribute('data-price')) || 0;
-                totalPrice += (pricePerDay * days);
-            });
-
-            // Tampilkan live format Rupiah
-            document.getElementById('liveTotalPrice').textContent = "Rp " + totalPrice.toLocaleString('id-ID');
+        if (!rentalDateVal || !returnDateVal) {
+            document.getElementById('liveTotalPrice').textContent = "Rp 0";
+            return;
         }
 
-        function openModal(mode) {
-            form.reset();
-            form.action = "{{ route('rentals.store') }}";
-            methodContainer.innerHTML = ''; // POST default
-            modalTitle.textContent = '➕ Buat Transaksi Baru (Multi-Produk)';
+        const start = new Date(rentalDateVal);
+        const end = new Date(returnDateVal);
 
-            // Uncheck semua produk
-            document.querySelectorAll('.product-checkbox').forEach(cb => cb.checked = false);
+        const timeDiff = end.getTime() - start.getTime();
+        let days = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-            // Set default tanggal hari ini
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('rental_date').value = today;
-            document.getElementById('return_date').value = today;
-
-            calculateTotal();
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+        if (days <= 0 || isNaN(days)) {
+            days = 1;
         }
 
-        function editRental(id, customer_id, product_ids, rental_date, return_date, status, payment_status) {
-            form.reset();
-            form.action = `/admin/rentals/${id}`;
-            methodContainer.innerHTML = '<input type="hidden" name="_method" value="PUT">';
-            modalTitle.textContent = '✏️ Edit Transaksi';
+        document.getElementById('liveDays').textContent = days + " Hari";
 
-            document.getElementById('customer_id').value = customer_id;
-            document.getElementById('rental_date').value = rental_date;
-            document.getElementById('return_date').value = return_date;
-            document.getElementById('status').value = status;
-            document.getElementById('payment_status').value = payment_status;
+        const totalPrice = pricePerDay * days;
+        document.getElementById('liveTotalPrice').textContent = "Rp " + totalPrice.toLocaleString('id-ID');
+    }
 
-            // Ceklis otomatis produk-produk yang terdaftar sebelumnya
-            document.querySelectorAll('.product-checkbox').forEach(cb => {
-                cb.checked = product_ids.includes(parseInt(cb.value));
-            });
+    function editRental(id, customer_id, product_id, rental_date, return_date, status, payment_status, customer_name) {
+        form.action = `rentals/${id}`;
+        formMethod.value = 'PUT';
+        formTitle.textContent = '✏️ Edit Transaksi Rental: ' + customer_name;
+        btnCancel.classList.remove('hidden');
 
-            calculateTotal();
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
+        document.getElementById('customer_id').value = customer_id;
+        document.getElementById('product_id').value = product_id;
+        document.getElementById('rental_date').value = rental_date;
+        document.getElementById('return_date').value = return_date;
+        document.getElementById('status').value = status;
+        document.getElementById('payment_status').value = payment_status;
 
-        function closeModal() {
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
+        calculateTotal();
 
-        // Event listener penutup modal klik luar/ESC
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
+        // Scroll smoothly to form
+        document.getElementById('rentalFormCard').scrollIntoView({
+            behavior: 'smooth'
         });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
-        });
-    </script>
+    }
+
+    function resetForm() {
+        form.reset();
+        form.action = "{{ route('rentals.store') }}";
+        formMethod.value = 'POST';
+        formTitle.textContent = '➕ Tambah Transaksi Rental Baru';
+        btnCancel.classList.add('hidden');
+
+        initDefaultDates();
+        calculateTotal();
+    }
+
+    function initDefaultDates() {
+        const now = new Date();
+        const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+        document.getElementById('rental_date').min = formatDateTimeLocal(todayStart);
+        document.getElementById('rental_date').value = formatDateTimeLocal(now);
+
+        const tomorrow = new Date(now);
+        tomorrow.setDate(now.getDate() + 1);
+        document.getElementById('return_date').value = formatDateTimeLocal(tomorrow);
+    }
+
+    // Initialize default dates on load
+    window.addEventListener('DOMContentLoaded', () => {
+        initDefaultDates();
+    });
+</script>
 @endsection

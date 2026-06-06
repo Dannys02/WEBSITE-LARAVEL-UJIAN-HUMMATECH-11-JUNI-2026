@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
-            $table->date('rental_date');
-            $table->date('return_date');
+            $table->dateTime('rental_date');
+            $table->dateTime('return_date');
             $table->enum('status', ['rented', 'returned', 'late'])->default('rented');
             $table->decimal('total_price', 10, 2)->default(0);
             $table->enum('payment_status', ['unpaid', 'dp', 'paid'])->default('unpaid');

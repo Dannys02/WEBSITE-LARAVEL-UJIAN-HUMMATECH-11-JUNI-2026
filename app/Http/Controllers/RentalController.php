@@ -13,8 +13,7 @@ class RentalController extends Controller
 {
     public function index(Request $request)
     {
-        // Memuat customer dan detail produknya
-        $query = Rental::with(['customer', 'details.product']);
+        $query = Rental::with(['customer', 'product']);
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -25,10 +24,7 @@ class RentalController extends Controller
 
         $rentals = $query->latest()->paginate(10);
         $customers = Customer::orderBy('name', 'asc')->get();
-
-        // Mengambil produk beserta harga sewa per harinya
-        // Sesuaikan price_per_day dengan nama kolom harga di tabel products Anda (misal: rental_price)
-        $products = Product::select('id', 'name', 'price_per_day')->orderBy('name', 'asc')->get();
+        $products = Product::select('id', 'name', 'price_per_day', 'stock')->orderBy('name', 'asc')->get();
 
         return view('admin.rental.index', compact('rentals', 'customers', 'products'));
     }
@@ -37,32 +33,36 @@ class RentalController extends Controller
     {
         $validated = $request->validate([
             'customer_id'   => 'required|exists:customers,id',
-            'product_ids'   => 'required|array|min:1',
-            'product_ids.*' => 'exists:products,id',
-            'rental_date'   => 'required|date',
-            'return_date'   => 'required|date|after_or_equal:rental_date',
+            'product_id'    => 'required|exists:products,id',
+            'rental_date'   => 'required|date|after_or_equal:today',
+            'return_date'   => 'required|date|after:rental_date',
             'status'        => 'required|in:rented,returned,late',
             'payment_status' => 'required|in:unpaid,dp,paid',
         ]);
 
-        // Hitung selisih hari (Minimal 1 hari sewa jika di hari yang sama)
+        $product = Product::findOrFail($request->product_id);
+
+        $isBorrowed = in_array($request->status, ['rented', 'late']);
+        if ($isBorrowed) {
+            if ($product->stock < 1) {
+                return redirect()->back()->withErrors(['product_id' => 'Stok produk tidak mencukupi untuk disewa.'])->withInput();
+            }
+            $product->decrement('stock');
+        }
+
+        // Hitung selisih jam (Minimal 1 hari sewa)
         $start = Carbon::parse($request->rental_date);
         $end = Carbon::parse($request->return_date);
-        $days = $start->diffInDays($end);
-        if ($days == 0) $days = 1;
+        $hours = $start->diffInHours($end);
+        $days = ceil($hours / 24);
+        if ($days <= 0) $days = 1;
 
-        // Hitung Total Harga dari semua produk yang dipilih
-        $totalPrice = 0;
-        $productsData = Product::whereIn('id', $request->product_ids)->get();
-
-        foreach ($productsData as $product) {
-            // Gunakan $product->price atau nama field harga Anda
-            $totalPrice += ($product->price * $days);
-        }
+        $totalPrice = $product->price_per_day * $days;
 
         // 1. Simpan data utama Rental
         $rental = Rental::create([
             'customer_id'    => $request->customer_id,
+            'product_id'     => $request->product_id,
             'rental_date'    => $request->rental_date,
             'return_date'    => $request->return_date,
             'status'         => $request->status,
@@ -70,45 +70,81 @@ class RentalController extends Controller
             'payment_status' => $request->payment_status,
         ]);
 
-        // 2. Simpan ke tabel detail (RentalDetail) untuk tiap produk yang dipilih
-        foreach ($productsData as $product) {
-            RentalDetail::create([
-                'rental_id'  => $rental->id,
-                'product_id' => $product->id,
-                'price_per_day' => $product->price_per_day, // Menyimpan snapshot harga saat disewa
-            ]);
-        }
+        // 2. Simpan ke tabel detail (RentalDetail) untuk produk yang dipilih
+        RentalDetail::create([
+            'rental_id'     => $rental->id,
+            'product_id'    => $product->id,
+            'qty'           => 1,
+            'price'         => $product->price_per_day,
+            'subtotal'      => $totalPrice,
+        ]);
 
-        return redirect()->route('rentals.index')->with('success', 'Transaksi rental banyak produk berhasil dibuat.');
+        return redirect()->route('rentals.index')->with('success', 'Transaksi rental berhasil dibuat.');
     }
 
     public function update(Request $request, Rental $rental)
     {
         $validated = $request->validate([
             'customer_id'   => 'required|exists:customers,id',
-            'product_ids'   => 'required|array|min:1',
-            'product_ids.*' => 'exists:products,id',
-            'rental_date'   => 'required|date',
-            'return_date'   => 'required|date|after_or_equal:rental_date',
+            'product_id'    => 'required|exists:products,id',
+            'rental_date'   => 'required|date|after_or_equal:today',
+            'return_date'   => 'required|date|after:rental_date',
             'status'        => 'required|in:rented,returned,late',
             'payment_status' => 'required|in:unpaid,dp,paid',
         ]);
 
+        $oldProductId = $rental->product_id;
+        $oldStatus = $rental->status;
+        $newProductId = $request->product_id;
+        $newStatus = $request->status;
+
+        $oldWasBorrowed = in_array($oldStatus, ['rented', 'late']);
+        $newIsBorrowed = in_array($newStatus, ['rented', 'late']);
+
+        $product = Product::findOrFail($newProductId);
+
+        if ($oldProductId == $newProductId) {
+            if ($oldWasBorrowed && !$newIsBorrowed) {
+                $product->increment('stock');
+            } elseif (!$oldWasBorrowed && $newIsBorrowed) {
+                if ($product->stock < 1) {
+                    return redirect()->back()->withErrors(['product_id' => 'Stok produk tidak mencukupi untuk disewa.'])->withInput();
+                }
+                $product->decrement('stock');
+            }
+        } else {
+            if ($oldWasBorrowed) {
+                $oldProduct = Product::find($oldProductId);
+                if ($oldProduct) {
+                    $oldProduct->increment('stock');
+                }
+            }
+            if ($newIsBorrowed) {
+                if ($product->stock < 1) {
+                    if ($oldWasBorrowed) {
+                        $oldProduct = Product::find($oldProductId);
+                        if ($oldProduct) {
+                            $oldProduct->decrement('stock');
+                        }
+                    }
+                    return redirect()->back()->withErrors(['product_id' => 'Stok produk tidak mencukupi untuk disewa.'])->withInput();
+                }
+                $product->decrement('stock');
+            }
+        }
+
         $start = Carbon::parse($request->rental_date);
         $end = Carbon::parse($request->return_date);
-        $days = $start->diffInDays($end);
-        if ($days == 0) $days = 1;
+        $hours = $start->diffInHours($end);
+        $days = ceil($hours / 24);
+        if ($days <= 0) $days = 1;
 
-        $totalPrice = 0;
-        $productsData = Product::whereIn('id', $request->product_ids)->get();
-
-        foreach ($productsData as $product) {
-            $totalPrice += ($product->price * $days);
-        }
+        $totalPrice = $product->price_per_day * $days;
 
         // Update data utama
         $rental->update([
             'customer_id'    => $request->customer_id,
+            'product_id'     => $request->product_id,
             'rental_date'    => $request->rental_date,
             'return_date'    => $request->return_date,
             'status'         => $request->status,
@@ -118,21 +154,26 @@ class RentalController extends Controller
 
         // Sinkronisasi/Reset detail produk lama dengan yang baru
         RentalDetail::where('rental_id', $rental->id)->delete();
-        foreach ($productsData as $product) {
-            RentalDetail::create([
-                'rental_id'  => $rental->id,
-                'product_id' => $product->id,
-                'price_per_day' => $product->price_per_day,
-            ]);
-        }
+        RentalDetail::create([
+            'rental_id'     => $rental->id,
+            'product_id'    => $product->id,
+            'qty'           => 1,
+            'price'         => $product->price_per_day,
+            'subtotal'      => $totalPrice,
+        ]);
 
         return redirect()->route('rentals.index')->with('success', 'Transaksi rental berhasil diperbarui.');
     }
 
     public function destroy(Rental $rental)
     {
-        // Karena cascadeOnDelete() sudah diset di migration,
-        // detail akan otomatis terhapus saat rental didelete
+        $wasBorrowed = in_array($rental->status, ['rented', 'late']);
+        if ($wasBorrowed) {
+            $product = Product::find($rental->product_id);
+            if ($product) {
+                $product->increment('stock');
+            }
+        }
         $rental->delete();
         return redirect()->route('rentals.index')->with('success', 'Transaksi rental berhasil dihapus.');
     }
