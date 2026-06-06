@@ -36,13 +36,17 @@ class UserController extends Controller
         ]);
 
         // Simpan data pengguna baru
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
+        Auth::login($user);
+
+        $request->session()->regenerate();
+
+        return redirect()->route('admin.dashboard')->with('success', 'Registrasi berhasil!');
     }
 
     public function login(Request $request)
@@ -68,5 +72,20 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login')->with('success', 'Logout berhasil!');
+    }
+
+    public function destroy(Request $request)
+    {
+        $user = Auth::user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')
+            ->with('success', 'Akun berhasil dihapus.');
     }
 }

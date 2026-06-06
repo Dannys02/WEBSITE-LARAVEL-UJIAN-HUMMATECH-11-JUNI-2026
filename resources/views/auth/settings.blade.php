@@ -170,6 +170,22 @@
             </div>
         </form>
     </div>
+
+    <div class="bg-white rounded-xl border border-gray-200 p-6 md:p-8 mb-8 shadow-sm">
+        <h3 class="text-xl font-semibold mb-6 text-gray-900 flex items-center gap-2 before:content-[''] before:inline-block before:w-1 before:h-6 before:bg-gradient-to-b before:from-cyan-500 before:to-blue-600 before:rounded-sm">
+            Hapus Akun
+        </h3>
+
+        <form action="{{ route('account.destroy') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun Anda? Tindakan ini tidak dapat dibatalkan.')">
+            @csrf
+            @method('DELETE')
+
+            <p class="text-sm text-gray-500 mb-4">
+                ⚠️ Menghapus akun akan menghapus semua data Anda secara permanen. Pastikan untuk mencadangkan informasi penting sebelum melanjutkan.
+            </p>
+
+            <button type="submit" class="w-full sm:w-auto px-6 py-3 rounded-lg text-[0.95rem] font-medium cursor-pointer transition-all duration-200 ease-in-out capitalize bg-red-500 text-white hover:bg-red-600 hover:shadow-md hover:shadow-red-500/20 active:scale-[0.98]">🗑️ Hapus Akun</button>
+        </form>
 </div>
 
 <script>

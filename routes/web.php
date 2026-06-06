@@ -45,5 +45,8 @@ Route::middleware('auth')->group(function () {
 
         // logout
         Route::post('/portal/logout/admin', [UserController::class, 'logout'])->name('logout');
+        Route::delete('/account', [UserController::class, 'destroy'])
+            ->middleware('auth')
+            ->name('account.destroy');
     });
 });
