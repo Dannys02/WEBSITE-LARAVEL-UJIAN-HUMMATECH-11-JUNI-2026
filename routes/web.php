@@ -22,9 +22,7 @@ Route::middleware('guest')->group(function () {
 // Route untuk dashboard admin (hanya bisa diakses setelah login)
 Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+        Route::get('/dashboard', [UserController::class, 'dashboard'])->name('admin.dashboard');
 
         // Products Routes
         Route::resource('products', ProductController::class);

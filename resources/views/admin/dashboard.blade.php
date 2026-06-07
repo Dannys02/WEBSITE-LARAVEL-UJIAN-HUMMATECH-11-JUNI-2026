@@ -18,10 +18,6 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-gray-500 text-xs font-semibold mb-2">TOTAL PRODUK</p>
-                        @php
-                            use App\Models\Product;
-                            $totalProduk = Product::count();
-                        @endphp
                         <p class="text-3xl font-bold text-gray-900">{{ $totalProduk }}</p>
                         <p class="text-green-600 text-xs mt-2">+12% dari bulan lalu</p>
                     </div>
@@ -34,10 +30,6 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-gray-500 text-xs font-semibold mb-2">TOTAL CUSTOMER</p>
-                        @php
-                            use App\Models\Customer;
-                            $totalCustomer = Customer::count();
-                        @endphp
                         <p class="text-3xl font-bold text-gray-900">{{ $totalCustomer }}</p>
                         <p class="text-green-600 text-xs mt-2">+8% dari bulan lalu</p>
                     </div>
@@ -50,12 +42,6 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-gray-500 text-xs font-semibold mb-2">RENTAL AKTIF</p>
-                        @php
-                            use App\Models\Rental;
-                            $rentalAktif = Rental::where('status', 'rented')
-                                ->orWhere('status', 'late')
-                                ->count();
-                        @endphp
                         <p class="text-3xl font-bold text-gray-900">{{ $rentalAktif }}</p>
                         <p class="text-amber-600 text-xs mt-2">Sedang berlangsung</p>
                     </div>
@@ -68,7 +54,8 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-gray-500 text-xs font-semibold mb-2">TOTAL REVENUE</p>
-                        <p class="text-3xl font-bold text-gray-900">Rp 100.000.000</p>
+                        <p class="text-3xl font-bold text-gray-900">Rp {{ number_format($totalRevenue, 0, ',', '.') }}
+                        </p>
                         <p class="text-green-600 text-xs mt-2">+24% dari bulan lalu</p>
                     </div>
                     <div class="w-12 h-12 rounded-lg flex items-center justify-center text-2xl">💰</div>

@@ -6,8 +6,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
+use App\Models\Rental;
+use App\Models\Customer;
+use App\Models\Product;
+
+
 class UserController extends Controller
 {
+    public function dashboard()
+    {
+        $totalProduk = Product::count();
+
+        $totalCustomer = Customer::count();
+
+        $rentalAktif = Rental::where('status', 'rented')
+            ->orWhere('status', 'late')
+            ->count();
+
+        $totalRevenue = Rental::where('status', 'rented')->orWhere('status', 'paid')
+            ->sum('total_price');
+
+        return view('admin.dashboard', compact('totalProduk', 'totalCustomer', 'rentalAktif', 'totalRevenue'));
+    }
+
     public function showRegister()
     {
         if (User::exists()) {
