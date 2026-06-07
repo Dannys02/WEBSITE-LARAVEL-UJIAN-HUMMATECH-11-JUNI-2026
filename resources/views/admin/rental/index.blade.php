@@ -114,9 +114,9 @@
                         </label>
                         <select id="status" name="status"
                             class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white text-sm">
-                            <option value="rented">⚙ Sedang Disewa</option>
+                            <option value="active">⚙ Sedang Dipinjam</option>
                             <option value="returned">✓ Dikembalikan</option>
-                            <option value="late">⚠ Terlambat</option>
+                            <option value="cancelled">✗ Dibatalkan</option>
                         </select>
                     </div>
 
@@ -241,20 +241,25 @@
 
                                 <!-- Status Rental -->
                                 <td class="px-6 py-4 text-sm">
-                                    @if ($rental->status == 'returned')
+                                    @if ($rental->status == 'active' && now()->gt($rental->return_date))
+                                        <span
+                                            class="inline-block px-2.5 py-1 bg-red-50 text-red-700 rounded-full text-xs font-semibold">
+                                            ⚠ Terlambat
+                                        </span>
+                                    @elseif ($rental->status == 'returned')
                                         <span
                                             class="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-semibold">
                                             ✓ Dikembalikan
                                         </span>
-                                    @elseif ($rental->status == 'late')
+                                    @elseif ($rental->status == 'cancelled')
                                         <span
                                             class="inline-block px-2.5 py-1 bg-rose-50 text-rose-700 rounded-full text-xs font-semibold">
-                                            ⚠ Terlambat
+                                            ✗ Dibatalkan
                                         </span>
                                     @else
                                         <span
                                             class="inline-block px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold">
-                                            ⚙ Sedang Disewa
+                                            ⚙ Sedang Dipinjam
                                         </span>
                                     @endif
                                 </td>

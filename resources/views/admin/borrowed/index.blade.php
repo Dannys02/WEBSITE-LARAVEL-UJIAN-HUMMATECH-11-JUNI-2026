@@ -81,9 +81,13 @@
                             Rp {{ number_format($rental->total_price, 0, ',', '.') }}
                         </td>
                         <td class="px-6 py-4 text-sm">
-                            @if ($rental->status == 'late')
-                            <span class="inline-block px-2.5 py-1 bg-rose-50 text-rose-700 rounded-full text-xs font-semibold">
+                            @if ($rental->status == 'active' && now()->gt($rental->return_date))
+                            <span class="inline-block px-2.5 py-1 bg-red-50 text-red-700 rounded-full text-xs font-semibold">
                                 ⚠ Terlambat
+                            </span>
+                            @elseif ($rental->status == 'cancelled')
+                            <span class="inline-block px-2.5 py-1 bg-rose-50 text-rose-700 rounded-full text-xs font-semibold">
+                                ✗ Dibatalkan
                             </span>
                             @else
                             <span class="inline-block px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold">
@@ -115,7 +119,7 @@
                                     @csrf
                                     <button type="submit"
                                         class="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 rounded-lg font-medium transition-colors text-xs">
-                                        <span>✓</span> Kembalikan
+                                        <span>✓</span> Selesai
                                     </button>
                                 </form>
 

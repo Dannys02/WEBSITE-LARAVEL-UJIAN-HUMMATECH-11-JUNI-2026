@@ -19,14 +19,14 @@ class UserController extends Controller
 
         $totalCustomer = Customer::count();
 
-        $rentalAktif = Rental::where('status', 'rented')
-            ->orWhere('status', 'late')
-            ->count();
+        $rentalAktif = Rental::where('status', 'active')->count();
 
-        $totalRevenue = Rental::where('status', 'rented')->orWhere('status', 'paid')
+        $totalRevenue = Rental::where('status', 'active')->orWhere('payment_status', 'paid')->orWhere('status', 'returned')
             ->sum('total_price');
 
-        return view('admin.dashboard', compact('totalProduk', 'totalCustomer', 'rentalAktif', 'totalRevenue'));
+        $dataRental = Rental::with(['customer', 'product'])->latest()->take(10)->get();
+
+        return view('admin.dashboard', compact('totalProduk', 'totalCustomer', 'rentalAktif', 'totalRevenue', 'dataRental'));
     }
 
     public function showRegister()

@@ -13,10 +13,10 @@ class RentalController extends Controller
 {
     public function index(Request $request)
     {
-        // Auto-update status to late if return date has passed and status is still rented
-        Rental::where('status', 'rented')
-            ->where('return_date', '<', Carbon::now())
-            ->update(['status' => 'late']);
+        // Auto-update status to late if return date has passed and status is still active
+        // Rental::where('status', 'active')
+        //     ->where('return_date', '<', Carbon::now())
+        //     ->update(['status' => 'cancelled']);
 
         $query = Rental::with(['customer', 'product']);
 
@@ -42,17 +42,17 @@ class RentalController extends Controller
             'qty'           => 'required|integer|min:1',
             'rental_date'   => 'required|date|after_or_equal:today',
             'return_date'   => 'required|date|after:rental_date',
-            'status'        => 'required|in:rented,returned,late',
+            'status'        => 'required|in:active,returned,cancelled',
             'payment_status' => 'required|in:unpaid,dp,paid',
         ]);
 
         $product = Product::findOrFail($request->product_id);
         $qty = $request->qty;
 
-        $isBorrowed = in_array($request->status, ['rented', 'late']);
+        $isBorrowed = in_array($request->status, ['active', 'cancelled']);
         if ($isBorrowed) {
             if ($product->stock < $qty) {
-                return redirect()->back()->withErrors(['product_id' => 'Stok produk tidak mencukupi untuk disewa.'])->withInput();
+                return redirect()->back()->withErrors(['product_id' => 'Stok produk tidak mencukupi untuk disewa!'])->withInput();
             }
             $product->decrement('stock', $qty);
         }
@@ -87,7 +87,7 @@ class RentalController extends Controller
             'subtotal'      => $totalPrice,
         ]);
 
-        return redirect()->route('rentals.index')->with('success', 'Transaksi rental berhasil dibuat.');
+        return redirect()->route('rentals.index')->with('success', 'Transaksi rental berhasil dibuat!');
     }
 
     public function update(Request $request, Rental $rental)
@@ -98,7 +98,7 @@ class RentalController extends Controller
             'qty'           => 'required|integer|min:1',
             'rental_date'   => 'required|date|after_or_equal:today',
             'return_date'   => 'required|date|after:rental_date',
-            'status'        => 'required|in:rented,returned,late',
+            'status'        => 'required|in:active,returned,cancelled',
             'payment_status' => 'required|in:unpaid,dp,paid',
         ]);
 
@@ -109,8 +109,8 @@ class RentalController extends Controller
         $newStatus = $request->status;
         $newQty = $request->qty;
 
-        $oldWasBorrowed = in_array($oldStatus, ['rented', 'late']);
-        $newIsBorrowed = in_array($newStatus, ['rented', 'late']);
+        $oldWasBorrowed = in_array($oldStatus, ['active', 'cancelled']);
+        $newIsBorrowed = in_array($newStatus, ['active', 'cancelled']);
 
         $product = Product::findOrFail($newProductId);
 
@@ -170,12 +170,12 @@ class RentalController extends Controller
             'subtotal'      => $totalPrice,
         ]);
 
-        return redirect()->route('rentals.index')->with('success', 'Transaksi rental berhasil diperbarui.');
+        return redirect()->route('rentals.index')->with('success', 'Transaksi rental berhasil diperbarui!');
     }
 
     public function destroy(Rental $rental)
     {
-        $wasBorrowed = in_array($rental->status, ['rented', 'late']);
+        $wasBorrowed = in_array($rental->status, ['active', 'cancelled']);
         if ($wasBorrowed) {
             $qty = $rental->qty;
             $product = Product::find($rental->product_id);
@@ -184,18 +184,18 @@ class RentalController extends Controller
             }
         }
         $rental->delete();
-        return redirect()->route('rentals.index')->with('success', 'Transaksi rental berhasil dihapus.');
+        return redirect()->route('rentals.index')->with('success', 'Transaksi rental berhasil dihapus!');
     }
 
     public function borrowedList(Request $request)
     {
-        // Auto-update status to late if return date has passed and status is still rented
-        Rental::where('status', 'rented')
-            ->where('return_date', '<', Carbon::now())
-            ->update(['status' => 'late']);
+        // // Auto-update status to late if return date has passed and status is still active
+        // Rental::where('status', 'active')
+        //     ->where('return_date', '<', Carbon::now())
+        //     ->update(['status' => 'cancelled']);
 
         $query = Rental::with(['customer', 'product'])
-            ->whereIn('status', ['rented', 'late']);
+            ->whereIn('status', ['active', 'cancelled']);
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -211,7 +211,7 @@ class RentalController extends Controller
 
     public function returnRental(Rental $rental)
     {
-        if (in_array($rental->status, ['rented', 'late'])) {
+        if (in_array($rental->status, ['active', 'cancelled'])) {
             $rental->update(['status' => 'returned']);
 
             $qty = $rental->qty;
@@ -223,12 +223,12 @@ class RentalController extends Controller
             return redirect()->back()->with('success', 'Barang berhasil dikembalikan.');
         }
 
-        return redirect()->back()->withErrors(['error' => 'Transaksi tidak dapat dikembalikan.']);
+        return redirect()->back()->withErrors(['error' => 'Transaksi tidak dapat dikembalikan!']);
     }
 
     public function cancelRental(Rental $rental)
     {
-        $wasBorrowed = in_array($rental->status, ['rented', 'late']);
+        $wasBorrowed = in_array($rental->status, ['active', 'cancelled']);
         if ($wasBorrowed) {
             $qty = $rental->qty;
             $product = Product::find($rental->product_id);
@@ -237,8 +237,8 @@ class RentalController extends Controller
             }
         }
 
-        $rental->delete();
+        // $rental->delete();
 
-        return redirect()->back()->with('success', 'Transaksi rental berhasil dibatalkan dan dihapus.');
+        return redirect()->back()->with('success', 'Transaksi rental berhasil dibatalkan!');
     }
 }

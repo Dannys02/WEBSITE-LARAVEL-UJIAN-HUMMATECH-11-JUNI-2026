@@ -136,41 +136,29 @@
                 <div class="space-y-4">
                     <!-- Status 1: Aktif -->
                     <div class="flex items-center gap-3">
-                        <div class="w-6 h-6 bg-gradient-to-br from-green-500 to-green-700 rounded"></div>
+                        <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-blue-700 rounded"></div>
                         <div class="flex-1">
-                            <p class="text-sm font-semibold text-gray-900">Aktif</p>
+                            <p class="text-sm font-semibold text-gray-900">Aktif / Sedang Berlangsung</p>
                             <div class="w-full h-1 bg-gray-200 rounded-full mt-1">
-                                <div class="w-3/5 h-full bg-gradient-to-r from-green-500 to-green-700 rounded-full"></div>
+                                <div class="w-3/5 h-full bg-gradient-to-r from-blue-500 to-blue-700 rounded-full"></div>
                             </div>
                         </div>
                         <p class="text-sm font-semibold text-gray-900 min-w-fit">67 (65%)</p>
                     </div>
 
-                    <!-- Status 2: Pending -->
+                    <!-- Status 2: Selesai -->
                     <div class="flex items-center gap-3">
-                        <div class="w-6 h-6 bg-gradient-to-br from-amber-500 to-amber-700 rounded"></div>
+                        <div class="w-6 h-6 bg-gradient-to-br from-green-500 to-green-700 rounded"></div>
                         <div class="flex-1">
-                            <p class="text-sm font-semibold text-gray-900">Pending</p>
+                            <p class="text-sm font-semibold text-gray-900">Selesai / Dikembalikan</p>
                             <div class="w-full h-1 bg-gray-200 rounded-full mt-1">
-                                <div class="w-1/5 h-full bg-gradient-to-r from-amber-500 to-amber-700 rounded-full"></div>
-                            </div>
-                        </div>
-                        <p class="text-sm font-semibold text-gray-900 min-w-fit">21 (20%)</p>
-                    </div>
-
-                    <!-- Status 3: Selesai -->
-                    <div class="flex items-center gap-3">
-                        <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-blue-700 rounded"></div>
-                        <div class="flex-1">
-                            <p class="text-sm font-semibold text-gray-900">Selesai</p>
-                            <div class="w-full h-1 bg-gray-200 rounded-full mt-1">
-                                <div class="w-1/12 h-full bg-gradient-to-r from-blue-500 to-blue-700 rounded-full"></div>
+                                <div class="w-1/12 h-full bg-gradient-to-r from-green-500 to-green-700 rounded-full"></div>
                             </div>
                         </div>
                         <p class="text-sm font-semibold text-gray-900 min-w-fit">12 (12%)</p>
                     </div>
 
-                    <!-- Status 4: Dibatalkan -->
+                    <!-- Status 3: Dibatalkan -->
                     <div class="flex items-center gap-3">
                         <div class="w-6 h-6 bg-gradient-to-br from-red-500 to-red-700 rounded"></div>
                         <div class="flex-1">
@@ -204,122 +192,47 @@
                             <th class="px-6 py-3 text-left font-semibold text-gray-700">ID Rental</th>
                             <th class="px-6 py-3 text-left font-semibold text-gray-700">Customer</th>
                             <th class="px-6 py-3 text-left font-semibold text-gray-700">Produk</th>
-                            <th class="px-6 py-3 text-left font-semibold text-gray-700">Tanggal Rental</th>
-                            <th class="px-6 py-3 text-left font-semibold text-gray-700">Nilai Rental</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-700">Tanggal Dipinjam</th>
+                            <th class="px-6 py-3 text-left font-semibold text-gray-700">Total Harga</th>
                             <th class="px-6 py-3 text-left font-semibold text-gray-700">Status</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        <!-- Row 1 -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-3 font-semibold text-gray-900">#RNT-001</td>
-                            <td class="px-6 py-3 text-gray-900">Budi Santoso</td>
-                            <td class="px-6 py-3 text-gray-900">Sony A6700</td>
-                            <td class="px-6 py-3 text-gray-600">28 May 2026</td>
-                            <td class="px-6 py-3 font-semibold text-gray-900">Rp 450,000</td>
-                            <td class="px-6 py-3"><span
-                                    class="inline-block px-2 py-1 bg-green-100 text-green-900 rounded text-xs font-semibold">Aktif</span>
-                            </td>
-                        </tr>
-                        <!-- Row 2 -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-3 font-semibold text-gray-900">#RNT-002</td>
-                            <td class="px-6 py-3 text-gray-900">Ani Wijaya</td>
-                            <td class="px-6 py-3 text-gray-900">Canon EOS R5</td>
-                            <td class="px-6 py-3 text-gray-600">29 May 2026</td>
-                            <td class="px-6 py-3 font-semibold text-gray-900">Rp 750,000</td>
-                            <td class="px-6 py-3"><span
-                                    class="inline-block px-2 py-1 bg-green-100 text-green-900 rounded text-xs font-semibold">Aktif</span>
-                            </td>
-                        </tr>
-                        <!-- Row 3 -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-3 font-semibold text-gray-900">#RNT-003</td>
-                            <td class="px-6 py-3 text-gray-900">Citra Dewi</td>
-                            <td class="px-6 py-3 text-gray-900">Nikon Z9</td>
-                            <td class="px-6 py-3 text-gray-600">25 May 2026</td>
-                            <td class="px-6 py-3 font-semibold text-gray-900">Rp 950,000</td>
-                            <td class="px-6 py-3"><span
-                                    class="inline-block px-2 py-1 bg-blue-100 text-blue-900 rounded text-xs font-semibold">Selesai</span>
-                            </td>
-                        </tr>
-                        <!-- Row 4 -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-3 font-semibold text-gray-900">#RNT-004</td>
-                            <td class="px-6 py-3 text-gray-900">Dodi Rahman</td>
-                            <td class="px-6 py-3 text-gray-900">Fujifilm X-T5</td>
-                            <td class="px-6 py-3 text-gray-600">30 May 2026</td>
-                            <td class="px-6 py-3 font-semibold text-gray-900">Rp 550,000</td>
-                            <td class="px-6 py-3"><span
-                                    class="inline-block px-2 py-1 bg-amber-100 text-amber-900 rounded text-xs font-semibold">Pending</span>
-                            </td>
-                        </tr>
-                        <!-- Row 5 -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-3 font-semibold text-gray-900">#RNT-005</td>
-                            <td class="px-6 py-3 text-gray-900">Eka Putra</td>
-                            <td class="px-6 py-3 text-gray-900">Panasonic S5II</td>
-                            <td class="px-6 py-3 text-gray-600">20 May 2026</td>
-                            <td class="px-6 py-3 font-semibold text-gray-900">Rp 650,000</td>
-                            <td class="px-6 py-3"><span
-                                    class="inline-block px-2 py-1 bg-blue-100 text-blue-900 rounded text-xs font-semibold">Selesai</span>
-                            </td>
-                        </tr>
-                        <!-- Row 6 -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-3 font-semibold text-gray-900">#RNT-006</td>
-                            <td class="px-6 py-3 text-gray-900">Fitria Nur</td>
-                            <td class="px-6 py-3 text-gray-900">Leica M11</td>
-                            <td class="px-6 py-3 text-gray-600">27 May 2026</td>
-                            <td class="px-6 py-3 font-semibold text-gray-900">Rp 1,200,000</td>
-                            <td class="px-6 py-3"><span
-                                    class="inline-block px-2 py-1 bg-green-100 text-green-900 rounded text-xs font-semibold">Aktif</span>
-                            </td>
-                        </tr>
-                        <!-- Row 7 -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-3 font-semibold text-gray-900">#RNT-007</td>
-                            <td class="px-6 py-3 text-gray-900">Gita Langit</td>
-                            <td class="px-6 py-3 text-gray-900">RED Komodo</td>
-                            <td class="px-6 py-3 text-gray-600">22 May 2026</td>
-                            <td class="px-6 py-3 font-semibold text-gray-900">Rp 2,500,000</td>
-                            <td class="px-6 py-3"><span
-                                    class="inline-block px-2 py-1 bg-blue-100 text-blue-900 rounded text-xs font-semibold">Selesai</span>
-                            </td>
-                        </tr>
-                        <!-- Row 8 -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-3 font-semibold text-gray-900">#RNT-008</td>
-                            <td class="px-6 py-3 text-gray-900">Hendra Jaya</td>
-                            <td class="px-6 py-3 text-gray-900">Hasselblad 907X</td>
-                            <td class="px-6 py-3 text-gray-600">26 May 2026</td>
-                            <td class="px-6 py-3 font-semibold text-gray-900">Rp 1,800,000</td>
-                            <td class="px-6 py-3"><span
-                                    class="inline-block px-2 py-1 bg-red-100 text-red-900 rounded text-xs font-semibold">Dibatalkan</span>
-                            </td>
-                        </tr>
-                        <!-- Row 9 -->
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-3 font-semibold text-gray-900">#RNT-009</td>
-                            <td class="px-6 py-3 text-gray-900">Ina Widya</td>
-                            <td class="px-6 py-3 text-gray-900">Phase One XF IQ4</td>
-                            <td class="px-6 py-3 text-gray-600">23 May 2026</td>
-                            <td class="px-6 py-3 font-semibold text-gray-900">Rp 3,200,000</td>
-                            <td class="px-6 py-3"><span
-                                    class="inline-block px-2 py-1 bg-blue-100 text-blue-900 rounded text-xs font-semibold">Selesai</span>
-                            </td>
-                        </tr>
-                        <!-- Row 10 -->
-                        <tr>
-                            <td class="px-6 py-3 font-semibold text-gray-900">#RNT-010</td>
-                            <td class="px-6 py-3 text-gray-900">Joko Sandy</td>
-                            <td class="px-6 py-3 text-gray-900">Pentax 645Z</td>
-                            <td class="px-6 py-3 text-gray-600">30 May 2026</td>
-                            <td class="px-6 py-3 font-semibold text-gray-900">Rp 500,000</td>
-                            <td class="px-6 py-3"><span
-                                    class="inline-block px-2 py-1 bg-green-100 text-green-900 rounded text-xs font-semibold">Aktif</span>
-                            </td>
-                        </tr>
+                        @forelse ($dataRental as $rental)
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-3 font-semibold text-gray-900">{{ $loop->iteration }}</td>
+                                <td class="px-6 py-3 text-gray-900">{{ $rental->customer->name }}</td>
+                                <td class="px-6 py-3 text-gray-900">{{ $rental->product->name }}</td>
+                                <td class="px-6 py-3 text-gray-600">
+                                    @php
+                                        $start = \Carbon\Carbon::parse($rental->rental_date);
+                                        $end = \Carbon\Carbon::parse($rental->return_date);
+                                        $hours = $start->diffInHours($end);
+                                        $days = ceil($hours / 24) ?: 1;
+                                    @endphp
+                                    <div class="text-gray-900">Mulai: {{ $start->format('d M Y H:i') }}</div>
+                                    <div class="text-gray-900">Kembali: {{ $end->format('d M Y H:i') }}</div>
+                                </td>
+                                <td class="px-6 py-3 font-semibold text-gray-900">Rp
+                                    {{ number_format($rental->total_price, 0, ',', '.') }}</td>
+                                <td class="px-6 py-3">
+                                    <span
+                                        class="inline-block px-2 py-1 bg-green-100 text-blue-600 rounded text-xs font-semibold">
+                                        @if ($rental->status == 'active')
+                                            ⚙ Sedang Dipinjam
+                                        @elseif ($rental->status == 'returned')
+                                            <span class="bg-blue-100 text-green-600">✅ Dikembalikan</span>
+                                        @else
+                                            <span class="bg-gray-100 text-red-400">❌ Dibatalkan</span>
+                                        @endif
+                                    </span>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-6 py-4 text-center text-gray-500">Tidak ada data rental.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

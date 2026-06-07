@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('qty')->default(1);
             $table->dateTime('rental_date');
             $table->dateTime('return_date');
-            $table->enum('status', ['rented', 'returned', 'late'])->default('rented');
+            $table->enum('status', ['active', 'returned', 'cancelled'])->default('active');
             $table->decimal('total_price', 10, 2)->default(0);
             $table->enum('payment_status', ['unpaid', 'dp', 'paid'])->default('unpaid');
             $table->timestamps();
