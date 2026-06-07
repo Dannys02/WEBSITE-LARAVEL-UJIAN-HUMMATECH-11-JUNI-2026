@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -36,14 +37,9 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|regex:/^62[0-9]{9,12}$/|unique:customers,phone',
-            'address' => 'required|string|max:255',
-            'identity_number' => 'required|string|max:255|unique:customers,identity_number'
-        ]);
+        $validated = $request->validated();
 
         Customer::create($validated);
 
@@ -70,14 +66,9 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|regex:/^62[0-9]{9,12}$/|unique:customers,phone,' . $customer->id,
-            'address' => 'required|string|max:255',
-            'identity_number' => 'required|string|max:255|unique:customers,identity_number,' . $customer->id
-        ]);
+        $validated = $request->validated();
 
         $customer->update($validated);
 

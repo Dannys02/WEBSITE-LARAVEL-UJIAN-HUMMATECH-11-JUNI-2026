@@ -16,12 +16,9 @@ class UserController extends Controller
     public function dashboard()
     {
         $totalProduk = Product::count();
-
         $totalCustomer = Customer::count();
-
         $rentalAktif = Rental::where('status', 'active')->count();
-
-        $totalRevenue = Rental::where('status', 'active')->orWhere('payment_status', 'paid')->orWhere('status', 'returned')
+        $totalRevenue = Rental::where('payment_status', 'paid')
             ->sum('total_price');
 
         $dataRental = Rental::with(['customer', 'product'])->latest()->take(10)->get();

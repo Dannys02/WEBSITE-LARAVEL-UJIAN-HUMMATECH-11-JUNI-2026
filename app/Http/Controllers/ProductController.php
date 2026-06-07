@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -35,17 +36,9 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $validated = $request->validate([
-            'image' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,webp',
-            'name' => 'required|string|min:3|max:100',
-            'category' => 'required|string|min:3|max:50',
-            'stock' => 'required|integer|min:0',
-            'price_per_day' => 'required|numeric|min:0',
-            'description' => 'nullable|string|max:500',
-            // 'status' => 'required|in:tersedia,tidak tersedia'
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('products', 'public');
@@ -77,17 +70,9 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        $validated = $request->validate([
-            'image' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,webp',
-            'name' => 'required|string|min:3|max:100',
-            'category' => 'required|string|min:3|max:50',
-            'stock' => 'required|integer|min:0',
-            'price_per_day' => 'required|numeric|min:0',
-            'description' => 'nullable|string|max:500',
-            // 'status' => 'required|in:tersedia,tidak tersedia'
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('products', 'public');

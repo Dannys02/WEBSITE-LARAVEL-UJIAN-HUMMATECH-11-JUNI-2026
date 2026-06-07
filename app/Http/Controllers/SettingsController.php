@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\SettingRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 
 class SettingsController extends Controller
 {
@@ -18,26 +20,12 @@ class SettingsController extends Controller
         return view('auth.settings', compact('user'));
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(SettingRequest $request)
     {
         $user = Auth::user();
 
         // Validasi input
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'phone' => 'nullable|string|max:20',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-        ], [
-            'name.required' => 'Nama tidak boleh kosong',
-            'email.required' => 'Email tidak boleh kosong',
-            'email.email' => 'Format email tidak valid',
-            'email.unique' => 'Email sudah digunakan',
-            'phone.max' => 'Nomor HP maksimal 20 karakter',
-            'image.image' => 'File harus berupa gambar',
-            'image.mimes' => 'Format file harus: jpeg, png, jpg, atau webp',
-            'image.max' => 'Ukuran file maksimal 2MB',
-        ]);
+        $validated = $request->validated();
 
         // Handle profile picture upload
         if ($request->hasFile('image')) {
@@ -57,27 +45,12 @@ class SettingsController extends Controller
         return back()->with('success', 'Profil berhasil diperbarui!');
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(UpdatePasswordRequest $request)
     {
         $user = Auth::user();
 
         // Validasi input
-        $validated = $request->validate([
-            'current_password' => 'required|string',
-            'password' => [
-                'required',
-                'string',
-                'min:8',
-                'different:current_password',
-                'confirmed',
-            ],
-        ], [
-            'current_password.required' => 'Password saat ini tidak boleh kosong',
-            'password.required' => 'Password baru tidak boleh kosong',
-            'password.min' => 'Password baru minimal 8 karakter',
-            'password.different' => 'Password baru tidak boleh sama dengan password saat ini',
-            'password.confirmed' => 'Konfirmasi password tidak cocok',
-        ]);
+        $validated = $request->validated();
 
         // Check if current password is correct
         if (!Hash::check($request->current_password, $user->password)) {

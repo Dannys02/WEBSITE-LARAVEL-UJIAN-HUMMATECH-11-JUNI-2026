@@ -180,7 +180,7 @@
                     <h3 class="text-base font-semibold text-gray-900 mb-1">📋 Rental Terbaru</h3>
                     <p class="text-gray-500 text-xs">Data 10 rental terakhir</p>
                 </div>
-                <a href="#"
+                <a href="{{ route('rentals.index') }}"
                     class="px-4 py-2 bg-gray-900 text-white text-sm font-semibold rounded-lg hover:bg-gray-800 transition-colors">Lihat
                     Semua</a>
             </div>

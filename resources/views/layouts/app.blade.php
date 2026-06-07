@@ -124,7 +124,7 @@
         <!-- Main Content -->
         <div class="flex-1 overflow-y-auto px-8 py-8">
             @if ($errors->any())
-                <div class="notif bg-red-50 border border-red-200 text-red-800 p-4 rounded-lg mb-6">
+                <div class="error-alert bg-red-50 border border-red-200 text-red-800 p-4 rounded-lg mb-6">
                     <strong class="block mb-2">❌ Terjadi kesalahan:</strong>
                     <ul class="margin-0 pl-6 list-disc">
                         @foreach ($errors->all() as $error)

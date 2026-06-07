@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Banyuwangi - Premium Event Equipment Rental</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    @php
+        $user = App\Models\User::find(1);
+    @endphp
+    @if ($user && $user->image)
+        <link rel="icon" href="{{ asset('storage/' . $user->image) }}" type="image/png">
+    @else
+        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" type="image/png">
+    @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&display=swap"
@@ -201,7 +209,8 @@
                             class="absolute top-4 left-4 bg-white text-black text-[9px] font-bold tracking-widest uppercase px-3 py-1">Tersedia</span>
                     </div>
                     <div class="p-8">
-                        <h3 class="text-lg font-bold uppercase tracking-wide text-white mb-2">Sistem Speaker Profesional
+                        <h3 class="text-lg font-bold uppercase tracking-wide text-white mb-2">Sistem Speaker
+                            Profesional
                         </h3>
                         <p class="text-neutral-400 text-xs font-light mb-6 tracking-wide">Speaker aktif 2000W dengan
                             built-in mixer</p>
