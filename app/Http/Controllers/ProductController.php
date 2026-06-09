@@ -90,6 +90,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        if ($product->rentals()->exists()) {
+            return redirect()->back()->withErrors(['error' => 'Produk pernah digunakan dalam transaksi!']);
+        }
+
         $product->delete();
 
         return redirect()->route('products.index')

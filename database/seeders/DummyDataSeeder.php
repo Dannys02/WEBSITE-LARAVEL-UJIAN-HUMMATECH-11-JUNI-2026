@@ -70,35 +70,35 @@ class DummyDataSeeder extends Seeder
         // 3. DATA RENTALS (15 Data)
         // ==========================================
         // Kita asumsikan relasi 1 to 1 urutan untuk mempermudah (Customer 1 sewa Produk 1, dst)
-        $rentals = [];
-        for ($i = 1; $i <= 15; $i++) {
-            $qty = rand(1, 2);
-            $days = rand(1, 3);
+        // $rentals = [];
+        // for ($i = 1; $i <= 15; $i++) {
+        //     $qty = rand(1, 2);
+        //     $days = rand(1, 3);
             
-            // Perhitungan harga (mengambil harga dari array products di atas - index array mulai dari 0)
-            $pricePerDay = $products[$i - 1]['price_per_day'];
-            $totalPrice = $pricePerDay * $days * $qty;
+        //     // Perhitungan harga (mengambil harga dari array products di atas - index array mulai dari 0)
+        //     $pricePerDay = $products[$i - 1]['price_per_day'];
+        //     $totalPrice = $pricePerDay * $days * $qty;
 
-            // Status acak agar data lebih realistis
-            $statuses = ['active', 'returned', 'cancelled'];
-            $paymentStatuses = ['unpaid', 'dp', 'paid'];
+        //     // Status acak agar data lebih realistis
+        //     $statuses = ['active', 'returned', 'cancelled'];
+        //     $paymentStatuses = ['unpaid', 'dp', 'paid'];
 
-            $rentalDate = Carbon::now()->subDays(rand(1, 10));
-            $returnDate = (clone $rentalDate)->addDays($days);
+        //     $rentalDate = Carbon::now()->subDays(rand(1, 10));
+        //     $returnDate = (clone $rentalDate)->addDays($days);
 
-            $rental = [
-                'customer_id' => $i,
-                'product_id' => $i,
-                'qty' => $qty,
-                'rental_date' => $rentalDate,
-                'return_date' => $returnDate,
-                'status' => $statuses[array_rand($statuses)],
-                'total_price' => $totalPrice,
-                'payment_status' => $paymentStatuses[array_rand($paymentStatuses)],
-            ];
+        //     $rental = [
+        //         'customer_id' => $i,
+        //         'product_id' => $i,
+        //         'qty' => $qty,
+        //         'rental_date' => $rentalDate,
+        //         'return_date' => $returnDate,
+        //         'status' => $statuses[array_rand($statuses)],
+        //         'total_price' => $totalPrice,
+        //         'payment_status' => $paymentStatuses[array_rand($paymentStatuses)],
+        //     ];
 
-            // $rental['user_id'] = 1; // Buka komentar ini jika tabel rentals sudah ada user_id
-            Rental::create($rental);
-        }
+        //     // $rental['user_id'] = 1; // Buka komentar ini jika tabel rentals sudah ada user_id
+        //     Rental::create($rental);
+        // }
     }
 }

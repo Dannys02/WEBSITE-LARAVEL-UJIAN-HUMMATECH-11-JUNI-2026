@@ -26,8 +26,8 @@ class ProductRequest extends FormRequest
             'image' => 'nullable|image|max:2048|mimes:jpeg,png,jpg,webp',
             'name' => 'required|string|min:3|max:100',
             'category' => 'required|string|min:3|max:50',
-            'stock' => 'required|integer|min:0',
-            'price_per_day' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:1',
+            'price_per_day' => 'required|numeric|min:1',
             'description' => 'nullable|string|max:500',
         ];
     }
@@ -46,10 +46,10 @@ class ProductRequest extends FormRequest
             'category.max' => 'Kategori produk maksimal 50 karakter.',
             'stock.required' => 'Stok produk wajib diisi.',
             'stock.integer' => 'Stok produk harus berupa angka bulat.',
-            'stock.min' => 'Stok produk tidak boleh kurang dari 0.',
+            'stock.min' => 'Stok produk tidak boleh kurang dari 1.',
             'price_per_day.required' => 'Harga sewa per hari wajib diisi.',
             'price_per_day.numeric' => 'Harga sewa per hari harus berupa angka.',
-            'price_per_day.min' => 'Harga sewa per hari tidak boleh kurang dari 0.',
+            'price_per_day.min' => 'Harga sewa per hari tidak boleh kurang dari 1.',
             'description.max' => 'Deskripsi maksimal 500 karakter.',
         ];
     }

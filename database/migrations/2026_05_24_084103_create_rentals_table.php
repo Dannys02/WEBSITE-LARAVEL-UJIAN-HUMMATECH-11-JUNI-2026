@@ -20,7 +20,7 @@ return new class extends Migration
             $table->dateTime('return_date');
             $table->enum('status', ['active', 'returned', 'cancelled'])->default('active');
             $table->decimal('total_price', 10, 2)->default(0);
-            $table->enum('payment_status', ['unpaid', 'dp', 'paid'])->default('unpaid');
+            $table->enum('payment_status', ['dp', 'paid'])->default('dp');
             $table->timestamps();
         });
     }

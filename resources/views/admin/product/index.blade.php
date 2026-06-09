@@ -306,7 +306,7 @@
             productForm.reset();
             productForm.action = "{{ route('products.store') }}";
             formMethod.value = 'POST';
-            formTitle.textContent = '➕ Tambah Produk Baru';
+            formTitle.textContent = '+ Tambah Produk Baru';
             btnCancel.classList.add('hidden');
         }
     </script>

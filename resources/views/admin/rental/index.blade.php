@@ -126,7 +126,6 @@
                         </label>
                         <select id="payment_status" name="payment_status"
                             class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white text-sm">
-                            <option value="unpaid">Belum Bayar</option>
                             <option value="dp">DP (Down Payment)</option>
                             <option value="paid">Lunas</option>
                         </select>
@@ -289,7 +288,7 @@
                                     <div class="flex items-center justify-center gap-2">
                                         <button
                                             onclick="editRental({{ $rental->id }}, {{ $rental->customer_id }}, {{ $rental->product_id }}, '{{ \Carbon\Carbon::parse($rental->rental_date)->format('Y-m-d\TH:i') }}', '{{ \Carbon\Carbon::parse($rental->return_date)->format('Y-m-d\TH:i') }}', '{{ $rental->status }}', '{{ $rental->payment_status }}', '{{ addslashes($rental->customer->name ?? 'N/A') }}', {{ $rental->details->first()->qty ?? 0 }})"
-                                            class="{{ $rental->status == 'returned' ? 'hidden' : ''}} inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg font-medium transition-colors text-xs">
+                                            class="{{ $rental->status == 'returned' && $rental->payment_status == 'paid' ? 'hidden' : ''}} inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg font-medium transition-colors text-xs">
                                             <span>✏️</span> Edit
                                         </button>
 
@@ -452,14 +451,26 @@
             calculateTotal();
         }
 
+       
+        // function initDefaultDates() {
+        //     const now = new Date();
+        //     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+
+        //     document.getElementById('rental_date').min = formatDateTimeLocal(todayStart);
+        //     document.getElementById('rental_date').value = formatDateTimeLocal(now);
+
+        //     const tomorrow = new Date(now);
+        //     tomorrow.setDate(now.getDate() + 1);
+        //     document.getElementById('return_date').value = formatDateTimeLocal(tomorrow);
+        // }
+
         /**
          * Menginisialisasi tanggal default pada form (hari ini & besok).
          */
         function initDefaultDates() {
             const now = new Date();
-            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
-
-            document.getElementById('rental_date').min = formatDateTimeLocal(todayStart);
+            
+            // Baris penentuan min dihapus agar bisa input tanggal masa lalu
             document.getElementById('rental_date').value = formatDateTimeLocal(now);
 
             const tomorrow = new Date(now);

@@ -81,6 +81,10 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
+        if ($customer->rentals()->exists()) {
+            return redirect()->back()->withErrors(['error' => 'Customer memiliki riwayat rental!']);
+        }
+
         $customer->delete();
 
         return redirect()->route('customers.index')
