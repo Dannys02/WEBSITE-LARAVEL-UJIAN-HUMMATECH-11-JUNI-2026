@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RentalRequest;
+use App\Http\Requests\StoreRentalRequest;
+use App\Http\Requests\UpdateRentalRequest;
 use App\Models\Rental;
 use App\Models\Customer;
 use App\Models\Product;
@@ -31,7 +32,7 @@ class RentalController extends Controller
         return view('admin.rental.index', compact('rentals', 'customers', 'products'));
     }
 
-    public function store(RentalRequest $request)
+    public function store(StoreRentalRequest $request)
     {
         DB::transaction(function () use ($request) {
             $product = Product::findOrFail($request->product_id);
@@ -75,7 +76,7 @@ class RentalController extends Controller
         return redirect()->route('rentals.index')->with('success', 'Transaksi rental berhasil dibuat!');
     }
 
-    public function update(RentalRequest $request, Rental $rental)
+    public function update(UpdateRentalRequest $request, Rental $rental)
     {
         DB::transaction(function () use ($request, $rental) {
             $product = Product::findOrFail($request->product_id);

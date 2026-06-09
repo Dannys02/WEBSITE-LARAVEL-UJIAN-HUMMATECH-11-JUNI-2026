@@ -62,7 +62,7 @@
                         <label for="qty" class="block text-xs font-semibold text-gray-700 mb-1.5">
                             Jumlah Sewa (Stok) <span class="text-red-500">*</span>
                         </label>
-                        <input type="number" id="qty" name="qty" min="1" value="{{ old('qty') }}"
+                        <input type="number" id="qty" name="qty" min="1" value="{{ old('qty') }}" placeholder="1"
                             onchange="calculateTotal()" oninput="calculateTotal()"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
                             required>
@@ -289,7 +289,7 @@
                                     <div class="flex items-center justify-center gap-2">
                                         <button
                                             onclick="editRental({{ $rental->id }}, {{ $rental->customer_id }}, {{ $rental->product_id }}, '{{ \Carbon\Carbon::parse($rental->rental_date)->format('Y-m-d\TH:i') }}', '{{ \Carbon\Carbon::parse($rental->return_date)->format('Y-m-d\TH:i') }}', '{{ $rental->status }}', '{{ $rental->payment_status }}', '{{ addslashes($rental->customer->name ?? 'N/A') }}', {{ $rental->details->first()->qty ?? 0 }})"
-                                            class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg font-medium transition-colors text-xs">
+                                            class="{{ $rental->status == 'returned' ? 'hidden' : ''}} inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg font-medium transition-colors text-xs">
                                             <span>✏️</span> Edit
                                         </button>
 

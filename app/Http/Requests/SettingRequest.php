@@ -24,9 +24,10 @@ class SettingRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $this->users?->id,
-            'phone' => 'nullable|string|max:20',
+            'email' => 'required|string|email|max:255',
+            'phone' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            // |unique:users,email,' . $this->users?->id,
         ];
     }
 
