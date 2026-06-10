@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Dashboard') - Pusat Rental</title>
+    @php
+        $user = App\Models\User::find(1);
+    @endphp
+    @if ($user && $user->image)
+        <link rel="icon" href="{{ asset('storage/' . $user->image) }}" type="image/png">
+    @else
+        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" type="image/png">
+    @endif
     <!-- Google Fonts: Inter for Modern SaaS Look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
