@@ -78,7 +78,7 @@
     </style>
 </head>
 
-<body class="min-h-screen bg-gray-50 text-gray-900 antialiased selection:bg-blue-600 selection:text-white flex items-center justify-center relative overflow-hidden">
+<body class="min-h-screen bg-gray-50 text-gray-900 antialiased selection:bg-blue-600 selection:text-white flex items-center justify-center relative">
 
     <!-- ==================== BACKGROUND DEKORATIF ==================== -->
     <!-- Gradient blobs — identik dengan hero section di welcome page -->

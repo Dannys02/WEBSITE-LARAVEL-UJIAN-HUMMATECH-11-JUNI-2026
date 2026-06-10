@@ -23,7 +23,50 @@ class UserController extends Controller
 
         $dataRental = Rental::with(['customer', 'product'])->latest()->take(10)->get();
 
-        return view('admin.dashboard', compact('totalProduk', 'totalCustomer', 'rentalAktif', 'totalRevenue', 'dataRental'));
+        // Data for Revenue Trend (Last 7 Days)
+        $revenueLabels = [];
+        $revenueData = [];
+        
+        // Define day names in Indonesian
+        $dayNames = [
+            'Sunday' => 'Min',
+            'Monday' => 'Sen',
+            'Tuesday' => 'Sel',
+            'Wednesday' => 'Rab',
+            'Thursday' => 'Kam',
+            'Friday' => 'Jum',
+            'Saturday' => 'Sab',
+        ];
+
+        for ($i = 6; $i >= 0; $i--) {
+            $date = \Carbon\Carbon::today()->subDays($i);
+            $dayNameEnglish = $date->format('l');
+            $revenueLabels[] = $dayNames[$dayNameEnglish] ?? $dayNameEnglish;
+            
+            $revenueData[] = Rental::where('payment_status', 'paid')
+                ->whereDate('created_at', $date)
+                ->sum('total_price');
+        }
+
+        // Data for Status Rental
+        $statusActive = Rental::where('status', 'active')->count();
+        $statusReturned = Rental::where('status', 'returned')->count();
+        $statusCancelled = Rental::where('status', 'cancelled')->count();
+        $totalStatus = $statusActive + $statusReturned + $statusCancelled;
+
+        return view('admin.dashboard', compact(
+            'totalProduk', 
+            'totalCustomer', 
+            'rentalAktif', 
+            'totalRevenue', 
+            'dataRental',
+            'revenueLabels',
+            'revenueData',
+            'statusActive',
+            'statusReturned',
+            'statusCancelled',
+            'totalStatus'
+        ));
     }
 
     public function showRegister()

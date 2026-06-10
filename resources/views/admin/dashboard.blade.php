@@ -118,7 +118,7 @@
                     <canvas id="statusChart"></canvas>
                     <!-- Overlay total text inside donut -->
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-2">
-                        <span class="text-3xl font-bold text-gray-800">82</span>
+                        <span class="text-3xl font-bold text-gray-800">{{ $totalStatus }}</span>
                         <span class="text-xs text-gray-500 font-medium">Total</span>
                     </div>
                 </div>
@@ -128,21 +128,21 @@
                             <span class="w-3 h-3 rounded-full bg-blue-500"></span>
                             <span class="font-medium text-gray-700">Aktif</span>
                         </div>
-                        <span class="font-bold text-gray-900">67 <span class="text-gray-400 font-normal text-xs ml-1">(81%)</span></span>
+                        <span class="font-bold text-gray-900">{{ $statusActive }} <span class="text-gray-400 font-normal text-xs ml-1">({{ $totalStatus > 0 ? round(($statusActive / $totalStatus) * 100) : 0 }}%)</span></span>
                     </div>
                     <div class="flex items-center justify-between text-sm">
                         <div class="flex items-center gap-2">
                             <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
                             <span class="font-medium text-gray-700">Selesai</span>
                         </div>
-                        <span class="font-bold text-gray-900">12 <span class="text-gray-400 font-normal text-xs ml-1">(15%)</span></span>
+                        <span class="font-bold text-gray-900">{{ $statusReturned }} <span class="text-gray-400 font-normal text-xs ml-1">({{ $totalStatus > 0 ? round(($statusReturned / $totalStatus) * 100) : 0 }}%)</span></span>
                     </div>
                     <div class="flex items-center justify-between text-sm">
                         <div class="flex items-center gap-2">
                             <span class="w-3 h-3 rounded-full bg-rose-500"></span>
                             <span class="font-medium text-gray-700">Dibatalkan</span>
                         </div>
-                        <span class="font-bold text-gray-900">3 <span class="text-gray-400 font-normal text-xs ml-1">(4%)</span></span>
+                        <span class="font-bold text-gray-900">{{ $statusCancelled }} <span class="text-gray-400 font-normal text-xs ml-1">({{ $totalStatus > 0 ? round(($statusCancelled / $totalStatus) * 100) : 0 }}%)</span></span>
                     </div>
                 </div>
             </div>
@@ -254,10 +254,10 @@
             new Chart(ctxRevenue, {
                 type: 'line',
                 data: {
-                    labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
+                    labels: {!! json_encode($revenueLabels) !!},
                     datasets: [{
                         label: 'Revenue (Rp)',
-                        data: [15200000, 17800000, 12100000, 21300000, 23500000, 18600000, 14200000],
+                        data: {!! json_encode($revenueData) !!},
                         borderColor: '#3b82f6', // blue-500
                         backgroundColor: gradientRevenue,
                         borderWidth: 3,
@@ -332,7 +332,7 @@
                 data: {
                     labels: ['Aktif', 'Selesai', 'Dibatalkan'],
                     datasets: [{
-                        data: [67, 12, 3],
+                        data: [{{ $statusActive }}, {{ $statusReturned }}, {{ $statusCancelled }}],
                         backgroundColor: [
                             '#3b82f6', // blue-500
                             '#10b981', // emerald-500
