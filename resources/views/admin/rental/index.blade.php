@@ -8,25 +8,27 @@
 
         <!-- Header -->
         <div>
-            <p class="text-gray-600 text-sm">Kelola semua transaksi penyewaan event Anda di sini</p>
+            <p class="text-slate-500 text-sm">Kelola semua transaksi penyewaan event Anda di sini</p>
         </div>
 
         <!-- Form Tambah/Edit Rental -->
-        <div id="rentalFormCard" class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 transition-all">
-            <h2 id="formTitle" class="text-base font-bold text-gray-900 mb-4">➕ Tambah Transaksi Rental Baru</h2>
+        <div id="rentalFormCard" class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 transition-all">
+            <h2 id="formTitle" class="text-base font-bold text-slate-900 mb-5 flex items-center gap-2">
+                <span class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg">➕</span> Tambah Transaksi Rental Baru
+            </h2>
 
-            <form id="rentalForm" method="POST" action="{{ route('rentals.store') }}" class="space-y-4">
+            <form id="rentalForm" method="POST" action="{{ route('rentals.store') }}" class="space-y-5">
                 @csrf
                 <input type="hidden" name="_method" id="formMethod" value="POST">
 
                 <!-- Row 1: Customer, Product & Qty -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div>
-                        <label for="customer_id" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        <label for="customer_id" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
                             Pilih Customer <span class="text-red-500">*</span>
                         </label>
                         <select id="customer_id" name="customer_id"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white text-sm"
+                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 hover:bg-slate-100 focus:bg-white text-sm @error('customer_id') border-red-500 bg-red-50 @enderror"
                             required>
                             <option value="">-- Pilih Customer --</option>
                             @foreach ($customers as $customer)
@@ -36,84 +38,88 @@
                                 </option>
                             @endforeach
                         </select>
+                        @error('customer_id') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
-                        <label for="product_id" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        <label for="product_id" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
                             Pilih Produk <span class="text-red-500">*</span>
                         </label>
                         <select id="product_id" name="product_id" onchange="calculateTotal()"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white text-sm"
+                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 hover:bg-slate-100 focus:bg-white text-sm @error('product_id') border-red-500 bg-red-50 @enderror"
                             required>
                             <option value="" data-price="0">-- Pilih Produk --</option>
                             @foreach ($products as $product)
                                 <option value="{{ $product->id }}" data-price="{{ $product->price_per_day }}"
                                     {{ old('product_id') == $product->id ? 'selected' : '' }}>
-
                                     {{ $product->name }}
                                     (Rp {{ number_format($product->price_per_day, 0, ',', '.') }}/Hari
                                     - Stok: {{ $product->stock }})
                                 </option>
                             @endforeach
                         </select>
+                        @error('product_id') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
-                        <label for="qty" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        <label for="qty" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
                             Jumlah Sewa (Stok) <span class="text-red-500">*</span>
                         </label>
                         <input type="number" id="qty" name="qty" min="1" value="{{ old('qty') }}" placeholder="1"
                             onchange="calculateTotal()" oninput="calculateTotal()"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
+                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white @error('qty') border-red-500 bg-red-50 @enderror"
                             required>
+                        @error('qty') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
                     </div>
                 </div>
 
                 <!-- Row 2: Tanggal Sewa & Tanggal Pengembalian -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
-                        <label for="rental_date" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        <label for="rental_date" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
                             Tanggal & Jam Sewa <span class="text-red-500">*</span>
                         </label>
                         <input type="datetime-local" id="rental_date" name="rental_date" value="{{ old('rental_date') }}"
                             onchange="calculateTotal()"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
+                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white @error('rental_date') border-red-500 bg-red-50 @enderror"
                             required>
-                        <p class="text-[10px] text-gray-500 mt-1">Tanggal mulai tidak boleh hari yang sudah lalu.</p>
+                        <p class="text-[10px] text-slate-500 mt-1.5">Tanggal mulai tidak boleh hari yang sudah lalu.</p>
+                        @error('rental_date') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
-                        <label for="return_date" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        <label for="return_date" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
                             Tanggal & Jam Pengembalian <span class="text-red-500">*</span>
                         </label>
                         <input type="datetime-local" id="return_date" name="return_date" value="{{ old('return_date') }}"
                             onchange="calculateTotal()"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm"
+                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white @error('return_date') border-red-500 bg-red-50 @enderror"
                             required>
+                        @error('return_date') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
                     </div>
                 </div>
 
                 <!-- Live Calculator UI -->
-                <div class="bg-cyan-50/70 border border-cyan-100 rounded-lg p-4 grid grid-cols-2 gap-4">
+                <div class="bg-indigo-50/70 border border-indigo-100 rounded-xl p-5 grid grid-cols-2 gap-4">
                     <div>
-                        <span class="block text-xs font-semibold text-cyan-700 uppercase tracking-wider">Durasi Sewa</span>
-                        <span id="liveDays" class="text-base font-bold text-cyan-900">1 Hari</span>
+                        <span class="block text-xs font-bold text-indigo-700 uppercase tracking-wider mb-1">Durasi Sewa</span>
+                        <span id="liveDays" class="text-lg font-bold text-indigo-900">1 Hari</span>
                     </div>
                     <div>
-                        <span class="block text-xs font-semibold text-cyan-700 uppercase tracking-wider">Estimasi Total
+                        <span class="block text-xs font-bold text-indigo-700 uppercase tracking-wider mb-1">Estimasi Total
                             Harga</span>
-                        <span id="liveTotalPrice" class="text-base font-extrabold text-cyan-600">Rp 0</span>
+                        <span id="liveTotalPrice" class="text-lg font-extrabold text-indigo-600">Rp 0</span>
                     </div>
                 </div>
 
                 <!-- Row 3: Status & Payment Status -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
-                        <label for="status" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        <label for="status" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
                             Status Rental
                         </label>
                         <select id="status" name="status"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white text-sm">
+                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 hover:bg-slate-100 focus:bg-white text-sm">
                             <option value="active">⚙ Sedang Dipinjam</option>
                             <option value="returned">✓ Dikembalikan</option>
                             <option value="cancelled">✗ Dibatalkan</option>
@@ -121,11 +127,11 @@
                     </div>
 
                     <div>
-                        <label for="payment_status" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                        <label for="payment_status" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
                             Status Pembayaran
                         </label>
                         <select id="payment_status" name="payment_status"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white text-sm">
+                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 hover:bg-slate-100 focus:bg-white text-sm">
                             <option value="dp">DP (Down Payment)</option>
                             <option value="paid">Lunas</option>
                         </select>
@@ -133,13 +139,13 @@
                 </div>
 
                 <!-- Form Buttons -->
-                <div class="flex justify-end gap-3 pt-2">
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-100">
                     <button type="button" id="btn-cancel" onclick="resetForm()"
-                        class="hidden px-5 py-2 border border-gray-300 bg-white text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-all">
+                        class="hidden px-5 py-2.5 border border-slate-300 bg-white text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 hover:text-slate-900 transition-all focus:ring-2 focus:ring-slate-200 focus:outline-none">
                         Batal
                     </button>
                     <button type="submit" id="btn-submit"
-                        class="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all active:scale-95">
+                        class="px-6 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 shadow-sm shadow-indigo-200 transition-all active:scale-95 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none">
                         Simpan Transaksi
                     </button>
                 </div>
@@ -147,21 +153,21 @@
         </div>
 
         <!-- Search Bar -->
-        <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-4">
             <form method="GET" action="{{ route('rentals.index') }}" class="flex gap-3 flex-col md:flex-row">
                 <div class="flex-1 relative">
                     <input type="text" name="search" value="{{ request('search') }}"
                         placeholder="Cari berdasarkan nama customer..."
-                        class="w-full px-4 py-2.5 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm">
-                    <span class="absolute left-3 top-3 text-gray-400">🔍</span>
+                        class="w-full px-4 py-2.5 pl-11 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-sm bg-slate-50 focus:bg-white hover:bg-slate-100">
+                    <svg class="w-5 h-5 absolute left-3.5 top-2.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
                 <button type="submit"
-                    class="px-6 py-2.5 bg-cyan-500 text-white rounded-lg font-medium hover:bg-cyan-600 transition-colors text-sm">
+                    class="px-6 py-2.5 bg-slate-800 text-white rounded-lg font-medium hover:bg-slate-900 transition-colors text-sm shadow-sm focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:outline-none">
                     Cari
                 </button>
                 @if (request('search'))
                     <a href="{{ route('rentals.index') }}"
-                        class="px-6 py-2.5 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors text-sm">
+                        class="px-6 py-2.5 border border-slate-300 bg-white text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition-colors text-sm flex items-center justify-center focus:ring-2 focus:ring-slate-200 focus:outline-none">
                         Reset
                     </a>
                 @endif
@@ -169,56 +175,47 @@
         </div>
 
         <!-- Table Rental -->
-        <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full">
-                    <thead class="bg-gray-50 border-b border-gray-200">
+                    <thead class="bg-slate-50/80 border-b border-slate-200">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">No
-                            </th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                Customer</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                Produk</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                Stok</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                Durasi Sewa</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                Total Harga</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                Status Rental</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                Status Bayar</th>
-                            <th class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                Aksi</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">No</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Customer</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Produk</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Stok</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Durasi Sewa</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Total Harga</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status Rental</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status Bayar</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-slate-500 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200">
+                    <tbody class="divide-y divide-slate-200">
                         @forelse ($rentals as $rental)
-                            <tr class="hover:bg-gray-50 transition-colors">
+                            <tr class="hover:bg-slate-50/80 transition-colors group">
                                 <!-- No -->
-                                <td class="px-6 py-4 text-sm text-gray-600">
+                                <td class="px-6 py-4 text-sm text-slate-600">
                                     {{ ($rentals->currentPage() - 1) * $rentals->perPage() + $loop->iteration }}
                                 </td>
 
                                 <!-- Customer -->
-                                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                                <td class="px-6 py-4 text-sm font-semibold text-slate-900">
                                     {{ $rental->customer->name ?? 'N/A' }}
                                 </td>
 
                                 <!-- Produk -->
-                                <td class="px-6 py-4 text-sm text-gray-600">
+                                <td class="px-6 py-4 text-sm text-slate-600">
                                     {{ $rental->product->name ?? 'N/A' }}
                                 </td>
 
                                 <!-- Stok / Qty -->
-                                <td class="px-6 py-4 text-sm text-gray-600">
-                                    {{ $rental->details->first()->qty ?? 0 }}
+                                <td class="px-6 py-4 text-sm text-slate-600 font-medium">
+                                    {{ $rental->details->first()->qty ?? 0 }} Unit
                                 </td>
 
                                 <!-- Durasi Sewa -->
-                                <td class="px-6 py-4 text-sm text-gray-600">
+                                <td class="px-6 py-4 text-sm text-slate-600">
                                     @php
                                         $start = \Carbon\Carbon::parse($rental->rental_date);
                                         $end = \Carbon\Carbon::parse($rental->return_date);
@@ -226,15 +223,15 @@
                                         $days = ceil($hours / 24) ?: 1;
                                     @endphp
                                     <div
-                                        class="font-medium text-xs text-cyan-600 bg-cyan-50 px-2.5 py-1 rounded-full inline-block mb-1">
-                                        ⏱️ {{ $days }} Hari
+                                        class="font-medium text-xs text-indigo-700 bg-indigo-50 ring-1 ring-indigo-600/20 px-2.5 py-1 rounded-full inline-flex items-center gap-1 mb-1.5">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> {{ $days }} Hari
                                     </div>
-                                    <div class="text-[11px] text-gray-500">Mulai: {{ $start->format('d M Y H:i') }}</div>
-                                    <div class="text-[11px] text-gray-500">Kembali: {{ $end->format('d M Y H:i') }}</div>
+                                    <div class="text-[11px] text-slate-500 font-medium">Mulai: {{ $start->format('d M Y H:i') }}</div>
+                                    <div class="text-[11px] text-slate-500 font-medium">Kembali: {{ $end->format('d M Y H:i') }}</div>
                                 </td>
 
                                 <!-- Total Harga -->
-                                <td class="px-6 py-4 text-sm font-semibold text-gray-900">
+                                <td class="px-6 py-4 text-sm font-semibold text-slate-900">
                                     Rp {{ number_format($rental->total_price, 0, ',', '.') }}
                                 </td>
 
@@ -242,23 +239,23 @@
                                 <td class="px-6 py-4 text-sm">
                                     @if ($rental->status == 'active' && now()->gt($rental->return_date))
                                         <span
-                                            class="inline-block px-2.5 py-1 bg-red-50 text-red-700 rounded-full text-xs font-semibold">
-                                            ⚠ Terlambat
+                                            class="inline-flex items-center gap-1 px-2.5 py-1 bg-rose-50 text-rose-700 ring-1 ring-rose-600/20 rounded-full text-xs font-semibold">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> Terlambat
                                         </span>
                                     @elseif ($rental->status == 'returned')
                                         <span
-                                            class="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-semibold">
-                                            ✓ Dikembalikan
+                                            class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20 rounded-full text-xs font-semibold">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Dikembalikan
                                         </span>
                                     @elseif ($rental->status == 'cancelled')
                                         <span
-                                            class="inline-block px-2.5 py-1 bg-rose-50 text-rose-700 rounded-full text-xs font-semibold">
-                                            ✗ Dibatalkan
+                                            class="inline-flex items-center gap-1 px-2.5 py-1 bg-rose-50 text-rose-700 ring-1 ring-rose-600/20 rounded-full text-xs font-semibold">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg> Dibatalkan
                                         </span>
                                     @else
                                         <span
-                                            class="inline-block px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold">
-                                            ⚙ Sedang Dipinjam
+                                            class="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-blue-700 ring-1 ring-blue-600/20 rounded-full text-xs font-semibold">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Sedang Dipinjam
                                         </span>
                                     @endif
                                 </td>
@@ -267,17 +264,17 @@
                                 <td class="px-6 py-4 text-sm">
                                     @if ($rental->payment_status == 'paid')
                                         <span
-                                            class="inline-block px-2.5 py-1 bg-green-50 text-green-700 rounded-full text-xs font-semibold">
+                                            class="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20 rounded-md text-xs font-semibold">
                                             Lunas
                                         </span>
                                     @elseif ($rental->payment_status == 'dp')
                                         <span
-                                            class="inline-block px-2.5 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-semibold">
+                                            class="inline-block px-2.5 py-1 bg-amber-50 text-amber-700 ring-1 ring-amber-600/20 rounded-md text-xs font-semibold">
                                             DP (Down Payment)
                                         </span>
                                     @else
                                         <span
-                                            class="inline-block px-2.5 py-1 bg-red-50 text-red-700 rounded-full text-xs font-semibold">
+                                            class="inline-block px-2.5 py-1 bg-rose-50 text-rose-700 ring-1 ring-rose-600/20 rounded-md text-xs font-semibold">
                                             Belum Bayar
                                         </span>
                                     @endif
@@ -285,11 +282,11 @@
 
                                 <!-- Aksi -->
                                 <td class="px-6 py-4 text-sm">
-                                    <div class="flex items-center justify-center gap-2">
+                                    <div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <button
                                             onclick="editRental({{ $rental->id }}, {{ $rental->customer_id }}, {{ $rental->product_id }}, '{{ \Carbon\Carbon::parse($rental->rental_date)->format('Y-m-d\TH:i') }}', '{{ \Carbon\Carbon::parse($rental->return_date)->format('Y-m-d\TH:i') }}', '{{ $rental->status }}', '{{ $rental->payment_status }}', '{{ addslashes($rental->customer->name ?? 'N/A') }}', {{ $rental->details->first()->qty ?? 0 }})"
-                                            class="{{ $rental->status == 'returned' && $rental->payment_status == 'paid' ? 'hidden' : ''}} inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg font-medium transition-colors text-xs">
-                                            <span>✏️</span> Edit
+                                            class="{{ $rental->status == 'returned' && $rental->payment_status == 'paid' ? 'hidden' : ''}} inline-flex items-center justify-center w-8 h-8 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-lg transition-colors" title="Edit">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                                         </button>
 
                                         <form action="{{ route('rentals.destroy', $rental->id) }}" method="POST"
@@ -298,8 +295,8 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                class="inline-flex items-center gap-1 px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg font-medium transition-colors text-xs">
-                                                <span>🗑️</span> Hapus
+                                                class="inline-flex items-center justify-center w-8 h-8 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg transition-colors" title="Hapus">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                             </button>
                                         </form>
                                     </div>
@@ -309,9 +306,11 @@
                             <tr>
                                 <td colspan="9" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center gap-3">
-                                        <span class="text-4xl">📭</span>
-                                        <p class="text-gray-600 font-medium">Belum ada transaksi rental</p>
-                                        <p class="text-gray-500 text-sm">Silakan buat transaksi rental pertama Anda</p>
+                                        <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
+                                            <span class="text-3xl">📭</span>
+                                        </div>
+                                        <p class="text-slate-600 font-semibold">Belum ada transaksi rental</p>
+                                        <p class="text-slate-500 text-sm">Silakan buat transaksi rental pertama Anda</p>
                                     </div>
                                 </td>
                             </tr>
@@ -322,33 +321,33 @@
 
             <!-- Pagination -->
             @if ($rentals->hasPages())
-                <div class="border-t border-gray-200 px-6 py-4 flex items-center justify-between bg-gray-50">
-                    <div class="text-sm text-gray-600">
-                        Menampilkan <span class="font-semibold">{{ $rentals->firstItem() }}</span> hingga
-                        <span class="font-semibold">{{ $rentals->lastItem() }}</span> dari
-                        <span class="font-semibold">{{ $rentals->total() }}</span> transaksi
+                <div class="border-t border-slate-200 px-6 py-4 flex items-center justify-between bg-slate-50/50">
+                    <div class="text-sm text-slate-600">
+                        Menampilkan <span class="font-semibold text-slate-900">{{ $rentals->firstItem() }}</span> hingga
+                        <span class="font-semibold text-slate-900">{{ $rentals->lastItem() }}</span> dari
+                        <span class="font-semibold text-slate-900">{{ $rentals->total() }}</span> transaksi
                     </div>
                     <div class="flex gap-2">
                         @if ($rentals->onFirstPage())
                             <span
-                                class="px-3 py-1.5 border border-gray-300 text-gray-400 rounded-lg text-sm font-medium cursor-not-allowed">
+                                class="px-3 py-1.5 border border-slate-200 text-slate-400 rounded-lg text-sm font-medium cursor-not-allowed bg-white">
                                 ← Sebelumnya
                             </span>
                         @else
                             <a href="{{ $rentals->previousPageUrl() }}&search={{ request('search') }}"
-                                class="px-3 py-1.5 border border-cyan-300 text-cyan-600 rounded-lg text-sm font-medium hover:bg-cyan-50 transition-colors">
+                                class="px-3 py-1.5 border border-indigo-200 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-50 transition-colors bg-white">
                                 ← Sebelumnya
                             </a>
                         @endif
 
                         @if ($rentals->hasMorePages())
                             <a href="{{ $rentals->nextPageUrl() }}&search={{ request('search') }}"
-                                class="px-3 py-1.5 border border-cyan-300 text-cyan-600 rounded-lg text-sm font-medium hover:bg-cyan-50 transition-colors">
+                                class="px-3 py-1.5 border border-indigo-200 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-50 transition-colors bg-white">
                                 Selanjutnya →
                             </a>
                         @else
                             <span
-                                class="px-3 py-1.5 border border-gray-300 text-gray-400 rounded-lg text-sm font-medium cursor-not-allowed">
+                                class="px-3 py-1.5 border border-slate-200 text-slate-400 rounded-lg text-sm font-medium cursor-not-allowed bg-white">
                                 Selanjutnya →
                             </span>
                         @endif
@@ -356,7 +355,7 @@
                 </div>
             @endif
         </div>
-
+        
     </div>
 
     <script>
@@ -418,7 +417,7 @@
         function editRental(id, customerId, productId, rentalDate, returnDate, status, paymentStatus, customerName, qty) {
             rentalForm.action = `rentals/${id}`;
             formMethod.value = 'PUT';
-            formTitle.textContent = '✏️ Edit Transaksi Rental: ' + customerName;
+            formTitle.innerHTML = '<span class="p-1.5 bg-amber-50 text-amber-600 rounded-lg">✏️</span> Edit Transaksi Rental: ' + customerName;
             btnCancel.classList.remove('hidden');
 
             document.getElementById('customer_id').value = customerId;
@@ -443,26 +442,13 @@
             rentalForm.reset();
             rentalForm.action = "{{ route('rentals.store') }}";
             formMethod.value = 'POST';
-            formTitle.textContent = '➕ Tambah Transaksi Rental Baru';
+            formTitle.innerHTML = '<span class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg">➕</span> Tambah Transaksi Rental Baru';
             btnCancel.classList.add('hidden');
             document.getElementById('qty').value = 1;
 
             initDefaultDates();
             calculateTotal();
         }
-
-       
-        // function initDefaultDates() {
-        //     const now = new Date();
-        //     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
-
-        //     document.getElementById('rental_date').min = formatDateTimeLocal(todayStart);
-        //     document.getElementById('rental_date').value = formatDateTimeLocal(now);
-
-        //     const tomorrow = new Date(now);
-        //     tomorrow.setDate(now.getDate() + 1);
-        //     document.getElementById('return_date').value = formatDateTimeLocal(tomorrow);
-        // }
 
         /**
          * Menginisialisasi tanggal default pada form (hari ini & besok).

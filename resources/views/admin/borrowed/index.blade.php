@@ -7,25 +7,25 @@
 <div class="space-y-6">
     <!-- Header -->
     <div>
-        <p class="text-gray-600 text-sm">Kelola semua transaksi rental yang statusnya sedang dipinjam</p>
+        <p class="text-slate-500 text-sm">Kelola semua transaksi rental yang statusnya sedang dipinjam</p>
     </div>
 
     <!-- Search Bar -->
-    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-4">
         <form method="GET" action="{{ route('borrowed.index') }}" class="flex gap-3 flex-col md:flex-row">
             <div class="flex-1 relative">
                 <input type="text" name="search" value="{{ request('search') }}"
                     placeholder="Cari berdasarkan nama customer..."
-                    class="w-full px-4 py-2.5 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all text-sm">
-                <span class="absolute left-3 top-3 text-gray-400">🔍</span>
+                    class="w-full px-4 py-2.5 pl-11 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white">
+                <svg class="w-5 h-5 absolute left-3.5 top-2.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
             <button type="submit"
-                class="px-6 py-2.5 bg-cyan-500 text-white rounded-lg font-medium hover:bg-cyan-600 transition-colors text-sm">
+                class="px-6 py-2.5 bg-slate-800 text-white rounded-lg font-medium hover:bg-slate-900 transition-colors text-sm shadow-sm focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:outline-none">
                 Cari
             </button>
             @if (request('search'))
             <a href="{{ route('borrowed.index') }}"
-                class="px-6 py-2.5 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors text-sm">
+                class="px-6 py-2.5 border border-slate-300 bg-white text-slate-700 rounded-lg font-medium hover:bg-slate-50 transition-colors text-sm flex items-center justify-center focus:ring-2 focus:ring-slate-200 focus:outline-none">
                 Reset
             </a>
             @endif
@@ -33,93 +33,93 @@
     </div>
 
     <!-- Table Barang Dipinjam -->
-    <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full">
-                <thead class="bg-gray-50 border-b border-gray-200">
+                <thead class="bg-slate-50/80 border-b border-slate-200">
                     <tr>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">No</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Customer</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Produk</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Jumlah Sewa (Stok)</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Durasi Sewa</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Total Harga</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Status Rental</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Status Bayar</th>
-                        <th class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Aksi</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">No</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Customer</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Produk</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Jumlah Sewa (Stok)</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Durasi Sewa</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Total Harga</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status Rental</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status Bayar</th>
+                        <th class="px-6 py-4 text-center text-xs font-bold text-slate-500 uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200">
+                <tbody class="divide-y divide-slate-200">
                     @forelse($rentals as $rental)
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 text-sm text-gray-600">
+                    <tr class="hover:bg-slate-50/80 transition-colors group">
+                        <td class="px-6 py-4 text-sm text-slate-600">
                             {{ ($rentals->currentPage() - 1) * $rentals->perPage() + $loop->iteration }}
                         </td>
-                        <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                        <td class="px-6 py-4 text-sm font-semibold text-slate-900">
                             {{ $rental->customer->name ?? 'N/A' }}
                         </td>
-                        <td class="px-6 py-4 text-sm text-gray-600">
+                        <td class="px-6 py-4 text-sm text-slate-600">
                             {{ $rental->product->name ?? 'N/A' }}
                         </td>
-                        <td class="px-6 py-4 text-sm text-gray-600 font-semibold">
+                        <td class="px-6 py-4 text-sm text-slate-600 font-medium">
                             {{ $rental->details->first()->qty ?? 0 }} Unit
                         </td>
-                        <td class="px-6 py-4 text-sm text-gray-600">
+                        <td class="px-6 py-4 text-sm text-slate-600">
                             @php
                             $start = \Carbon\Carbon::parse($rental->rental_date);
                             $end = \Carbon\Carbon::parse($rental->return_date);
                             $hours = $start->diffInHours($end);
                             $days = ceil($hours / 24) ?: 1;
                             @endphp
-                            <div class="font-medium text-xs text-cyan-600 bg-cyan-50 px-2.5 py-1 rounded-full inline-block mb-1">
-                                ⏱️ {{ $days }} Hari
+                            <div class="font-medium text-xs text-indigo-700 bg-indigo-50 ring-1 ring-indigo-600/20 px-2.5 py-1 rounded-full inline-flex items-center gap-1 mb-1.5">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> {{ $days }} Hari
                             </div>
-                            <div class="text-[11px] text-gray-500">Mulai: {{ $start->format('d M Y H:i') }}</div>
-                            <div class="text-[11px] text-gray-500">Kembali: {{ $end->format('d M Y H:i') }}</div>
+                            <div class="text-[11px] text-slate-500 font-medium">Mulai: {{ $start->format('d M Y H:i') }}</div>
+                            <div class="text-[11px] text-slate-500 font-medium">Kembali: {{ $end->format('d M Y H:i') }}</div>
                         </td>
-                        <td class="px-6 py-4 text-sm font-semibold text-gray-900">
+                        <td class="px-6 py-4 text-sm font-semibold text-slate-900">
                             Rp {{ number_format($rental->total_price, 0, ',', '.') }}
                         </td>
                         <td class="px-6 py-4 text-sm">
                             @if ($rental->status == 'active' && now()->gt($rental->return_date))
-                            <span class="inline-block px-2.5 py-1 bg-red-50 text-red-700 rounded-full text-xs font-semibold">
-                                ⚠ Terlambat
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-rose-50 text-rose-700 ring-1 ring-rose-600/20 rounded-full text-xs font-semibold">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> Terlambat
                             </span>
                             @elseif ($rental->status == 'cancelled')
-                            <span class="inline-block px-2.5 py-1 bg-rose-50 text-rose-700 rounded-full text-xs font-semibold">
-                                ✗ Dibatalkan
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-rose-50 text-rose-700 ring-1 ring-rose-600/20 rounded-full text-xs font-semibold">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg> Dibatalkan
                             </span>
                             @else
-                            <span class="inline-block px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold">
-                                ⚙ Sedang Disewa
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-blue-700 ring-1 ring-blue-600/20 rounded-full text-xs font-semibold">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Sedang Dipinjam
                             </span>
                             @endif
                         </td>
                         <td class="px-6 py-4 text-sm">
                             @if ($rental->payment_status == 'paid')
-                            <span class="inline-block px-2.5 py-1 bg-green-50 text-green-700 rounded-full text-xs font-semibold">
+                            <span class="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20 rounded-md text-xs font-semibold">
                                 Lunas
                             </span>
                             @elseif($rental->payment_status == 'dp')
-                            <span class="inline-block px-2.5 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-semibold">
+                            <span class="inline-block px-2.5 py-1 bg-amber-50 text-amber-700 ring-1 ring-amber-600/20 rounded-md text-xs font-semibold">
                                 DP (Down Payment)
                             </span>
                             @else
-                            <span class="inline-block px-2.5 py-1 bg-red-50 text-red-700 rounded-full text-xs font-semibold">
+                            <span class="inline-block px-2.5 py-1 bg-rose-50 text-rose-700 ring-1 ring-rose-600/20 rounded-md text-xs font-semibold">
                                 Belum Bayar
                             </span>
                             @endif
                         </td>
                         <td class="px-6 py-4 text-sm">
-                            <div class="flex items-center justify-center gap-2">
+                            <div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <!-- Kembalikan Button -->
                                 <form action="{{ route('borrowed.return', $rental->id) }}" method="POST"
                                     class="inline-block"
                                     onsubmit="return confirm('Apakah Anda yakin ingin mengembalikan barang ini?');">
                                     @csrf
                                     <button type="submit"
-                                        class="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 rounded-lg font-medium transition-colors text-xs">
-                                        <span>✓</span> Selesai
+                                        class="inline-flex items-center justify-center w-8 h-8 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 rounded-lg transition-colors" title="Selesai">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                     </button>
                                 </form>
 
@@ -130,8 +130,8 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        class="inline-flex items-center gap-1 px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg font-medium transition-colors text-xs">
-                                        <span>❌</span> Batal
+                                        class="inline-flex items-center justify-center w-8 h-8 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg transition-colors" title="Batal">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                     </button>
                                 </form>
                             </div>
@@ -141,9 +141,11 @@
                     <tr>
                         <td colspan="9" class="px-6 py-12 text-center">
                             <div class="flex flex-col items-center gap-3">
-                                <span class="text-4xl">📭</span>
-                                <p class="text-gray-600 font-medium">Tidak ada barang yang sedang dipinjam</p>
-                                <p class="text-gray-500 text-sm">Semua produk saat ini tersedia di gudang</p>
+                                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
+                                    <span class="text-3xl">📭</span>
+                                </div>
+                                <p class="text-slate-600 font-semibold">Tidak ada barang yang sedang dipinjam</p>
+                                <p class="text-slate-500 text-sm">Semua produk saat ini tersedia di gudang</p>
                             </div>
                         </td>
                     </tr>
@@ -154,31 +156,31 @@
 
         <!-- Pagination -->
         @if ($rentals->hasPages())
-        <div class="border-t border-gray-200 px-6 py-4 flex items-center justify-between bg-gray-50">
-            <div class="text-sm text-gray-600">
-                Menampilkan <span class="font-semibold">{{ $rentals->firstItem() }}</span> hingga
-                <span class="font-semibold">{{ $rentals->lastItem() }}</span> dari
-                <span class="font-semibold">{{ $rentals->total() }}</span> transaksi
+        <div class="border-t border-slate-200 px-6 py-4 flex items-center justify-between bg-slate-50/50">
+            <div class="text-sm text-slate-600">
+                Menampilkan <span class="font-semibold text-slate-900">{{ $rentals->firstItem() }}</span> hingga
+                <span class="font-semibold text-slate-900">{{ $rentals->lastItem() }}</span> dari
+                <span class="font-semibold text-slate-900">{{ $rentals->total() }}</span> transaksi
             </div>
             <div class="flex gap-2">
                 @if ($rentals->onFirstPage())
-                <span class="px-3 py-1.5 border border-gray-300 text-gray-400 rounded-lg text-sm font-medium cursor-not-allowed">
+                <span class="px-3 py-1.5 border border-slate-200 text-slate-400 rounded-lg text-sm font-medium cursor-not-allowed bg-white">
                     ← Sebelumnya
                 </span>
                 @else
                 <a href="{{ $rentals->previousPageUrl() }}&search={{ request('search') }}"
-                    class="px-3 py-1.5 border border-cyan-300 text-cyan-600 rounded-lg text-sm font-medium hover:bg-cyan-50 transition-colors">
+                    class="px-3 py-1.5 border border-indigo-200 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-50 transition-colors bg-white">
                     ← Sebelumnya
                 </a>
                 @endif
 
                 @if ($rentals->hasMorePages())
                 <a href="{{ $rentals->nextPageUrl() }}&search={{ request('search') }}"
-                    class="px-3 py-1.5 border border-cyan-300 text-cyan-600 rounded-lg text-sm font-medium hover:bg-cyan-50 transition-colors">
+                    class="px-3 py-1.5 border border-indigo-200 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-50 transition-colors bg-white">
                     Selanjutnya →
                 </a>
                 @else
-                <span class="px-3 py-1.5 border border-gray-300 text-gray-400 rounded-lg text-sm font-medium cursor-not-allowed">
+                <span class="px-3 py-1.5 border border-slate-200 text-slate-400 rounded-lg text-sm font-medium cursor-not-allowed bg-white">
                     Selanjutnya →
                 </span>
                 @endif
