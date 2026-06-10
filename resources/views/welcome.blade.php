@@ -103,6 +103,10 @@
                             class="w-full h-full bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-600/30">
                             R
                         </div>
+                                                <span
+                            class="text-2xl whitespace-nowrap font-bold text-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                            Rental Banyuwangi
+                        </span>
                     @endif
                 </div>
 

@@ -60,7 +60,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="mb-6 last:mb-0">
+                <div class="">
                     <label for="name" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Nama (Username)</label>
                     <input type="text"
                            id="name"
@@ -73,7 +73,7 @@
                     @enderror
                 </div>
 
-                <div class="mb-6 last:mb-0">
+                <div class="mb-6">
                     <label for="email" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Email</label>
                     <input type="email"
                            id="email"
@@ -87,7 +87,7 @@
                 </div>
             </div>
 
-            <div class="mb-6 last:mb-0">
+            <div class="mb-6">
                 <label for="phone" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Nomor HP (untuk WhatsApp)</label>
                 <input type="tel"
                        id="phone"
@@ -119,7 +119,7 @@
             @csrf
             @method('PUT')
 
-            <div class="mb-6 last:mb-0">
+            <div class="mb-6">
                 <label for="current_password" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Password Saat Ini</label>
                 <input type="password"
                        id="current_password"
@@ -131,7 +131,7 @@
                 @enderror
             </div>
 
-            <div class="mb-6 last:mb-0">
+            <div class="mb-6">
                 <label for="password" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Password Baru</label>
                 <input type="password"
                        id="password"
@@ -153,7 +153,7 @@
                 @enderror
             </div>
 
-            <div class="mb-6 last:mb-0">
+            <div class="mb-6">
                 <label for="password_confirmation" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Konfirmasi Password Baru</label>
                 <input type="password"
                        id="password_confirmation"

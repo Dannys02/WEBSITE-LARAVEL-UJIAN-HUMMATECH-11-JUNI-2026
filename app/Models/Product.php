@@ -15,6 +15,9 @@ class Product extends Model
         'description',
         'status'
     ];
+    public function rentals() {
+      return $this->hasMany(Rental::class);
+    }
 
     public function details()
     {

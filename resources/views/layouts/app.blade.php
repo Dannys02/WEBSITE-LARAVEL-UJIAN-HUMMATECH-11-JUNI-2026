@@ -98,9 +98,8 @@
     <!-- Error Modal Alert (Validation Errors) -->
     @if ($errors->any())
         <div id="errorModal" class="fixed inset-0 z-[90] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 opacity-100">
-            <!-- Modal Content Wrapper -->
             <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all duration-300 m-4 scale-95 opacity-0">
-                <!-- Modal Header -->
+              
                 <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-rose-50/50">
                     <div class="flex items-center gap-3 text-rose-600">
                         <div class="bg-rose-100 p-2 rounded-full">
@@ -115,7 +114,6 @@
                     </button>
                 </div>
                 
-                <!-- Modal Body -->
                 <div class="px-6 py-5">
                     <p class="text-sm text-slate-600 mb-4 font-medium">Mohon perbaiki kesalahan berikut sebelum melanjutkan:</p>
                     <div class="bg-rose-50/80 rounded-xl p-4 border border-rose-100">
@@ -127,7 +125,6 @@
                     </div>
                 </div>
                 
-                <!-- Modal Footer -->
                 <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end">
                     <button type="button" id="btnUnderstandError" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold rounded-xl transition-all shadow-sm focus:ring-4 focus:ring-slate-200">
                         Saya Mengerti
@@ -137,14 +134,10 @@
         </div>
     @endif
 
-    <!-- ==========================================
-         END NOTIFICATION SYSTEM 
-         ========================================== -->
-
     <!-- Mobile Sidebar Overlay (Vanilla JS toggled) -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/50 z-40 hidden lg:hidden backdrop-blur-sm transition-opacity duration-300 opacity-0 cursor-pointer"></div>
 
-    <!-- Sidebar / Aside -->
+    <!-- Sidebar -->
     <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col shadow-2xl lg:shadow-none transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
         <!-- Brand/Logo Area -->
         <div class="flex h-16 shrink-0 items-center px-6 border-b border-slate-100">
@@ -237,13 +230,9 @@
         </div>
     </aside>
 
-    <!-- Main Wrapper Area -->
     <div class="flex-1 flex flex-col lg:ml-64 bg-slate-50 min-h-screen transition-all duration-300">
-        
-        <!-- Sticky Navbar with background blur -->
         <header class="sticky top-0 z-40 bg-white/70 backdrop-blur-lg border-b border-slate-200 h-16 flex items-center justify-between px-4 lg:px-8 transition-all shadow-sm">
             
-            <!-- Left Side Navbar -->
             <div class="flex items-center gap-3 lg:gap-4">
                 <!-- Mobile Hamburger Menu Button -->
                 <button id="mobileMenuBtn" class="lg:hidden p-2 -ml-2 rounded-lg text-slate-500 hover:bg-slate-100 focus:outline-none transition-colors">
@@ -281,15 +270,11 @@
         </header>
 
         <!-- Main Dashboard Content -->
-        <main class="flex-1 p-4 lg:p-8 overflow-x-hidden relative">
-            <div class="max-w-7xl mx-auto space-y-6">
-                <!-- Content Area injected by specific views -->
-                @yield('content')
-            </div>
+        <main class="flex-1 p-4 lg:p-8 overflow-y-auto relative">
+          @yield('content')
         </main>
     </div>
 
-    <!-- Vanilla JavaScript Interactions -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // ==========================================

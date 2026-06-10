@@ -175,9 +175,9 @@
         </div>
 
         <!-- Table Rental -->
-        <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
             <div class="overflow-x-auto">
-                <table class="w-full">
+                <table class="w-full border-collapse">
                     <thead class="bg-slate-50/80 border-b border-slate-200">
                         <tr>
                             <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">No</th>
