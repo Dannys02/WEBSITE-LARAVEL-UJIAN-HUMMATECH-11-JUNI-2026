@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Daftar Akun | Rental Event</title>
     <meta name="description" content="Buat akun baru di Rental Event untuk mulai mengelola penyewaan peralatan event profesional.">
-    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font: Plus Jakarta Sans — konsisten dengan halaman welcome -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
     @php
         $user = App\Models\User::find(1);
     @endphp
@@ -25,31 +25,6 @@
         /* ==================== BASE FONT ==================== */
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        /* ==================== ANIMASI FLOATING BLOBS ==================== */
-        @keyframes float-slow {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -20px) scale(1.05); }
-            66% { transform: translate(-20px, 15px) scale(0.95); }
-        }
-
-        @keyframes float-slow-reverse {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(-25px, 20px) scale(0.95); }
-            66% { transform: translate(15px, -25px) scale(1.05); }
-        }
-
-        .blob-1 {
-            animation: float-slow 12s ease-in-out infinite;
-        }
-
-        .blob-2 {
-            animation: float-slow-reverse 14s ease-in-out infinite;
-        }
-
-        .blob-3 {
-            animation: float-slow 16s ease-in-out infinite;
         }
 
         /* ==================== ANIMASI FADE-IN CARD ==================== */
@@ -78,15 +53,12 @@
     </style>
 </head>
 
-<body class="min-h-screen bg-gray-50 text-gray-900 antialiased selection:bg-blue-600 selection:text-white flex items-center justify-center relative overflow-hidden">
+<body class="relative min-h-screen bg-gray-50 text-gray-900 antialiased selection:bg-blue-600 selection:text-white flex items-center justify-center relative">
 
-    <!-- ==================== BACKGROUND DEKORATIF ==================== -->
-    <!-- Gradient blobs — identik dengan hero section di welcome page -->
-    <div class="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
-        <div class="blob-1 absolute -top-32 -right-32 w-[500px] h-[500px] bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-[0.15]"></div>
-        <div class="blob-2 absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-[0.15]"></div>
-        <div class="blob-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-[0.08]"></div>
-    </div>
+    <a href="{{ url('/') }}" class="position absolute top-10 left-10 inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-600 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Kembali ke Beranda
+    </a>
 
     <!-- ==================== KONTEN UTAMA ==================== -->
     <div class="w-full max-w-md mx-auto px-4 sm:px-0 py-12">
@@ -249,10 +221,6 @@
 
         <!-- Footer -->
         <div class="mt-8 text-center animate-fade-in-up animate-delay-200">
-            <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-600 transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali ke Beranda
-            </a>
             <p class="mt-4 text-xs text-gray-400">
                 &copy; {{ date('Y') }} Rental Event. All rights reserved.
             </p>

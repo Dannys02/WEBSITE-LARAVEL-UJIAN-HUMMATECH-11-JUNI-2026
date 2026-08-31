@@ -17,9 +17,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS (via CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -39,7 +38,7 @@
                 }
             }
         }
-    </script>
+    </script> -->
     <style>
         /* Custom Scrollbar to maintain clean look */
         ::-webkit-scrollbar {
@@ -141,12 +140,13 @@
     <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col shadow-2xl lg:shadow-none transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
         <!-- Brand/Logo Area -->
         <div class="flex h-16 shrink-0 items-center px-6 border-b border-slate-100">
-            <a href="/" class="flex items-center gap-3 group">
-                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold transition-transform group-hover:scale-105 shadow-md shadow-indigo-200">
+            <a href="/" class="flex items-center group">
+                <!-- <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold transition-transform group-hover:scale-105 shadow-md shadow-indigo-200">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
-                </div>
+                </div> -->
+                <img src="{{ asset('logoD.jpeg') }}" class="h-12 aspect-square" />
                 <span class="text-lg font-bold text-slate-900 tracking-tight">Pusat Rental</span>
             </a>
             <!-- Mobile Close Button inside sidebar -->

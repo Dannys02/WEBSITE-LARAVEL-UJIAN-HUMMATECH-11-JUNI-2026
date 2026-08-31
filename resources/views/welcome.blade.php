@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sewa Peralatan Event Profesional</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -67,23 +67,23 @@
         }
     </style>
     @php
-        $user = App\Models\User::find(1);
+    $user = App\Models\User::find(1);
     @endphp
     @if ($user && $user->image)
-        <link rel="icon" href="{{ asset('storage/' . $user->image) }}" type="image/png">
+    <link rel="icon" href="{{ asset('storage/' . $user->image) }}" type="image/png">
     @else
-        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" type="image/png">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" type="image/png">
     @endif
 </head>
 
 <body class="bg-gray-50 text-gray-900 antialiased selection:bg-blue-600 selection:text-white">
 
     @php
-        $products = App\Models\Product::latest()->take(6)->get();
-        $totalProducts = App\Models\Product::count();
-        $totalCustomers = App\Models\Customer::count();
-        $totalRentals = App\Models\Rental::count();
-        $totalTransactions = App\Models\Rental::where('payment_status', 'paid')->count();
+    $products = App\Models\Product::latest()->take(6)->get();
+    $totalProducts = App\Models\Product::count();
+    $totalCustomers = App\Models\Customer::count();
+    $totalRentals = App\Models\Rental::count();
+    $totalTransactions = App\Models\Rental::where('payment_status', 'paid')->count();
     @endphp
 
     <!-- Navbar -->
@@ -92,21 +92,21 @@
             <div class="flex justify-between items-center h-20">
                 <div class="w-14 h-14 flex items-center gap-4">
                     @if ($user && $user->image)
-                        <img src="{{ asset('storage/' . $user->image) }}" alt="Logo"
-                            class="w-full h-full object-cover rounded-full" />
-                        <span
-                            class="text-2xl whitespace-nowrap font-bold text-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                            Rental Banyuwangi
-                        </span>
+                    <img src="{{ asset('storage/' . $user->image) }}" alt="Logo"
+                        class="w-full h-full object-cover rounded-full" />
+                    <span
+                        class="text-2xl whitespace-nowrap font-bold text-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                        Rental Banyuwangi
+                    </span>
                     @else
-                        <div
-                            class="w-full h-full bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-600/30">
-                            R
-                        </div>
-                                                <span
-                            class="text-2xl whitespace-nowrap font-bold text-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                            Rental Banyuwangi
-                        </span>
+                    <div
+                        class="w-full h-full bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-600/30">
+                        R
+                    </div>
+                    <span
+                        class="text-2xl whitespace-nowrap font-bold text-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                        Rental Banyuwangi
+                    </span>
                     @endif
                 </div>
 
@@ -170,11 +170,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col lg:flex-row items-center gap-16">
                 <div class="w-full lg:w-1/2 animate-on-scroll">
-                    <div
-                        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-sm font-semibold mb-6">
-                        <span class="flex h-2 w-2 rounded-full bg-blue-600"></span>
-                        Sewa Peralatan Banyuwangi No.1
-                    </div>
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
                         Solusi Rental Peralatan Event <span
                             class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Profesional</span>
@@ -272,75 +267,52 @@
                     dan siap pakai.</p>
             </div>
 
+            @forelse($products as $index => $product)
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse($products as $index => $product)
-                    <div class="animate-on-scroll" style="transition-delay: {{ $index * 0.1 }}s;">
-                        <div
-                            class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                            <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                                @if ($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                @else
-                                    <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=500&q=80"
-                                        alt="Placeholder"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale opacity-70">
-                                @endif
-                                <div
-                                    class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-900 shadow-sm">
-                                    {{ $product->category ?? 'Peralatan' }}
-                                </div>
+                <div class="animate-on-scroll" style="transition-delay: {{ $index * 0.1 }}s;">
+                    <div
+                        class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                            @if ($product->image)
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            @else
+                            <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=500&q=80"
+                                alt="Placeholder"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale opacity-70">
+                            @endif
+                            <div
+                                class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-900 shadow-sm">
+                                {{ $product->category ?? 'Peralatan' }}
                             </div>
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $product->name }}</h3>
-                                <p class="text-gray-500 text-sm line-clamp-2 mb-4">
-                                    {{ $product->description ?? 'Peralatan berkualitas tinggi untuk menunjang kesuksesan event Anda.' }}
-                                </p>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $product->name }}</h3>
+                            <p class="text-gray-500 text-sm line-clamp-2 mb-4">
+                                {{ $product->description ?? 'Peralatan berkualitas tinggi untuk menunjang kesuksesan event Anda.' }}
+                            </p>
 
-                                <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-                                    <div>
-                                        <p class="text-xs text-gray-500 font-semibold uppercase">Harga / Hari</p>
-                                        <p class="text-lg font-extrabold text-blue-600">Rp
-                                            {{ number_format($product->price_per_day, 0, ',', '.') }}</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="text-xs text-gray-500 font-semibold uppercase">Stok</p>
-                                        <p class="text-sm font-bold text-gray-900">{{ $product->stock }} Unit</p>
-                                    </div>
+                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+                                <div>
+                                    <p class="text-xs text-gray-500 font-semibold uppercase">Harga / Hari</p>
+                                    <p class="text-lg font-extrabold text-blue-600">Rp
+                                        {{ number_format($product->price_per_day, 0, ',', '.') }}
+                                    </p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs text-gray-500 font-semibold uppercase">Stok</p>
+                                    <p class="text-sm font-bold text-gray-900">{{ $product->stock }} Unit</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @empty
-                    <!-- Dummy Products if Empty -->
-                    @for ($i = 1; $i <= 6; $i++)
-                        <div
-                            class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group animate-on-scroll">
-                            <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                                <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=500&q=80"
-                                    alt="Dummy"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale opacity-70">
-                            </div>
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">Peralatan Dummy {{ $i }}
-                                </h3>
-                                <p class="text-gray-500 text-sm mb-4">Speaker aktif dengan kualitas suara jernih dan
-                                    bass yang mendalam.</p>
-                                <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                                    <div>
-                                        <p class="text-xs text-gray-500 font-semibold uppercase">Harga / Hari</p>
-                                        <p class="text-lg font-extrabold text-blue-600">Rp 500.000</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="text-xs text-gray-500 font-semibold uppercase">Stok</p>
-                                        <p class="text-sm font-bold text-gray-900">5 Unit</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
-                @endforelse
+                </div>
             </div>
+            @empty
+            <div class="animate-on-scroll w-full text-center">
+                <p class="text-gray-600 italic">Belum ada Produk yang tersedia.</p>
+            </div>
+            @endforelse
 
         </div>
     </section>
@@ -835,21 +807,21 @@
                         <li class="text-gray-400 text-sm">
                             <strong class="text-white">Telepon:</strong><br>
                             @php
-                                $user = \App\Models\User::find(1);
+                            $user = \App\Models\User::find(1);
                             @endphp
 
                             @if ($user && $user->phone)
-                                {{ $user->formatPhoneInWelcome() }}
+                            {{ $user->formatPhoneInWelcome() }}
                             @else
-                                +62 812-3456-7890
+                            +62 812-3456-7890
                             @endif
                         </li>
                         <li class="text-gray-400 text-sm">
                             <strong class="text-white">Email:</strong><br>
                             @if ($user && $user->email)
-                                {{ $user->email }}
+                            {{ $user->email }}
                             @else
-                                info@Event Rental.com
+                            info@Event Rental.com
                             @endif
 
                         </li>
