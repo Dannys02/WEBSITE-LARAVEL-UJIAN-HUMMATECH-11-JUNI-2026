@@ -25,7 +25,7 @@ class SettingRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'phone' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|regex:/^[0-9]+$/|max:20',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             // |unique:users,email,' . $this->users?->id,
         ];
@@ -38,6 +38,7 @@ class SettingRequest extends FormRequest
             'email.required' => 'Email tidak boleh kosong',
             'email.email' => 'Format email tidak valid',
             'email.unique' => 'Email sudah digunakan',
+            'phone.regex' => 'Nomor HP harus berupa angka',
             'phone.max' => 'Nomor HP maksimal 20 karakter',
             'image.image' => 'File harus berupa gambar',
             'image.mimes' => 'Format file harus: jpeg, png, jpg, atau webp',

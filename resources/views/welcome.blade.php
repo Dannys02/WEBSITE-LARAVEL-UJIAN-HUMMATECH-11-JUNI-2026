@@ -95,8 +95,8 @@
                     <img src="{{ asset('storage/' . $user->image) }}" alt="Logo"
                         class="w-full h-full object-cover rounded-full" />
                     <span
-                        class="text-2xl whitespace-nowrap tracking-tighter font-bold text-bold text-orange-600">
-                        Rental Bwi
+                        class="text-2xl whitespace-nowrap tracking-tighter font-extrabold">
+                        <span class="text-blue-600">Rental</span> <span class="text-orange-600">Bwi</span>
                     </span>
                     @else
                     <div
@@ -104,8 +104,8 @@
                         R
                     </div>
                     <span
-                        class="text-2xl whitespace-nowrap tracking-tighter font-bold text-bold text-orange-600">
-                        Rental Bwi
+                        class="text-2xl whitespace-nowrap tracking-tighter font-extrabold">
+                        <span class="text-blue-600">Rental</span> <span class="text-orange-600">Bwi</span>
                     </span>
                     @endif
                 </div>
@@ -162,7 +162,7 @@
             <div class="flex justify-center items-center pt-12">
                 <div class="w-full animate-on-scroll">
                     <div class="flex flex-col justify-center items-center">
-                        <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 leading-tighter mb-6">
+                        <h1 class="text-4xl lg:text-6xl font-extrabold text-gray-900 leading-tighter mb-6">
                             Solusi Rental <br>Peralatan Event <span
                                 class="text-orange-600">Profesional</span>
                         </h1>

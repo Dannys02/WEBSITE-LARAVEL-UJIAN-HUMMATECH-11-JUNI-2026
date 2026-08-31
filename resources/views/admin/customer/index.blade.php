@@ -14,7 +14,7 @@
         <!-- Form Tambah/Edit Customer -->
         <div id="customerFormCard" class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 transition-all">
             <h2 id="formTitle" class="text-base font-bold text-slate-900 mb-5 flex items-center gap-2">
-                <span class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg">➕</span> Tambah Customer Baru
+                <span class="p-1.5 bg-orange-50 text-orange-600 rounded-lg">➕</span> Tambah Customer Baru
             </h2>
 
             <form id="customerForm" method="POST" action="{{ route('customers.store') }}" class="space-y-5">
@@ -28,7 +28,7 @@
                             Nama Customer <span class="text-red-500">*</span>
                         </label>
                         <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Contoh: Budi Santoso"
-                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white @error('name') border-red-500 bg-red-50 @enderror"
+                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white @error('name') border-red-500 bg-red-50 @enderror"
                             required>
                         @error('name') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
                     </div>
@@ -38,7 +38,7 @@
                             Nomor HP <span class="text-red-500">*</span>
                         </label>
                         <input type="text" id="phone" name="phone" value="{{ old('phone') }}" placeholder="Contoh: 6281234567890"
-                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white @error('phone') border-red-500 bg-red-50 @enderror"
+                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white @error('phone') border-red-500 bg-red-50 @enderror"
                             pattern="^62[0-9]{9,12}$" required>
                         <p class="text-[10px] text-slate-500 mt-1.5">Format: 62 diikuti 9-12 digit (contoh: 6281234567890)</p>
                         @error('phone') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
@@ -49,7 +49,7 @@
                             Nomor Identitas (KTP) <span class="text-red-500">*</span>
                         </label>
                         <input type="text" id="identity_number" name="identity_number" value="{{ old('identity_number') }}" placeholder="Masukkan nomor KTP"
-                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white @error('identity_number') border-red-500 bg-red-50 @enderror"
+                            class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white @error('identity_number') border-red-500 bg-red-50 @enderror"
                             required>
                         @error('identity_number') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
                     </div>
@@ -61,7 +61,7 @@
                         Alamat <span class="text-red-500">*</span>
                     </label>
                     <textarea id="address" name="address" placeholder="Masukkan alamat lengkap customer..." rows="3"
-                        class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all resize-none text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white @error('address') border-red-500 bg-red-50 @enderror"
+                        class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all resize-none text-sm bg-slate-50 hover:bg-slate-100 focus:bg-white @error('address') border-red-500 bg-red-50 @enderror"
                         required>{{ old('address') }}</textarea>
                     @error('address') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
                 </div>
@@ -73,7 +73,7 @@
                         Batal
                     </button>
                     <button type="submit" id="btn-submit"
-                        class="px-6 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 shadow-sm shadow-indigo-200 transition-all active:scale-95 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none">
+                        class="px-6 py-2.5 bg-orange-600 text-white text-sm font-medium rounded-lg hover:bg-orange-700 shadow-sm shadow-orange-200 transition-all active:scale-95 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:outline-none">
                         Simpan Customer
                     </button>
                 </div>
@@ -86,7 +86,7 @@
                 <div class="flex-1 relative">
                     <input type="text" name="search" value="{{ request('search') }}"
                         placeholder="Cari berdasarkan nama atau nomor HP..."
-                        class="w-full px-4 py-2.5 pl-11 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all text-sm bg-slate-50 focus:bg-white hover:bg-slate-100">
+                        class="w-full px-4 py-2.5 pl-11 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all text-sm bg-slate-50 focus:bg-white hover:bg-slate-100">
                     <svg class="w-5 h-5 absolute left-3.5 top-2.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
                 <button type="submit"
@@ -146,7 +146,7 @@
 
                                 <!-- No. KTP -->
                                 <td class="px-6 py-4 text-sm text-slate-600">
-                                    <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 ring-1 ring-indigo-600/20 rounded-full text-xs font-medium">
+                                    <span class="inline-block px-3 py-1 bg-orange-50 text-orange-700 ring-1 ring-orange-600/20 rounded-full text-xs font-medium">
                                         {{ $customer->identity_number }}
                                     </span>
                                 </td>
@@ -161,7 +161,7 @@
                                     <div class="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <button
                                             onclick="editCustomer({{ $customer->id }}, '{{ addslashes($customer->name) }}', '{{ $customer->phone }}', '{{ addslashes($customer->address) }}', '{{ $customer->identity_number }}')"
-                                            class="inline-flex items-center justify-center w-8 h-8 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-lg transition-colors" title="Edit">
+                                            class="inline-flex items-center justify-center w-8 h-8 bg-orange-50 hover:bg-orange-100 text-orange-600 rounded-lg transition-colors" title="Edit">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                                         </button>
 
@@ -210,14 +210,14 @@
                             </span>
                         @else
                             <a href="{{ $customers->previousPageUrl() }}&search={{ request('search') }}"
-                                class="px-3 py-1.5 border border-indigo-200 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-50 transition-colors bg-white">
+                                class="px-3 py-1.5 border border-orange-200 text-orange-600 rounded-lg text-sm font-medium hover:bg-orange-50 transition-colors bg-white">
                                 ← Sebelumnya
                             </a>
                         @endif
 
                         @if ($customers->hasMorePages())
                             <a href="{{ $customers->nextPageUrl() }}&search={{ request('search') }}"
-                                class="px-3 py-1.5 border border-indigo-200 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-50 transition-colors bg-white">
+                                class="px-3 py-1.5 border border-orange-200 text-orange-600 rounded-lg text-sm font-medium hover:bg-orange-50 transition-colors bg-white">
                                 Selanjutnya →
                             </a>
                         @else
@@ -265,7 +265,7 @@
             customerForm.reset();
             customerForm.action = "{{ route('customers.store') }}";
             formMethod.value = 'POST';
-            formTitle.innerHTML = '<span class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg">➕</span> Tambah Customer Baru';
+            formTitle.innerHTML = '<span class="p-1.5 bg-orange-50 text-orange-600 rounded-lg">➕</span> Tambah Customer Baru';
             btnCancel.classList.add('hidden');
         }
     </script>

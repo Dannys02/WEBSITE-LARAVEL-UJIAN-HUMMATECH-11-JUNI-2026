@@ -8,7 +8,7 @@
 
 <div class="w-full mx-auto p-4 md:p-0">
     <div class="bg-white rounded-xl border border-slate-200 p-6 md:p-8 mb-8 shadow-sm">
-        <h3 class="text-xl font-bold mb-6 text-slate-900 flex items-center gap-2 before:content-[''] before:inline-block before:w-1 before:h-6 before:bg-indigo-600 before:rounded-full">
+        <h3 class="text-xl font-bold mb-6 text-slate-900 flex items-center gap-2 before:content-[''] before:inline-block before:w-1 before:h-6 before:bg-orange-600 before:rounded-full">
             Profil Saya
         </h3>
 
@@ -37,13 +37,13 @@
                 </div>
 
                 <div class="flex-1 w-full">
-                    <div class="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center bg-slate-50 cursor-pointer transition-all duration-200 ease-in-out hover:border-indigo-500 hover:bg-indigo-50/50" id="uploadArea">
+                    <div class="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center bg-slate-50 cursor-pointer transition-all duration-200 ease-in-out hover:border-orange-500 hover:bg-orange-50/50" id="uploadArea">
                         <div class="text-[2rem] mb-2 text-slate-400">
                             <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                         </div>
-                        <p class="text-sm text-indigo-600 font-medium my-1">Drag dan drop foto Anda di sini</p>
+                        <p class="text-sm text-orange-600 font-medium my-1">Drag dan drop foto Anda di sini</p>
                         <p class="text-sm text-slate-500 my-1">atau</p>
-                        <p class="text-sm text-indigo-600 font-medium my-1">Klik untuk memilih file</p>
+                        <p class="text-sm text-orange-600 font-medium my-1">Klik untuk memilih file</p>
                         <p class="text-[12px] text-slate-500 mt-3">
                             Format: JPEG, PNG, JPG, WebP | Maksimal: 2MB
                         </p>
@@ -65,7 +65,7 @@
                     <input type="text"
                            id="name"
                            name="name"
-                           class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-500 @error('name') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
+                           class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500 @error('name') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
                            value="{{ old('name', Auth::user()->name) }}"
                            placeholder="Masukkan nama Anda">
                     @error('name')
@@ -78,7 +78,7 @@
                     <input type="email"
                            id="email"
                            name="email"
-                           class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-500 @error('email') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
+                           class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500 @error('email') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
                            value="{{ old('email', Auth::user()->email) }}"
                            placeholder="dannys@email.com">
                     @error('email')
@@ -92,7 +92,7 @@
                 <input type="tel"
                        id="phone"
                        name="phone"
-                       class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-500 @error('phone') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
+                       class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500 @error('phone') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
                        value="{{ old('phone', Auth::user()->phone) }}"
                        placeholder="Contoh: 6285644882298">
                 <small class="text-slate-500 text-xs block mt-1.5">
@@ -104,14 +104,14 @@
             </div>
 
             <div class="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t border-slate-100">
-                <button type="submit" class="w-full sm:w-auto px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm shadow-indigo-200 active:scale-95 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Simpan Perubahan</button>
+                <button type="submit" class="w-full sm:w-auto px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out bg-orange-600 text-white hover:bg-orange-700 shadow-sm shadow-orange-200 active:scale-95 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">Simpan Perubahan</button>
                 <button type="reset" class="w-full sm:w-auto px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 focus:ring-2 focus:ring-slate-200 focus:outline-none">Reset</button>
             </div>
         </form>
     </div>
 
     <div class="bg-white rounded-xl border border-slate-200 p-6 md:p-8 mb-8 shadow-sm">
-        <h3 class="text-xl font-bold mb-6 text-slate-900 flex items-center gap-2 before:content-[''] before:inline-block before:w-1 before:h-6 before:bg-indigo-600 before:rounded-full">
+        <h3 class="text-xl font-bold mb-6 text-slate-900 flex items-center gap-2 before:content-[''] before:inline-block before:w-1 before:h-6 before:bg-orange-600 before:rounded-full">
             Ubah Password
         </h3>
 
@@ -124,7 +124,7 @@
                 <input type="password"
                        id="current_password"
                        name="current_password"
-                       class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-500 @error('current_password') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
+                       class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500 @error('current_password') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
                        placeholder="Masukkan password saat ini">
                 @error('current_password')
                     <div class="text-red-500 text-xs mt-1.5">{{ $message }}</div>
@@ -136,7 +136,7 @@
                 <input type="password"
                        id="password"
                        name="password"
-                       class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-500 @error('password') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
+                       class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500 @error('password') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
                        placeholder="Masukkan password baru (minimal 8 karakter)"
                        autocomplete="new-password">
                 <div class="mt-3 h-1.5 bg-slate-100 rounded-full overflow-hidden">
@@ -158,7 +158,7 @@
                 <input type="password"
                        id="password_confirmation"
                        name="password_confirmation"
-                       class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-500 @error('password_confirmation') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
+                       class="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm text-slate-900 transition-all duration-200 ease-in-out bg-slate-50 hover:bg-slate-100 placeholder-slate-400 focus:outline-none focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500 @error('password_confirmation') border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-500 hover:bg-red-50 @enderror"
                        placeholder="Ketik ulang password baru Anda"
                        autocomplete="new-password">
                 @error('password_confirmation')
@@ -167,7 +167,7 @@
             </div>
 
             <div class="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t border-slate-100">
-                <button type="submit" class="w-full sm:w-auto px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm shadow-indigo-200 active:scale-95 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Ubah Password</button>
+                <button type="submit" class="w-full sm:w-auto px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out bg-orange-600 text-white hover:bg-orange-700 shadow-sm shadow-orange-200 active:scale-95 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">Ubah Password</button>
                 <button type="reset" class="w-full sm:w-auto px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 focus:ring-2 focus:ring-slate-200 focus:outline-none">Reset</button>
             </div>
         </form>
@@ -202,16 +202,16 @@
 
     uploadArea.addEventListener('dragover', (e) => {
         e.preventDefault();
-        uploadArea.classList.add('border-indigo-500', 'bg-indigo-50/50');
+        uploadArea.classList.add('border-orange-500', 'bg-orange-50/50');
     });
 
     uploadArea.addEventListener('dragleave', () => {
-        uploadArea.classList.remove('border-indigo-500', 'bg-indigo-50/50');
+        uploadArea.classList.remove('border-orange-500', 'bg-orange-50/50');
     });
 
     uploadArea.addEventListener('drop', (e) => {
         e.preventDefault();
-        uploadArea.classList.remove('border-indigo-500', 'bg-indigo-50/50');
+        uploadArea.classList.remove('border-orange-500', 'bg-orange-50/50');
 
         const files = e.dataTransfer.files;
         if (files.length > 0) {
@@ -232,7 +232,7 @@
             reader.onload = (e) => {
                 previewImg.innerHTML = `<img src="${e.target.result}" alt="Preview" class="w-full h-full object-cover">`;
                 uploadArea.classList.add('border-emerald-500', 'bg-emerald-50/50');
-                uploadArea.classList.remove('border-slate-300', 'bg-slate-50', 'hover:border-indigo-500', 'hover:bg-indigo-50/50');
+                uploadArea.classList.remove('border-slate-300', 'bg-slate-50', 'hover:border-orange-500', 'hover:bg-orange-50/50');
             };
             reader.readAsDataURL(file);
         } else {

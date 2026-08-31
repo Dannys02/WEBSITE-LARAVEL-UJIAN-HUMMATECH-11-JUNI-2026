@@ -161,8 +161,8 @@
         <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-1.5">
             <!-- Dashboard Item -->
             <a href="{{ route('admin.dashboard') }}"
-                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('admin.dashboard') ? 'bg-indigo-50 text-indigo-700 shadow-sm shadow-indigo-100/50 ring-1 ring-indigo-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('admin.dashboard') ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('admin.dashboard') ? 'bg-orange-50 text-orange-700 shadow-sm shadow-orange-100/50 ring-1 ring-orange-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('admin.dashboard') ? 'text-orange-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
                 Dashboard
@@ -170,8 +170,8 @@
 
             <!-- Produk Item -->
             <a href="{{ route('products.index') }}"
-                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('products.*') ? 'bg-indigo-50 text-indigo-700 shadow-sm shadow-indigo-100/50 ring-1 ring-indigo-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('products.*') ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('products.*') ? 'bg-orange-50 text-orange-700 shadow-sm shadow-orange-100/50 ring-1 ring-orange-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('products.*') ? 'text-orange-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
                 Produk
@@ -179,8 +179,8 @@
 
             <!-- Customer Item -->
             <a href="{{ route('customers.index') }}"
-                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('customers.*') ? 'bg-indigo-50 text-indigo-700 shadow-sm shadow-indigo-100/50 ring-1 ring-indigo-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('customers.*') ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('customers.*') ? 'bg-orange-50 text-orange-700 shadow-sm shadow-orange-100/50 ring-1 ring-orange-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('customers.*') ? 'text-orange-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
                 Customer
@@ -188,8 +188,8 @@
 
             <!-- Transaksi Rental Item -->
             <a href="{{ route('rentals.index') }}"
-                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('rentals.*') ? 'bg-indigo-50 text-indigo-700 shadow-sm shadow-indigo-100/50 ring-1 ring-indigo-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('rentals.*') ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('rentals.*') ? 'bg-orange-50 text-orange-700 shadow-sm shadow-orange-100/50 ring-1 ring-orange-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('rentals.*') ? 'text-orange-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 Transaksi Rental
@@ -197,8 +197,8 @@
 
             <!-- Barang Dipinjam Item -->
             <a href="{{ route('borrowed.index') }}"
-                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('borrowed.*') ? 'bg-indigo-50 text-indigo-700 shadow-sm shadow-indigo-100/50 ring-1 ring-indigo-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('borrowed.*') ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('borrowed.*') ? 'bg-orange-50 text-orange-700 shadow-sm shadow-orange-100/50 ring-1 ring-orange-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('borrowed.*') ? 'text-orange-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                 </svg>
                 Barang Dipinjam
@@ -206,8 +206,8 @@
 
             <!-- Setting Item -->
             <a href="{{ route('settings.show') }}"
-                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('settings.show') ? 'bg-indigo-50 text-indigo-700 shadow-sm shadow-indigo-100/50 ring-1 ring-indigo-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('settings.show') ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all {{ request()->routeIs('settings.show') ? 'bg-orange-50 text-orange-700 shadow-sm shadow-orange-100/50 ring-1 ring-orange-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                <svg class="h-5 w-5 shrink-0 transition-colors {{ request()->routeIs('settings.show') ? 'text-orange-600' : 'text-slate-400 group-hover:text-slate-500' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
@@ -248,7 +248,7 @@
                 <a href="{{ route('settings.show') }}" class="flex items-center gap-3 group bg-white/50 px-2 lg:px-3 py-1.5 rounded-full lg:rounded-2xl hover:bg-slate-100 transition-colors border border-transparent hover:border-slate-200">
                     <!-- User Info Text -->
                     <div class="hidden lg:block text-right">
-                        <p class="text-sm font-semibold text-slate-700 group-hover:text-indigo-600 transition-colors leading-tight">{{ Auth::user()->name }}</p>
+                        <p class="text-sm font-semibold text-slate-700 group-hover:text-orange-600 transition-colors leading-tight">{{ Auth::user()->name }}</p>
                         <!-- Menampilkan email user sesuai instruksi -->
                         <p class="text-xs text-slate-500">{{ Auth::user()->email }}</p>
                     </div>
@@ -256,9 +256,9 @@
                         <!-- Avatar Placeholder / Image -->
                         @if (Auth::user()->image)
                             <img src="{{ asset('storage/' . Auth::user()->image) }}" alt="{{ Auth::user()->name }}"
-                                class="h-9 w-9 rounded-full object-cover border border-slate-200 shadow-sm group-hover:border-indigo-300 transition-all" />
+                                class="h-9 w-9 rounded-full object-cover border border-slate-200 shadow-sm group-hover:border-orange-300 transition-all" />
                         @else
-                            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50 text-indigo-700 font-bold border border-indigo-100 shadow-sm group-hover:bg-indigo-100 transition-all text-sm">
+                            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-orange-50 text-orange-700 font-bold border border-orange-100 shadow-sm group-hover:bg-orange-100 transition-all text-sm">
                                 {{ collect(explode(' ', Auth::user()->name))->map(fn($w) => $w[0])->join('') }}
                             </div>
                         @endif

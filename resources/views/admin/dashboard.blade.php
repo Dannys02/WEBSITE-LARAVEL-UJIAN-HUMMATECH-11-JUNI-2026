@@ -12,14 +12,14 @@
                 <p class="text-gray-300 text-sm">Berikut adalah ringkasan performa rental Anda hari ini.</p>
             </div>
             <!-- Decorative circles -->
-            <div class="absolute top-[-50px] right-[-50px] w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-[-50px] right-[10%] w-32 h-32 bg-blue-500/20 rounded-full blur-2xl"></div>
+            <div class="absolute top-[-50px] right-[-50px] w-48 h-48 bg-orange-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-[-50px] right-[10%] w-32 h-32 bg-amber-500/20 rounded-full blur-2xl"></div>
         </div>
 
         <!-- Statistics Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Card 1: Total Produk -->
-            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-[0_8px_20px_-6px_rgba(6,81,237,0.15)] hover:-translate-y-1 transition-all duration-300">
+            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(234,88,12,0.1)] border border-gray-100 hover:shadow-[0_8px_20px_-6px_rgba(234,88,12,0.15)] hover:-translate-y-1 transition-all duration-300">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-gray-500 text-xs font-bold tracking-wider mb-2 uppercase">Total Produk</p>
@@ -29,14 +29,14 @@
                             +12% <span class="text-gray-400 font-medium ml-1">dari bulan lalu</span>
                         </p>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" /></svg>
                     </div>
                 </div>
             </div>
 
             <!-- Card 2: Total Customer -->
-            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-[0_8px_20px_-6px_rgba(6,81,237,0.15)] hover:-translate-y-1 transition-all duration-300">
+            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(234,88,12,0.1)] border border-gray-100 hover:shadow-[0_8px_20px_-6px_rgba(234,88,12,0.15)] hover:-translate-y-1 transition-all duration-300">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-gray-500 text-xs font-bold tracking-wider mb-2 uppercase">Total Customer</p>
@@ -46,34 +46,34 @@
                             +8% <span class="text-gray-400 font-medium ml-1">dari bulan lalu</span>
                         </p>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>
                     </div>
                 </div>
             </div>
 
             <!-- Card 3: Rental Aktif -->
-            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-[0_8px_20px_-6px_rgba(6,81,237,0.15)] hover:-translate-y-1 transition-all duration-300">
+            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(234,88,12,0.1)] border border-gray-100 hover:shadow-[0_8px_20px_-6px_rgba(234,88,12,0.15)] hover:-translate-y-1 transition-all duration-300">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-gray-500 text-xs font-bold tracking-wider mb-2 uppercase">Rental Aktif</p>
                         <p class="text-3xl font-extrabold text-gray-900">{{ $rentalAktif }}</p>
-                        <p class="text-amber-500 text-xs font-semibold mt-2 flex items-center">
+                        <p class="text-orange-500 text-xs font-semibold mt-2 flex items-center">
                             <span class="relative flex h-2 w-2 mr-2">
-                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                              <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
                             </span>
                             Sedang berlangsung
                         </p>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
                     </div>
                 </div>
             </div>
 
             <!-- Card 4: Total Revenue -->
-            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-[0_8px_20px_-6px_rgba(6,81,237,0.15)] hover:-translate-y-1 transition-all duration-300">
+            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(234,88,12,0.1)] border border-gray-100 hover:shadow-[0_8px_20px_-6px_rgba(234,88,12,0.15)] hover:-translate-y-1 transition-all duration-300">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-gray-500 text-xs font-bold tracking-wider mb-2 uppercase">Total Revenue</p>
@@ -93,7 +93,7 @@
         <!-- Charts Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Revenue Trend Chart -->
-            <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100">
+            <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(234,88,12,0.1)] border border-gray-100">
                 <div class="mb-4 flex justify-between items-center">
                     <div>
                         <h3 class="text-lg font-bold text-gray-900">Revenue Trend</h3>
@@ -109,7 +109,7 @@
             </div>
 
             <!-- Rental Status Distribution -->
-            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 flex flex-col">
+            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(234,88,12,0.1)] border border-gray-100 flex flex-col">
                 <div class="mb-2">
                     <h3 class="text-lg font-bold text-gray-900">Status Rental</h3>
                     <p class="text-gray-500 text-sm">Distribusi status saat ini</p>
@@ -125,7 +125,7 @@
                 <div class="mt-4 space-y-3">
                     <div class="flex items-center justify-between text-sm">
                         <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-orange-500"></span>
                             <span class="font-medium text-gray-700">Aktif</span>
                         </div>
                         <span class="font-bold text-gray-900">{{ $statusActive }} <span class="text-gray-400 font-normal text-xs ml-1">({{ $totalStatus > 0 ? round(($statusActive / $totalStatus) * 100) : 0 }}%)</span></span>
@@ -149,7 +149,7 @@
         </div>
 
         <!-- Data Table -->
-        <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(234,88,12,0.1)] border border-gray-100 overflow-hidden">
             <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-white">
                 <div>
                     <h3 class="text-lg font-bold text-gray-900">Rental Terbaru</h3>
@@ -178,7 +178,7 @@
                                 <td class="px-6 py-4 font-medium text-gray-900">#{{ str_pad($loop->iteration, 4, '0', STR_PAD_LEFT) }}</td>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 text-blue-700 flex items-center justify-center font-bold text-xs">
+                                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-orange-100 to-amber-100 text-orange-700 flex items-center justify-center font-bold text-xs">
                                             {{ substr($rental->customer->name, 0, 1) }}
                                         </div>
                                         <span class="font-medium text-gray-900">{{ $rental->customer->name }}</span>
@@ -206,8 +206,8 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     @if ($rental->status == 'active')
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-orange-50 text-orange-700 border border-orange-100">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></span>
                                             Sedang Dipinjam
                                         </span>
                                     @elseif ($rental->status == 'returned')
@@ -248,8 +248,8 @@
             
             // Create gradient for area chart
             const gradientRevenue = ctxRevenue.createLinearGradient(0, 0, 0, 300);
-            gradientRevenue.addColorStop(0, 'rgba(59, 130, 246, 0.4)'); // blue-500
-            gradientRevenue.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
+            gradientRevenue.addColorStop(0, 'rgba(234, 88, 12, 0.4)'); // orange-600
+            gradientRevenue.addColorStop(1, 'rgba(234, 88, 12, 0.0)');
 
             new Chart(ctxRevenue, {
                 type: 'line',
@@ -258,11 +258,11 @@
                     datasets: [{
                         label: 'Revenue (Rp)',
                         data: {!! json_encode($revenueData) !!},
-                        borderColor: '#3b82f6', // blue-500
+                        borderColor: '#ea580c', // orange-600
                         backgroundColor: gradientRevenue,
                         borderWidth: 3,
                         pointBackgroundColor: '#ffffff',
-                        pointBorderColor: '#3b82f6',
+                        pointBorderColor: '#ea580c',
                         pointBorderWidth: 2,
                         pointRadius: 4,
                         pointHoverRadius: 6,
@@ -334,7 +334,7 @@
                     datasets: [{
                         data: [{{ $statusActive }}, {{ $statusReturned }}, {{ $statusCancelled }}],
                         backgroundColor: [
-                            '#3b82f6', // blue-500
+                            '#ea580c', // orange-600
                             '#10b981', // emerald-500
                             '#f43f5e'  // rose-500
                         ],
