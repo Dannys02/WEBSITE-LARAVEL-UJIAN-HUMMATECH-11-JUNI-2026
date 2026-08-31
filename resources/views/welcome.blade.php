@@ -76,7 +76,7 @@
     @endif
 </head>
 
-<body class="bg-gray-50 text-gray-900 antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-gray-50 text-gray-900 antialiased selection:bg-orange-600 selection:text-white">
 
     @php
     $products = App\Models\Product::latest()->take(6)->get();
@@ -95,29 +95,29 @@
                     <img src="{{ asset('storage/' . $user->image) }}" alt="Logo"
                         class="w-full h-full object-cover rounded-full" />
                     <span
-                        class="text-2xl whitespace-nowrap font-bold text-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                        Rental Banyuwangi
+                        class="text-2xl whitespace-nowrap tracking-tighter font-bold text-bold text-orange-600">
+                        Rental Bwi
                     </span>
                     @else
                     <div
-                        class="w-full h-full bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-600/30">
+                        class="w-full h-full bg-orange-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-orange-600/30">
                         R
                     </div>
                     <span
-                        class="text-2xl whitespace-nowrap font-bold text-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                        Rental Banyuwangi
+                        class="text-2xl whitespace-nowrap tracking-tighter font-bold text-bold text-orange-600">
+                        Rental Bwi
                     </span>
                     @endif
                 </div>
 
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#home"
-                        class="text-sm font-semibold text-gray-700 hover:text-blue-600 transition">Beranda</a>
+                        class="text-sm font-semibold text-gray-700 hover:text-orange-600 transition">Beranda</a>
                     <a href="#products"
-                        class="text-sm font-semibold text-gray-700 hover:text-blue-600 transition">Produk</a>
+                        class="text-sm font-semibold text-gray-700 hover:text-orange-600 transition">Produk</a>
                     <a href="#about"
-                        class="text-sm font-semibold text-gray-700 hover:text-blue-600 transition">Tentang</a>
-                    <a href="#faq" class="text-sm font-semibold text-gray-700 hover:text-blue-600 transition">FAQ</a>
+                        class="text-sm font-semibold text-gray-700 hover:text-orange-600 transition">Tentang</a>
+                    <a href="#faq" class="text-sm font-semibold text-gray-700 hover:text-orange-600 transition">FAQ</a>
                 </div>
 
                 <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-gray-900">
@@ -133,24 +133,24 @@
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl pb-6">
             <div class="px-4 py-4 space-y-3 flex flex-col">
                 <a href="#home"
-                    class="text-base font-semibold text-gray-700 hover:text-blue-600 mobile-link">Beranda</a>
+                    class="text-base font-semibold text-gray-700 hover:text-orange-600 mobile-link">Beranda</a>
                 <a href="#products"
-                    class="text-base font-semibold text-gray-700 hover:text-blue-600 mobile-link">Produk</a>
+                    class="text-base font-semibold text-gray-700 hover:text-orange-600 mobile-link">Produk</a>
                 <a href="#about"
-                    class="text-base font-semibold text-gray-700 hover:text-blue-600 mobile-link">Tentang</a>
-                <a href="#faq" class="text-base font-semibold text-gray-700 hover:text-blue-600 mobile-link">FAQ</a>
+                    class="text-base font-semibold text-gray-700 hover:text-orange-600 mobile-link">Tentang</a>
+                <a href="#faq" class="text-base font-semibold text-gray-700 hover:text-orange-600 mobile-link">FAQ</a>
             </div>
         </div>
     </nav>
 
     {{-- whatsapp pop up --}}
-    <a href="https://wa.me/{{ $user?->phone }}?text=Halo%20kak,%20saya%20ingin%20meminjam%20barang.%0A%0ANama:%20%0ABarang%20yang%20ingin%20dipinjam:%20%0ATanggal%20pinjam:%20%0AApakah%20barang%20tersebut%20masih%20tersedia?"
+    <a id="whatsapp" href="https://wa.me/{{ $user?->phone }}?text=Halo%20kak,%20saya%20ingin%20meminjam%20barang.%0A%0ANama:%20%0ABarang%20yang%20ingin%20dipinjam:%20%0ATanggal%20pinjam:%20%0AApakah%20barang%20tersebut%20masih%20tersedia?"
         target="_blank" rel="noopener noreferrer"
-        class="fixed right-[30px] bottom-[30px] z-50 flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white shadow-lg hover:bg-green-600 transition"
+        class="fixed right-[30px] bottom-[30px] opacity-0 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white shadow-lg hover:bg-green-600 transition-all duration-600"
         aria-label="WhatsApp">
 
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16"
-            class="w-8 h-8">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
+            class="bi bi-whatsapp w-8 h-8">
             <path
                 d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
         </svg>
@@ -158,39 +158,35 @@
 
     <!-- Hero Section -->
     <section id="home" class="relative pt-28 pb-20 lg:pt-30 lg:pb-32 overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <div
-                class="absolute -top-40 -right-40 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20">
-            </div>
-            <div
-                class="absolute top-40 -left-40 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20">
-            </div>
-        </div>
+        <div class="max-w-7xl text-center mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex justify-center items-center pt-12">
+                <div class="w-full animate-on-scroll">
+                    <div class="flex flex-col justify-center items-center">
+                        <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 leading-tighter mb-6">
+                            Solusi Rental <br>Peralatan Event <span
+                                class="text-orange-600">Profesional</span>
+                        </h1>
+                        <p class="text-lg text-gray-600 mb-8 max-w-xl leading-relaxed">
+                            Sewa berbagai kebutuhan event mulai dari tenda, sound system, lighting, kamera, dan perlengkapan
+                            lainnya dengan mudah dan terpercaya.
+                        </p>
+                    </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="flex flex-col lg:flex-row items-center gap-16">
-                <div class="w-full lg:w-1/2 animate-on-scroll">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
-                        Solusi Rental Peralatan Event <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Profesional</span>
-                    </h1>
-                    <p class="text-lg text-gray-600 mb-8 max-w-xl leading-relaxed">
-                        Sewa berbagai kebutuhan event mulai dari tenda, sound system, lighting, kamera, dan perlengkapan
-                        lainnya dengan mudah dan terpercaya.
-                    </p>
+                    <div class="flex justify-center items-center gap-4 mb-10">
+                        <div class="group inline-flex rounded-full items-center justify-center w-fit border-3 border-transparent p-0.5 hover:border-gray-900 transition-colors duration-300">
+                            <a href="#products"
+                                class="px-8 py-4 rounded-full bg-gray-900 text-white font-semibold transition-all transform duration-200">
+                                Lihat Produk
+                            </a>
+                        </div>
 
-                    <div class="flex flex-wrap gap-4 mb-10">
-                        <a href="#products"
-                            class="px-8 py-4 rounded-full bg-gray-900 text-white font-semibold hover:bg-gray-800 transition shadow-xl hover:shadow-2xl hover:-translate-y-1 transform duration-200">
-                            Lihat Produk
-                        </a>
                         <a href="#contact"
-                            class="px-8 py-4 rounded-full bg-white text-gray-900 border border-gray-200 font-semibold hover:border-gray-300 hover:bg-gray-50 transition shadow-sm hover:shadow-md hover:-translate-y-1 transform duration-200">
+                            class="px-8 py-4 rounded-full bg-white text-gray-900 border border-gray-200 font-semibold hover:border-gray-300 hover:bg-gray-50 transition shadow-sm hover:shadow-md transform duration-300">
                             Hubungi Kami
                         </a>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-6 text-sm font-medium text-gray-600">
+                    <div class="flex justify-center items-center gap-6 text-sm font-medium text-gray-600">
                         <div class="flex items-center gap-2">
                             <div
                                 class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
@@ -205,28 +201,6 @@
                             <div
                                 class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
                                 ✓</div> Terpercaya
-                        </div>
-                    </div>
-                </div>
-
-                <div class="w-full lg:w-1/2 animate-on-scroll delay-200">
-                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
-                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80"
-                            alt="Event Equipment"
-                            class="w-full h-full object-cover aspect-[4/3] transform hover:scale-105 transition duration-700">
-
-                        <div class="absolute bottom-6 left-6 right-6 z-20 dark-glass rounded-2xl p-6">
-                            <div class="flex items-center gap-4">
-                                <div
-                                    class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-md">
-                                    <span class="text-white text-xl">⭐</span>
-                                </div>
-                                <div>
-                                    <h3 class="text-white font-bold text-lg">Kualitas Premium</h3>
-                                    <p class="text-gray-300 text-sm">Peralatan dirawat dan dikalibrasi rutin</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -251,7 +225,7 @@
                     <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Total Rental</div>
                 </div>
                 <div class="text-center animate-on-scroll delay-300">
-                    <div class="text-4xl font-extrabold text-blue-600 mb-2">{{ $totalTransactions ?: '0' }}</div>
+                    <div class="text-4xl font-extrabold text-orange-600 mb-2">{{ $totalTransactions ?: '0' }}</div>
                     <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Transaksi Lunas</div>
                 </div>
             </div>
@@ -295,7 +269,7 @@
                             <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
                                 <div>
                                     <p class="text-xs text-gray-500 font-semibold uppercase">Harga / Hari</p>
-                                    <p class="text-lg font-extrabold text-blue-600">Rp
+                                    <p class="text-lg font-extrabold text-orange-600">Rp
                                         {{ number_format($product->price_per_day, 0, ',', '.') }}
                                     </p>
                                 </div>
@@ -332,7 +306,7 @@
                     <div
                         class="bg-gray-50 rounded-3xl p-8 hover:-translate-y-2 transition-transform duration-300 border border-gray-100">
                         <div
-                            class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
+                            class="w-14 h-14 bg-blue-100 text-orange-600 rounded-2xl flex items-center justify-center mb-6">
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
@@ -428,7 +402,7 @@
                 <div
                     class="flex flex-col items-center text-center w-full md:w-1/5 mb-10 md:mb-0 relative animate-on-scroll">
                     <div
-                        class="w-16 h-16 rounded-full bg-blue-600 border-4 border-gray-900 flex items-center justify-center text-xl font-bold mb-4 shadow-lg shadow-blue-600/50">
+                        class="w-16 h-16 rounded-full bg-orange-600 border-4 border-gray-900 flex items-center justify-center text-xl font-bold mb-4 shadow-lg shadow-orange-600/50">
                         1</div>
                     <h4 class="text-lg font-bold mb-2">Pilih Produk</h4>
                     <p class="text-sm text-gray-400">Cari perlengkapan sesuai kebutuhan event Anda.</p>
@@ -715,10 +689,12 @@
             <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6">Siap Menyukseskan Event Anda?</h2>
             <p class="text-xl text-gray-400 mb-10">Temukan berbagai perlengkapan event terbaik untuk kebutuhan acara
                 Anda.</p>
-            <a href="#products"
-                class="inline-flex items-center justify-center px-10 py-4 rounded-full bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 hover:-translate-y-1 transform transition shadow-xl hover:shadow-blue-600/50">
-                Lihat Produk
-            </a>
+            <div class="group inline-flex rounded-full items-center justify-center w-fit border-2 border-transparent p-1 hover:border-orange-600 transition-colors duration-300">
+                <a href="#products"
+                    class="px-10 py-4 rounded-full bg-orange-600 text-white font-bold text-lg transform transition-colors duration-300">
+                    Lihat Produk
+                </a>
+            </div>
         </div>
     </section>
 
@@ -729,15 +705,15 @@
                 {{-- Column 1: Logo & Description --}}
                 <div>
                     <h3 class="text-2xl font-bold mb-4">
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Event
-                            Rental</span>
+                        <span class="text-orange-600">Rental
+                            Bwi</span>
                     </h3>
                     <p class="text-gray-400 text-sm mb-6">
                         Membantu kebutuhan event dengan sistem rental yang mudah, cepat, dan terorganisir.
                     </p>
                     <div class="flex space-x-4">
                         <a href="#"
-                            class="w-10 h-10 text-white rounded-lg bg-slate-800 hover:bg-blue-500 flex items-center justify-center transition-colors duration-300">
+                            class="w-10 h-10 text-white rounded-lg bg-slate-800 hover:bg-orange-500 flex items-center justify-center transition-colors duration-300">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -745,7 +721,7 @@
                         </a>
 
                         <a href="#"
-                            class="w-10 h-10 text-white rounded-lg bg-slate-800 hover:bg-blue-500 flex items-center justify-center transition-colors duration-300">
+                            class="w-10 h-10 text-white rounded-lg bg-slate-800 hover:bg-orange-500 flex items-center justify-center transition-colors duration-300">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.918 6.064-6.918Zm-1.293 19.49h2.039L6.482 3.24H4.298l13.31 17.403Z" />
@@ -753,7 +729,7 @@
                         </a>
 
                         <a href="#"
-                            class="w-10 h-10 text-white rounded-lg bg-slate-800 hover:bg-blue-500 flex items-center justify-center transition-colors duration-300">
+                            class="w-10 h-10 text-white rounded-lg bg-slate-800 hover:bg-orange-500 flex items-center justify-center transition-colors duration-300">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
                                     d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -767,16 +743,16 @@
                     <h4 class="text-white font-bold text-lg mb-6">Navigasi</h4>
                     <ul class="space-y-3">
                         <li><a href="#home"
-                                class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Beranda</a>
+                                class="text-gray-400 hover:text-orange-400 transition-colors duration-300">Beranda</a>
                         </li>
                         <li><a href="#products"
-                                class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Produk</a>
+                                class="text-gray-400 hover:text-orange-400 transition-colors duration-300">Produk</a>
                         </li>
                         <li><a href="#about"
-                                class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Tentang
+                                class="text-gray-400 hover:text-orange-400 transition-colors duration-300">Tentang
                                 Kami</a></li>
                         <li><a href="#contact"
-                                class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Kontak</a>
+                                class="text-gray-400 hover:text-orange-400 transition-colors duration-300">Kontak</a>
                         </li>
                     </ul>
                 </div>
@@ -786,16 +762,16 @@
                     <h4 class="text-white font-bold text-lg mb-6">Layanan</h4>
                     <ul class="space-y-3">
                         <li><a href="#"
-                                class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Sewa Tenda</a>
+                                class="text-gray-400 hover:text-orange-400 transition-colors duration-300">Sewa Tenda</a>
                         </li>
                         <li><a href="#"
-                                class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Sound
+                                class="text-gray-400 hover:text-orange-400 transition-colors duration-300">Sound
                                 System</a></li>
                         <li><a href="#"
-                                class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Lighting
+                                class="text-gray-400 hover:text-orange-400 transition-colors duration-300">Lighting
                                 Event</a></li>
                         <li><a href="#"
-                                class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Peralatan
+                                class="text-gray-400 hover:text-orange-400 transition-colors duration-300">Peralatan
                                 Dokumentasi</a></li>
                     </ul>
                 </div>
@@ -836,14 +812,14 @@
             <div class="border-t border-slate-700 pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <p class="text-gray-400 text-sm text-center md:text-left">
-                        &copy; 2026 Event Rental. Semua hak cipta dilindungi.
+                        &copy; 2026 Event Rental. Dibuat oleh DANNYS MARTHA FAVRILLIA.
                     </p>
                     <div class="flex space-x-6 mt-4 md:mt-0">
                         <a href="#"
-                            class="text-gray-400 hover:text-blue-400 text-sm transition-colors duration-300">Kebijakan
+                            class="text-gray-400 hover:text-orange-400 text-sm transition-colors duration-300">Kebijakan
                             Privasi</a>
                         <a href="#"
-                            class="text-gray-400 hover:text-blue-400 text-sm transition-colors duration-300">Syarat &
+                            class="text-gray-400 hover:text-orange-400 text-sm transition-colors duration-300">Syarat &
                             Ketentuan</a>
                     </div>
                 </div>
@@ -854,13 +830,24 @@
     <script>
         // Navbar Scrolled Effect
         const navbar = document.getElementById('navbar');
+        const whatsapp = document.getElementById('whatsapp')
         window.addEventListener('scroll', () => {
             if (window.scrollY > 20) {
                 navbar.classList.add('shadow-md');
                 navbar.classList.replace('h-20', 'h-16');
+
+                whatsapp.classList.remove('bottom-[-30px]')
+                whatsapp.classList.add('bottom-[30px]')
+                whatsapp.classList.remove('opacity-0');
+                whatsapp.classList.add('opacity-100');
             } else {
                 navbar.classList.remove('shadow-md');
                 navbar.classList.replace('h-16', 'h-20');
+
+                whatsapp.classList.remove('bottom-[30px]')
+                whatsapp.classList.add('bottom-[-30px]')
+                whatsapp.classList.remove('opacity-100');
+                whatsapp.classList.add('opacity-0');
             }
         });
 
